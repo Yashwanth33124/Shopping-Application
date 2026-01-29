@@ -1,0 +1,40 @@
+.collection5 {
+  background: white;
+  margin: 0;
+  padding: 10px 0;          /* ⬅ less vertical padding */
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 140px;        /* ⬅ reduced height */
+  margin-top: -250px;        /* ⬅ moves ScrollVelocity UP slightly */
+}
+
+/* ScrollVelocity wrapper */
+.collection5 .parallax {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+  margin: 0;
+  padding: 0;
+}
+
+/* Moving text row */
+.collection5 .scroller {
+  display: flex;
+  align-items: center;
+  line-height: 1;
+  margin: 0;
+}
+
+/* Brand text */
+.collection5 span {
+  font-size: 70px;
+  font-weight: 800;
+  display: inline-block;
+  padding: 0 20px;
+  white-space: nowrap;
+}

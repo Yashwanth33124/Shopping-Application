@@ -1,0 +1,32 @@
+.parallax {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.scroller {
+  display: flex;
+  white-space: nowrap;
+  text-align: center;
+  font-family: sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;          /* Critical: Prevents text from sinking */
+  text-transform: uppercase;
+}
+
+.scroller span {
+  flex-shrink: 0;
+  padding: 0 30px;         /* Space between brand names horizontally */
+  display: inline-block;
+}
+
+@media (min-width: 768px) {
+  .scroller {
+    font-size: 4.5rem;     /* Slightly smaller so two rows fit better */
+    line-height: 1.1;
+  }
+}

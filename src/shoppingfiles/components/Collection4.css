@@ -1,0 +1,141 @@
+/* ================= ROOT ================= */
+.collection4 {
+  padding: 90px 70px 130px;
+  background: radial-gradient(circle at top, #fdf1ff, #eef1f7);
+}
+
+/* ================= TITLE ================= */
+.c4-title {
+  font-size: 36px;
+  font-weight: 900;
+  margin-bottom: 55px;
+  color: #111;
+}
+
+.c4-title::after {
+  content: "";
+  width: 70px;
+  height: 5px;
+  background: linear-gradient(90deg, #ff4ecd, #7c3aed);
+  display: block;
+  margin-top: 12px;
+  border-radius: 10px;
+}
+
+/* ================= GRID ================= */
+.c4-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 40px;
+}
+
+/* ================= CARD ================= */
+.c4-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  border-radius: 26px;
+  padding: 22px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+  transition: all 0.45s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.c4-card:hover {
+  transform: translateY(-14px) scale(1.02);
+  box-shadow: 0 30px 70px rgba(124, 58, 237, 0.35);
+}
+
+/* ================= IMAGE ================= */
+.c4-img-wrap {
+  position: relative;
+  height: 200px;
+  margin-bottom: 18px;
+  border-radius: 18px;
+  background: linear-gradient(145deg, #f8f8ff, #f0f0ff);
+  overflow: hidden;
+}
+
+.c4-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.4s ease;
+}
+
+.c4-card:hover img {
+  transform: scale(1.12) rotate(-2deg);
+}
+
+/* ================= BADGE ================= */
+.c4-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: linear-gradient(135deg, #ff4ecd, #7c3aed);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 999px;
+  z-index: 2;
+}
+
+/* ================= INFO ================= */
+.c4-info h4 {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  line-height: 1.4;
+  color: #1a1a1a;
+}
+
+.c4-category {
+  font-size: 12px;
+  color: #6b7280;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.c4-price {
+  font-size: 22px;
+  font-weight: 900;
+  margin-bottom: 18px;
+  color: #111827;
+}
+
+/* ================= BUTTON ================= */
+.c4-info button {
+  margin-top: auto;
+  padding: 14px;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ff4ecd, #7c3aed);
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.c4-info button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(124, 58, 237, 0.5);
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 768px) {
+  .collection4 {
+    padding: 50px 20px 90px;
+  }
+
+  .c4-title {
+    font-size: 26px;
+  }
+}
+
+
+.collection4 {
+  padding-top: 140px; /* height of header */
+}

@@ -1,0 +1,164 @@
+/* ================= SECTION ================= */
+.collection2-section {
+  padding: 40px 0;          /* more buffer */
+  background: #fff;
+  min-height: 100vh;        /* 🔥 prevents background gap */
+  position: relative;      /* 🔥 stabilizes paint */
+  overflow: hidden;
+}
+
+
+/* ================= WRAPPER ================= */
+.collection2-wrapper {
+  position: relative;
+  padding: 0 60px;
+}
+
+/* ================= ROW ================= */
+.collection2-row {
+  display: flex;
+  gap: 30px;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  scroll-behavior: smooth;   /* ✅ smooth scroll */
+  scrollbar-width: none;
+
+  overscroll-behavior-x: contain; /* 🔥 prevents parent jump */
+  touch-action: pan-x;
+  flex-wrap: nowrap;
+}
+
+
+.collection2-row::-webkit-scrollbar {
+  display: none;
+}
+
+/* ================= CARD ================= */
+.collection2-card {
+  min-width: 260px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+/* ================= CIRCLE IMAGE ================= */
+.circle-img {
+  width: 240px;
+  height: 240px;
+  margin: auto;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.circle-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ================= BRAND NAME ================= */
+.brand-pill {
+  margin: 18px auto 10px;
+  padding: 12px 22px;
+  border: 2px solid #000;
+  border-radius: 30px;
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 1px;
+  width: fit-content;
+}
+
+/* ================= OFFER TEXT ================= */
+.offer-text {
+  font-size: 19px;
+  font-weight: 900;
+  color: #000;
+}
+
+/* ================= NAV BUTTONS ================= */
+.c2-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+  cursor: pointer;
+  font-size: 22px;
+  z-index: 20;
+}
+
+.c2-nav.left {
+  left: 10px;
+}
+
+.c2-nav.right {
+  right: 10px;
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 768px) {
+  .collection2-card {
+    min-width: 200px;
+  }
+
+  .circle-img {
+    width: 180px;
+    height: 180px;
+  }
+
+  .c2-nav {
+    display: none;
+  }
+}
+
+/* ================= HOVER EFFECTS (ADD ONLY) ================= */
+
+/* Smooth base transition */
+.collection2-card {
+  transition: transform 0.35s ease;
+}
+
+/* Card lift */
+.collection2-card {
+  will-change: transform;
+}
+
+
+/* Image zoom + soft shadow */
+.circle-img {
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.collection2-card:hover .circle-img {
+  transform: scale(1.07);
+  box-shadow: 0 18px 35px rgba(0,0,0,0.25);
+}
+
+/* Brand pill animation */
+.brand-pill {
+  transition: all 0.3s ease;
+}
+
+.collection2-card:hover .brand-pill {
+  background: #000;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+/* Offer text emphasis */
+.offer-text {
+  transition: all 0.3s ease;
+  opacity: 0.75;
+}
+
+.collection2-card:hover .offer-text {
+  opacity: 1;
+  transform: translateY(-3px);
+  letter-spacing: 0.5px;
+}
+

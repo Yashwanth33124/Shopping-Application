@@ -1,0 +1,27 @@
+.bannersection {
+  width: 100%;
+  margin-top: 10px;   /* navbar height */
+}
+
+/* Swiper container */
+.bannerbox {
+  width: 100%;
+  height: 180px;      /* desktop height */
+  overflow: hidden;
+}
+
+/* Banner image */
+.bannerbox img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Mobile view */
+@media (max-width: 768px) {
+  .bannerbox {
+    height: 120px;
+  }
+}

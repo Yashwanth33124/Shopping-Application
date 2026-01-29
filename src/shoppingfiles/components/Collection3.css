@@ -1,0 +1,80 @@
+/* ================= SECTION ================= */
+.collection3-section {
+  width: 100%;
+  padding: 60px 0;
+  /* Change this to #fff to match your header or keep it transparent 
+     if you fix the parent container's color */
+  background: #ffffff; 
+  display: flex;
+  justify-content: center;
+  position: relative;
+  z-index: 1; /* Ensures it sits above any background colors from other sections */
+}
+
+/* ================= WRAPPER ================= */
+.collection3-wrapper {
+  display: flex;
+  width: 90%;
+  max-width: 1200px;
+  /* We use aspect-ratio instead of fixed height to prevent stretching */
+  gap: 24px;
+  margin: 0 auto;
+}
+
+/* ================= VIDEO BOX ================= */
+.video-box {
+  position: relative;
+  flex: 1;
+  aspect-ratio: 16 / 13; /* Keeps a nice rectangular shape */
+  overflow: hidden;
+  border-radius: 24px;
+  background: #f0f0f0; /* Light grey while loading */
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); /* Adds that soft shadow from your pic */
+}
+
+/* VIDEO FIX */
+.video-box video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* OVERLAY */
+.video-box::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.4) 0%, transparent 50%);
+}
+
+/* ================= TEXT ================= */
+.video-text {
+  position: absolute;
+  bottom: 25px;
+  left: 25px;
+  z-index: 2;
+  color: #fff;
+}
+
+.video-text h2 {
+  font-size: 26px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.video-text p {
+  font-size: 14px;
+  margin-top: 4px;
+  opacity: 0.9;
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 768px) {
+  .collection3-wrapper {
+    flex-direction: column;
+  }
+  .video-box {
+    aspect-ratio: 4 / 3;
+  }
+}
