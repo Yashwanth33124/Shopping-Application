@@ -54,36 +54,6 @@ Git & GitHub
 
 Netlify (Deployment)
 
-📁 Project Structure
-shoppingui/
-│
-├── src/
-│   ├── components/
-│   │   ├── Header/
-│   │   ├── DealShowcase/
-│   │   ├── Collection3/
-│   │   ├── Collection4/
-│   │   ├── ScrollVelocity/
-│   │   └── UI (Aceternity components)
-│   │
-│   ├── assets/
-│   │   ├── images/
-│   │   ├── videos/
-│   │   └── logo.png
-│   │
-│   ├── pages/
-│   │   ├── Home.jsx
-│   │   ├── Men.jsx
-│   │   ├── Woman.jsx
-│   │   └── Beauty.jsx
-│   │
-│   ├── App.jsx
-│   ├── main.jsx
-│   └── index.css
-│
-├── public/
-├── package.json
-└── README.md
 
 🧩 Features Implemented So Far
 🔹 Header & Navigation
