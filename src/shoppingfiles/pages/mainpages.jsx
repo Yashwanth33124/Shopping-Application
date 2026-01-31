@@ -10,7 +10,7 @@ import Collection3 from '../components/Collection3'
 import Collection4 from '../components/Collection4'
 import AnimatedWaveFooter from '../components/footer'
 import Collection5 from '../components/Collection5'
-import Auth from './Auth'
+
 
 const Mainpage = () => {
 
