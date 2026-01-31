@@ -23,8 +23,7 @@ const Mainpage = () => {
      
 
       <DealShowcase />
-      {/* <Auth/> */}
-      <Collection />
+        <Collection />
       <Collection2 />
       <Collection5/>
       
