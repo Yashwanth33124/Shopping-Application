@@ -9,6 +9,7 @@ const Collection3 = () => {
     <section className="collection3-section">
       <div className="collection3-wrapper">
 
+        {/* MEN */}
         <div className="video-box">
           <video
             src={MENVIDEO1}
@@ -16,13 +17,15 @@ const Collection3 = () => {
             muted
             loop
             playsInline
+            className="men-video"
           />
           <div className="video-text">
-            <h2>Men's Collection</h2>
+            <h2>Men&apos;s Collection</h2>
             <p>Bold • Confident • Modern</p>
           </div>
         </div>
 
+        {/* WOMEN */}
         <div className="video-box">
           <video
             src={WOMANVIDEO1}
@@ -30,9 +33,10 @@ const Collection3 = () => {
             muted
             loop
             playsInline
+            className="woman-video"
           />
           <div className="video-text">
-            <h2>Women's Collection</h2>
+            <h2>Women&apos;s Collection</h2>
             <p>Elegant • Trendy • Timeless</p>
           </div>
         </div>

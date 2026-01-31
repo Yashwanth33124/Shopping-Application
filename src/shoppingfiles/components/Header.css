@@ -19,6 +19,7 @@
   /* background: white; */
   z-index: 1000;
   transition: background 0.35s ease, box-shadow 0.35s ease;
+  cursor: pointer;
 }
 
 /*/* Update the LEFT container to handle multiple items */
