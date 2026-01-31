@@ -7,13 +7,13 @@ export default function AnimatedWaveFooter() {
     <footer className="footer">
 
       {/* WAVE */}
-      <div className="wave">
+      {/* <div className="wave">
         <svg viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M0,224L48,208C96,192,192,160,288,170.7C384,181,480,235,576,245.3C672,256,768,224,864,192C960,160,1056,128,1152,149.3C1248,171,1344,245,1392,282.7L1440,320V0H0Z"
           />
         </svg>
-      </div>
+      </div> */}
 
       {/* CONTENT */}
       <div className="footer-content">
@@ -35,7 +35,7 @@ export default function AnimatedWaveFooter() {
         <div>
           <h3>Contact</h3>
           <p>Email: hello@example.com</p>
-          <p>Phone: +91 98765 43210</p>
+          <p>Phone: +91 9618391199</p>
         </div>
 
         <div>
@@ -51,7 +51,7 @@ export default function AnimatedWaveFooter() {
       </div>
 
       <div className="footer-bottom">
-        <span>© 2024 Shopping Fashion. All rights reserved.</span>
+        <span>© 2026 Shopping Fashion. All rights reserved.</span>
         <span className="footer-credit">
           Built by <strong>Yashwanth Kumar</strong>
         </span>
