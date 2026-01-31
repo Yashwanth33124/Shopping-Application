@@ -6,10 +6,10 @@ import { useSelector } from "react-redux";
 import Cartdropdown from "../Cartdown/Cartdropdown";
 
 const Header = () => {
-  const [scrolled, setScrolled] = useState(false);
   const [openCart, setOpenCart] = useState(false);
+  const [showBrand, setShowBrand] = useState(true);
 
-  const cartItems = useSelector((state) => state.cart.items);
+  const cartItems = useSelector((state) => state.cart.items || []);
 
   const cartCount = cartItems.reduce(
     (total, item) => total + item.quantity,
@@ -17,20 +17,24 @@ const Header = () => {
   );
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
+    const handleScroll = () => {
+      setShowBrand(window.scrollY === 0);
+    };
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
-    <div className={`headersection ${scrolled ? "scrolled" : ""}`}>
+    <div className="headersection">
       
       {/* LEFT */}
       <div className="left">
-        <div className="brand-group">
+        <div className={`brand-group ${!showBrand ? "brand-hide" : ""}`}>
           <img src={logo} alt="logo" className="logo-img" />
           <span className="title">VOGUECART</span>
         </div>
+
         <div className="search">
           <input type="text" placeholder="Search" />
         </div>

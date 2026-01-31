@@ -20,6 +20,7 @@
   z-index: 1000;
   transition: background 0.35s ease, box-shadow 0.35s ease;
   cursor: pointer;
+
 }
 
 /*/* Update the LEFT container to handle multiple items */
@@ -156,4 +157,39 @@
 .cart:hover .cart-icon {
   opacity: 1;
   transform: translateX(0);
+}
+
+/* ===== BRAND SCROLL EFFECT ===== */
+
+.brand-group {
+  display: flex;
+  align-items: center;
+  transition:
+    transform 0.45s ease,
+    opacity 0.35s ease;
+  will-change: transform, opacity;
+}
+
+/* Scroll DOWN → hide */
+.brand-hide {
+  transform: translateY(-120%);
+  opacity: 0;
+  pointer-events: none;
+}
+/* ===== BRAND VISIBILITY ON TOP ===== */
+
+.brand-group {
+  display: flex;
+  align-items: center;
+  transition:
+    transform 0.45s ease,
+    opacity 0.35s ease;
+  will-change: transform, opacity;
+}
+
+/* Hide when NOT at top */
+.brand-hide {
+  transform: translateY(-120%);
+  opacity: 0;
+  pointer-events: none;
 }
