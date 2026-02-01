@@ -18,10 +18,65 @@
   object-position: center;
   display: block;
 }
+/* MODAL BACKDROP */
+/* MODAL BACKDROP */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
 
-/* Mobile view */
+/* MODAL CONTENT (CONTROLLED SIZE) */
+.modal-content {
+  position: relative;
+  width: 55%;
+  max-width: 650px;
+  max-height: 75vh;
+  text-align: center;
+}
+
+/* IMAGE SIZE FIX */
+.modal-content img {
+  width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+  border-radius: 16px;
+}
+
+/* BRAND NAME */
+.modal-content p {
+  margin-top: 10px;
+  color: white;
+  font-size: 18px;
+  letter-spacing: 1.5px;
+}
+
+/* CLOSE BUTTON (INSIDE, NOT FLOATING) */
+.modal-content button {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(0, 0, 0, 0.6);
+  border: none;
+  color: white;
+  font-size: 22px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* MOBILE VIEW */
 @media (max-width: 768px) {
-  .bannerbox {
-    height: 120px;
+  .modal-content {
+    width: 90%;
+    max-height: 70vh;
   }
 }
