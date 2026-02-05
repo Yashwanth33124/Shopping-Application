@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./Header.css";
 import { FaCartArrowDown } from "react-icons/fa";
-import logo from "../../assets/logo.png";
+import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Cartdropdown from "../Cartdown/Cartdropdown";
+import logo from "../../assets/logo.png";
 
 const Header = () => {
   const [openCart, setOpenCart] = useState(false);
@@ -16,46 +17,69 @@ const Header = () => {
     0
   );
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowBrand(window.scrollY === 0);
-    };
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     setShowBrand(window.scrollY === 0);
+  //   };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  //   window.addEventListener("scroll", handleScroll);
+  //   return () => window.removeEventListener("scroll", handleScroll);
+  // }, []);
 
   return (
-    <div className="headersection">
-      
+    <header className="headersection">
       {/* LEFT */}
       <div className="left">
         <div className={`brand-group ${!showBrand ? "brand-hide" : ""}`}>
-          <img src={logo} alt="logo" className="logo-img" />
-          <span className="title">VOGUECART</span>
+          <NavLink to="/" className="brand-link">
+            <img src={logo} alt="VogueCart Logo" className="logo-img" />
+            <span className="title">VOGUECART</span>
+          </NavLink>
         </div>
 
         <div className="search">
-          <input type="text" placeholder="Search" />
+          <input type="text" placeholder="Search products" />
         </div>
       </div>
 
       {/* CENTER */}
-      <div className="center">
+      <nav className="center">
         <ul>
-          <li>Men</li>
-          <li>Woman</li>
-          <li>Beauty</li>
-          <li>Children</li>
+          <li>
+            <NavLink to="/" className="nav-link">
+              HOME
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/men" className="nav-link">
+              MEN
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/woman" className="nav-link">
+              WOMAN
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/beauty" className="nav-link">
+              BEAUTY
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/child" className="nav-link">
+              CHILD
+            </NavLink>
+          </li>
         </ul>
-      </div>
+      </nav>
 
       {/* RIGHT */}
       <div className="right">
-        <div className="signin">Signin / Signup</div>
-
         <div style={{ position: "relative" }}>
-          <button className="cart" onClick={() => setOpenCart(!openCart)}>
+          <button
+            className="cart"
+            onClick={() => setOpenCart((prev) => !prev)}
+          >
             <span className="cart-text">
               Cart {cartCount > 0 && `(${cartCount})`}
             </span>
@@ -67,8 +91,7 @@ const Header = () => {
           {openCart && <Cartdropdown close={() => setOpenCart(false)} />}
         </div>
       </div>
-
-    </div>
+    </header>
   );
 };
 

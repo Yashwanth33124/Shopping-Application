@@ -41,6 +41,8 @@ const Mainpage = () => {
       
 
       <AnimatedWaveFooter />
+
+      
     </div>
   )
 }

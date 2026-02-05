@@ -1,4 +1,4 @@
-/* RESET */
+/* ================= RESET ================= */
 * {
   margin: 0;
   padding: 0;
@@ -6,7 +6,7 @@
   font-family: "Poppins", system-ui, sans-serif;
 }
 
-/* HEADER */
+/* ================= HEADER ================= */
 .headersection {
   position: fixed;
   top: 0;
@@ -16,57 +16,64 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* background: white; */
   z-index: 1000;
   transition: background 0.35s ease, box-shadow 0.35s ease;
   cursor: pointer;
-
+  background-color: white;
 }
 
-/*/* Update the LEFT container to handle multiple items */
+/* ================= LEFT ================= */
 .left {
   display: flex;
   align-items: center;
-  gap: 20px; /* Space between the BRAND and the SEARCH BAR */
+  gap: 20px;
 }
 
-/* 1. This link container resets defaults */
+/* Brand Link */
 .brand-link {
-  text-decoration: none;
   display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
 }
 
-/* 2. This group forces the logo and text to touch */
+/* Brand Group */
 .brand-group {
   display: flex;
   align-items: center;
-  gap: 0 !important;      /* FORCE zero space */
+  gap: 0 !important;
   padding: 0;
   margin: 0;
+  transition: transform 0.45s ease, opacity 0.35s ease;
+  will-change: transform, opacity;
 }
 
-/* 3. The Logo: Sized to match title text height */
+/* Logo */
 .logo-img {
-  height: 80px;            /* Increased height to look big like the title */
+  height: 80px;
   width: auto;
   display: block;
-  margin-right: -100px;      /* Slight negative margin to pull them even closer */
-  padding: 0;
+  margin-right: -100px;
 }
 
-/* 4. The Title: No left margin */
+/* Title */
 .title {
   font-family: "Playfair Display", serif;
   font-size: 30px;
   font-weight: 600;
   letter-spacing: 1px;
   color: #111;
-  margin-left: 0 !important;
-  padding-left: 0 !important;
   line-height: 1;
 }
 
-/* SEARCH: Moves the search bar away from the Brand */
+/* Brand hide on scroll */
+.brand-hide {
+  transform: translateY(-120%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ================= SEARCH ================= */
 .search {
   margin-left: 30px;
 }
@@ -84,52 +91,67 @@
   border-color: #f973da;
 }
 
-/* CENTER MENU */
+/* ================= CENTER NAV ================= */
 .center ul {
   display: flex;
   list-style: none;
   gap: 12px;
 }
 
+/* Menu item pill */
 .center ul li {
   padding: 10px 20px;
   border-radius: 999px;
-  transition: background 0.25s ease, transform 0.25s ease;
+  transition: background 0.25s ease;
 }
 
-.center ul li a {
+/* Link */
+.nav-link {
+  position: relative;
   text-decoration: none;
   font-size: 14px;
   font-weight: 500;
   letter-spacing: 0.6px;
   text-transform: uppercase;
   color: #2b2b2b;
+  padding: 6px 10px;
 }
 
+/* Hover pill */
 .center ul li:hover {
   background: rgba(255, 0, 195, 0.08);
-  transform: translateY(-1px);
 }
 
-.center ul li a.active {
+/* ================= ACTIVE SYMBOL ================= */
+.nav-link.active {
   font-weight: 700;
   color: #000;
 }
 
-/* RIGHT */
+.nav-link.active::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  width: 60%;
+  height: 2px;
+  background-color: #000;
+  transform: translateX(-50%);
+  border-radius: 2px;
+}
+
+.center ul li:has(a.active) {
+  background: transparent;
+}
+
+/* ================= RIGHT ================= */
 .right {
   display: flex;
   align-items: center;
   gap: 20px;
 }
 
-.signin {
-  font-size: 14px;
-  font-weight: 500;
-  color: #222;
-  cursor: pointer;
-}
-
+/* Cart Button */
 .cart {
   display: flex;
   align-items: center;
@@ -142,16 +164,18 @@
   transition: all 0.3s ease;
 }
 
+/* Cart Icon */
 .cart-icon {
   opacity: 0;
   transform: translateX(-6px);
   transition: all 0.3s ease;
 }
 
+/* Cart Hover */
 .cart:hover {
   background: #111;
   color: #fff;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
 }
 
 .cart:hover .cart-icon {
@@ -159,37 +183,38 @@
   transform: translateX(0);
 }
 
-/* ===== BRAND SCROLL EFFECT ===== */
+/* ================= MOBILE FIX ================= */
+@media (max-width: 768px) {
 
-.brand-group {
-  display: flex;
-  align-items: center;
-  transition:
-    transform 0.45s ease,
-    opacity 0.35s ease;
-  will-change: transform, opacity;
-}
+  .headersection {
+    padding: 10px 16px;
+    height: 64px;
+  }
 
-/* Scroll DOWN → hide */
-.brand-hide {
-  transform: translateY(-120%);
-  opacity: 0;
-  pointer-events: none;
-}
-/* ===== BRAND VISIBILITY ON TOP ===== */
+  .logo-img {
+    height: 42px;
+    margin-right: -40px;
+  }
 
-.brand-group {
-  display: flex;
-  align-items: center;
-  transition:
-    transform 0.45s ease,
-    opacity 0.35s ease;
-  will-change: transform, opacity;
-}
+  .title {
+    font-size: 18px;
+  }
 
-/* Hide when NOT at top */
-.brand-hide {
-  transform: translateY(-120%);
-  opacity: 0;
-  pointer-events: none;
+  /* Hide desktop-only elements */
+  .search {
+    display: none;
+  }
+
+  .center {
+    display: none;
+  }
+
+  .right {
+    gap: 12px;
+  }
+
+  .cart {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
 }
