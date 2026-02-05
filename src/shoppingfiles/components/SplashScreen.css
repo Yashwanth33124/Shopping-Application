@@ -1,0 +1,20 @@
+.splash {
+  position: fixed;
+  inset: 0;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.logo {
+  color: white;
+  font-size: 72px;
+  letter-spacing: 10px;
+  font-family: "Playfair Display", serif;
+}
+
+.logo span {
+  display: inline-block;
+}
