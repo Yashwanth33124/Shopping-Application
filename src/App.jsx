@@ -27,7 +27,7 @@ function App() {
 
   return (
     <>
-    <h1 style={{ color: "red" }}>NETLIFY WORKING</h1>
+  
 
       {showSplash && <SplashScreen exit={exitSplash} />}
 
