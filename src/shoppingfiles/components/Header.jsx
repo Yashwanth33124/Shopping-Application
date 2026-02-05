@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./Header.css";
-import { FaCartArrowDown } from "react-icons/fa";
+import { FaCartArrowDown, FaBars, FaTimes } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Cartdropdown from "../Cartdown/Cartdropdown";
@@ -8,7 +8,7 @@ import logo from "../../assets/logo.png";
 
 const Header = () => {
   const [openCart, setOpenCart] = useState(false);
-  const [showBrand, setShowBrand] = useState(true);
+  const [mobileMenu, setMobileMenu] = useState(false);
 
   const cartItems = useSelector((state) => state.cart.items || []);
 
@@ -17,81 +17,74 @@ const Header = () => {
     0
   );
 
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     setShowBrand(window.scrollY === 0);
-  //   };
-
-  //   window.addEventListener("scroll", handleScroll);
-  //   return () => window.removeEventListener("scroll", handleScroll);
-  // }, []);
-
   return (
-    <header className="headersection">
-      {/* LEFT */}
-      <div className="left">
-        <div className={`brand-group ${!showBrand ? "brand-hide" : ""}`}>
+    <>
+      <header className="headersection">
+        {/* LEFT */}
+        <div className="left">
           <NavLink to="/" className="brand-link">
-            <img src={logo} alt="VogueCart Logo" className="logo-img" />
-            <span className="title">VOGUECART</span>
+            <div className="brand-group">
+              <img src={logo} alt="VogueCart Logo" className="logo-img" />
+              <span className="title">VOGUECART</span>
+            </div>
           </NavLink>
+
+          <div className="search">
+            <input type="text" placeholder="Search products" />
+          </div>
         </div>
 
-        <div className="search">
-          <input type="text" placeholder="Search products" />
+        {/* DESKTOP NAV */}
+        <nav className="center">
+          <ul>
+            <li><NavLink to="/" className="nav-link">HOME</NavLink></li>
+            <li><NavLink to="/men" className="nav-link">MEN</NavLink></li>
+            <li><NavLink to="/woman" className="nav-link">WOMAN</NavLink></li>
+            <li><NavLink to="/beauty" className="nav-link">BEAUTY</NavLink></li>
+            <li><NavLink to="/child" className="nav-link">CHILD</NavLink></li>
+          </ul>
+        </nav>
+
+        {/* RIGHT */}
+        <div className="right">
+          {/* MOBILE HAMBURGER */}
+          <div className="mobile-menu-icon" onClick={() => setMobileMenu(true)}>
+            <FaBars />
+          </div>
+
+          {/* CART */}
+          <div style={{ position: "relative" }}>
+            <button
+              className="cart"
+              onClick={() => setOpenCart((prev) => !prev)}
+            >
+              <span className="cart-text">
+                Cart {cartCount > 0 && `(${cartCount})`}
+              </span>
+              <span className="cart-icon">
+                <FaCartArrowDown />
+              </span>
+            </button>
+
+            {openCart && <Cartdropdown close={() => setOpenCart(false)} />}
+          </div>
         </div>
+      </header>
+
+      {/* MOBILE DRAWER MENU */}
+      <div className={`mobile-drawer ${mobileMenu ? "open" : ""}`}>
+        <div className="drawer-header">
+          <span>MENU</span>
+          <FaTimes onClick={() => setMobileMenu(false)} />
+        </div>
+
+        <NavLink to="/" onClick={() => setMobileMenu(false)}>HOME</NavLink>
+        <NavLink to="/men" onClick={() => setMobileMenu(false)}>MEN</NavLink>
+        <NavLink to="/woman" onClick={() => setMobileMenu(false)}>WOMAN</NavLink>
+        <NavLink to="/beauty" onClick={() => setMobileMenu(false)}>BEAUTY</NavLink>
+        <NavLink to="/child" onClick={() => setMobileMenu(false)}>CHILD</NavLink>
       </div>
-
-      {/* CENTER */}
-      <nav className="center">
-        <ul>
-          <li>
-            <NavLink to="/" className="nav-link">
-              HOME
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/men" className="nav-link">
-              MEN
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/woman" className="nav-link">
-              WOMAN
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/beauty" className="nav-link">
-              BEAUTY
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/child" className="nav-link">
-              CHILD
-            </NavLink>
-          </li>
-        </ul>
-      </nav>
-
-      {/* RIGHT */}
-      <div className="right">
-        <div style={{ position: "relative" }}>
-          <button
-            className="cart"
-            onClick={() => setOpenCart((prev) => !prev)}
-          >
-            <span className="cart-text">
-              Cart {cartCount > 0 && `(${cartCount})`}
-            </span>
-            <span className="cart-icon">
-              <FaCartArrowDown />
-            </span>
-          </button>
-
-          {openCart && <Cartdropdown close={() => setOpenCart(false)} />}
-        </div>
-      </div>
-    </header>
+    </>
   );
 };
 
