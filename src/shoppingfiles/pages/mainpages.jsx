@@ -30,7 +30,7 @@ const Mainpage = () => {
       
       <Collection3 />
         <div className="main-content">
-        <Banner />
+        {/* <Banner /> */}
       </div>
       <Collection6/>
       <Collection4 />
