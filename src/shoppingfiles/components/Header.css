@@ -1,3 +1,5 @@
+
+
 /* ================= RESET ================= */
 * {
   margin: 0;
@@ -12,14 +14,14 @@
   top: 0;
   left: 0;
   width: 100%;
-  padding: 14px 40px;
+  padding: 1px 40px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   z-index: 1000;
   transition: background 0.35s ease, box-shadow 0.35s ease;
   cursor: pointer;
-  background-color: white;
+  /* background-color: white; */
 }
 
 /* ================= LEFT ================= */
@@ -264,4 +266,11 @@
   color: #111;
   font-weight: 600;
   border-bottom: 1px solid #eee;
+}
+
+
+/* ONLY BACKGROUND CHANGE – NOTHING ELSE */
+.header-bg-white {
+  background: #fff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }

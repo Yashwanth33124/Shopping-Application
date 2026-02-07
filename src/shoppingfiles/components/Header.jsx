@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Header.css";
 import { FaCartArrowDown, FaBars, FaTimes } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
@@ -9,17 +9,33 @@ import logo from "../../assets/logo.png";
 const Header = () => {
   const [openCart, setOpenCart] = useState(false);
   const [mobileMenu, setMobileMenu] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [hovered, setHovered] = useState(false);
 
   const cartItems = useSelector((state) => state.cart.items || []);
-
   const cartCount = cartItems.reduce(
     (total, item) => total + item.quantity,
     0
   );
 
+  /* ONLY SCROLL LOGIC */
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolled(window.scrollY > 5);
+    };
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
     <>
-      <header className="headersection">
+      <header
+        className={`headersection ${
+          scrolled || hovered ? "header-bg-white" : ""
+        }`}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+      >
         {/* LEFT */}
         <div className="left">
           <NavLink to="/" className="brand-link">
@@ -47,12 +63,10 @@ const Header = () => {
 
         {/* RIGHT */}
         <div className="right">
-          {/* MOBILE HAMBURGER */}
           <div className="mobile-menu-icon" onClick={() => setMobileMenu(true)}>
             <FaBars />
           </div>
 
-          {/* CART */}
           <div style={{ position: "relative" }}>
             <button
               className="cart"

@@ -1,100 +1,119 @@
-/* ================= ROOT ================= */
 .collection4 {
-  padding: 90px 70px 130px;
-  background: radial-gradient(circle at top, #fdf1ff, #eef1f7);
+  padding: 140px 70px 130px;
+  background: #f7f7f7;
 }
 
-/* ================= TITLE ================= */
+/* TITLE */
 .c4-title {
   font-size: 36px;
   font-weight: 900;
-  margin-bottom: 55px;
-  color: #111;
+  margin-bottom: 30px;
+  color: #0f0f0f;
 }
 
 .c4-title::after {
   content: "";
-  width: 70px;
-  height: 5px;
-  background: linear-gradient(90deg, #ff4ecd, #7c3aed);
+  width: 60px;
+  height: 3px;
+  background: #c9a96a; /* GOLD ACCENT */
   display: block;
   margin-top: 12px;
   border-radius: 10px;
 }
 
-/* ================= GRID ================= */
+/* FILTERS */
+.c4-filters {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 50px;
+}
+
+.c4-filters button {
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: 1px solid #0f0f0f;
+  background: transparent;
+  cursor: pointer;
+  font-weight: 600;
+  color: #0f0f0f;
+  transition: 0.3s;
+}
+
+.c4-filters button.active,
+.c4-filters button:hover {
+  background: #0f0f0f;
+  color: #ffffff;
+}
+
+/* GRID */
 .c4-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 40px;
 }
 
-/* ================= CARD ================= */
+/* CARD */
 .c4-card {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(10px);
-  border-radius: 26px;
+  background: #ffffff;
+  border-radius: 22px;
   padding: 22px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
-  transition: all 0.45s ease;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  transition: all 0.4s ease;
   display: flex;
   flex-direction: column;
 }
 
 .c4-card:hover {
-  transform: translateY(-14px) scale(1.02);
-  box-shadow: 0 30px 70px rgba(124, 58, 237, 0.35);
+  transform: translateY(-10px);
+  box-shadow: 0 25px 60px rgba(0,0,0,0.18);
 }
 
-/* ================= IMAGE ================= */
+/* IMAGE */
 .c4-img-wrap {
   position: relative;
-  height: 200px;
+  height: 260px;
   margin-bottom: 18px;
-  border-radius: 18px;
-  background: linear-gradient(145deg, #f8f8ff, #f0f0ff);
+  border-radius: 16px;
+  background: #eee;
   overflow: hidden;
 }
 
 .c4-img-wrap img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   transition: transform 0.4s ease;
 }
 
-/* .c4-card:hover img {
-  transform: scale(1.12) rotate(-2deg);
-} */
+.c4-card:hover img {
+  transform: scale(1.06);
+}
 
-/* ================= BADGE ================= */
+/* BADGE */
 .c4-badge {
   position: absolute;
   top: 12px;
   left: 12px;
-  background: linear-gradient(135deg, #ff4ecd, #7c3aed);
-  color: #fff;
+  background: #0f0f0f;
+  color: #ffffff;
   font-size: 11px;
   font-weight: 700;
   padding: 6px 12px;
   border-radius: 999px;
-  z-index: 2;
 }
 
-/* ================= INFO ================= */
+/* INFO */
 .c4-info h4 {
   font-size: 15px;
   font-weight: 700;
   margin-bottom: 6px;
-  line-height: 1.4;
-  color: #1a1a1a;
+  color: #0f0f0f;
 }
 
 .c4-category {
   font-size: 12px;
   color: #6b7280;
   margin-bottom: 10px;
-  text-transform: uppercase;
   letter-spacing: 0.6px;
 }
 
@@ -102,57 +121,34 @@
   font-size: 22px;
   font-weight: 900;
   margin-bottom: 18px;
-  color: #111827;
+  color: #0f0f0f;
 }
 
-/* ================= BUTTON ================= */
-.c4-info button {
+/* BUTTON */
+.c4-add-btn {
   margin-top: auto;
-  padding: 14px;
-  border: none;
+  padding: 12px;
   border-radius: 999px;
-  background: linear-gradient(135deg, #ff4ecd, #7c3aed);
-  color: #fff;
+  border: 1px solid #0f0f0f;
+  background: transparent;
+  color: #0f0f0f;
   font-weight: 700;
-  letter-spacing: 0.4px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: 0.3s;
 }
 
-.c4-info button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 30px rgba(124, 58, 237, 0.5);
+.c4-add-btn:hover {
+  background: #0f0f0f;
+  color: #ffffff;
 }
 
-/* ================= MOBILE ================= */
+/* MOBILE */
 @media (max-width: 768px) {
   .collection4 {
-    padding: 50px 20px 90px;
+    padding: 100px 20px;
   }
 
   .c4-title {
     font-size: 26px;
   }
-}
-
-
-.collection4 {
-  padding-top: 140px; /* height of header */
-}
-
-
-.c4-add-btn {
-  margin-top: 10px;
-  padding: 8px 14px;
-  border-radius: 999px;
-  border: 1px solid #000;
-  background: transparent;
-  font-size: 13px;
-  cursor: pointer;
-  transition: all 0.25s ease;
-}
-
-.c4-add-btn:hover {
-  background: #000;
-  color: #fff;
 }

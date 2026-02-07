@@ -22,7 +22,7 @@
   animation: slideDown 1.2s ease-out forwards;
 }
 
-@keyframes slideDown {
+/* @keyframes slideDown {
   from {
     transform: translateY(-80px);
     opacity: 0;
@@ -31,7 +31,7 @@
     transform: translateY(0);
     opacity: 1;
   }
-}
+} */
 
 /* GRADIENT OVERLAY */
 .men-hero::after {
@@ -91,6 +91,7 @@
 }
 
 /* ===================== MEN2 SECTION ===================== */
+/* ===================== MEN2 SECTION ===================== */
 
 .men2-page {
   width: 100vw;
@@ -102,40 +103,43 @@
 .men2-media-section {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  min-height: 70vh; /* 🔥 FIX */
+  height: 100vh;
 }
 
 /* LEFT IMAGE */
 .men2-media-left {
   position: relative;
+  overflow: hidden;
 }
 
 .men2-media-left img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center top;
 }
 
 /* RIGHT VIDEO */
 .men2-media-right {
   position: relative;
+  overflow: hidden;
   background: #000;
 }
 
 .men2-media-right video {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
 }
 
-/* TEXT OVER IMAGE & VIDEO */
+/* TEXT (SCROLLING LIKE WOMAN) */
 .men2-text {
   position: absolute;
-  bottom: 50px;
-  left: 50px;
+  top: 40px;
+  left: 40px;
   color: #fff;
-  font-family: 'Poppins', sans-serif;
-  letter-spacing: 1.5px;
+  z-index: 10;
+  will-change: transform;
 }
 
 .men2-text h2 {
@@ -149,21 +153,38 @@
   font-weight: 600;
 }
 
+/* MOBILE */
+@media (max-width: 768px) {
+  .men2-media-section {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  .men2-media-left,
+  .men2-media-right {
+    height: 80vh;
+  }
+
+  .men2-text {
+    top: 24px;
+    left: 24px;
+  }
+}
+
 /* ===================== BIG TEXT ===================== */
 
 .men-editorial-text {
   padding: 140px 60px 100px;
   background: #fff;
 }
-
 .men-editorial-text h1 {
   font-size: clamp(64px, 10vw, 140px);
   font-weight: 900;
   text-transform: uppercase;
   line-height: 0.95;
   letter-spacing: 3px;
-  color: #111;
 }
+
 
 
 /* 🔥 HARD RESET FOR PRODUCT GRID (H&M FIX) */

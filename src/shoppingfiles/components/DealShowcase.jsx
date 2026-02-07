@@ -1,34 +1,76 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import "./DealShowcase.css";
-import TextType from "../Texttype/Text";
-import heroImg from "../../assets/Bigimage.jpg"; // ✅ make sure this exists
+
+const sections = [
+  {
+    title: "WOMEN",
+    subtitle: "Modern elegance for everyday icons",
+    image: "/image7/home1.webp",
+  },
+  {
+    title: "MEN",
+    subtitle: "Tailored confidence. Refined style",
+    image: "/image7/home2.avif",
+  },
+  {
+    title: "BEAUTY",
+    subtitle: "Minimal. Clean. Powerful",
+    image: "/image7/home3.avif",
+  },
+  {
+    title: "KIDS",
+    subtitle: "Comfort meets playful design",
+    image: "/image7/home4.jpg",
+  },
+  {
+    title: "VOGUECART",
+    subtitle: "Fashion that defines you",
+    image: "/image7/home5.jpg",
+  },
+];
 
 const DealShowcase = () => {
-  return (
-    <section className="deal-showcase">
-      {/* BACKGROUND IMAGE */}
-      <img
-        src={heroImg}
-        alt="Lifestyle shopping"
-        className="deal-bg"
-      />
+  const sectionsRef = useRef([]);
 
-      {/* TEXT CONTENT */}
-      <div className="deal-content">
-        <TextType
-          as="h1"
-          className="mall-text"
-          text={[
-            "Discover Premium Styles",
-            "Big Brands. Bigger Savings.",
-            "Shop Smarter. Live Better."
-          ]}
-          typingSpeed={45}
-          pauseDuration={1500}
-          startOnVisible={true}
-        />
-      </div>
-    </section>
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("active");
+          }
+        });
+      },
+      { threshold: 0.4 }
+    );
+
+    sectionsRef.current.forEach((el) => el && observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div className="scroll-magazine">
+      {sections.map((sec, i) => (
+        <section
+          key={i}
+          className="mag-section"
+          ref={(el) => (sectionsRef.current[i] = el)}
+        >
+          <div className="mag-inner">
+            <div className="mag-text">
+              <h1>{sec.title}</h1>
+              <p>{sec.subtitle}</p>
+              <span className="mag-cta">EXPLORE</span>
+            </div>
+
+            <div className="mag-image">
+              <img src={sec.image} alt={sec.title} />
+            </div>
+          </div>
+        </section>
+      ))}
+    </div>
   );
 };
 
