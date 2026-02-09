@@ -8,7 +8,7 @@ import ScrollToTop from "./shoppingfiles/components/ScrollToTop";
 import Mainpage from "./shoppingfiles/pages/mainpages";
 import Men from "./shoppingfiles/RouterArea/Men";
 import Woman from "./shoppingfiles/RouterArea/Woman";
-import Child from "./shoppingfiles/RouterArea/child";
+import Child from "./shoppingfiles/RouterArea/Child";
 import Beauty from "./shoppingfiles/RouterArea/Beauty";
 
 function App() {
