@@ -10,6 +10,7 @@ import Men from "./shoppingfiles/RouterArea/Men";
 import Woman from "./shoppingfiles/RouterArea/Woman";
 import Child from "./shoppingfiles/RouterArea/child";
 import Beauty from "./shoppingfiles/RouterArea/Beauty";
+import RefreshButton from "./shoppingfiles/components/RefreshButton";
 
 function App() {
   const [showSplash, setShowSplash] = useState(true);
@@ -28,7 +29,7 @@ function App() {
   return (
     <>
   
-
+   {/* <RefreshButton/> */}
       {showSplash && <SplashScreen exit={exitSplash} />}
 
       {!showSplash && (
