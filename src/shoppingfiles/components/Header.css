@@ -233,20 +233,22 @@
 .mobile-menu-icon {
   display: none;
 }
-
 .mobile-drawer {
   position: fixed;
   top: 0;
   left: -100%;
-  width: 80%;
+  width: 100%;        /* FIX: full width on phone */
   height: 100vh;
   background: white;
   z-index: 9999;
   padding: 20px;
+  padding-bottom: 40px; /* FIX: space for last items */
   transition: left 0.35s ease;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;   /* FIX: allow scrolling */
 }
+
 
 .mobile-drawer.open {
   left: 0;
@@ -261,12 +263,14 @@
 }
 
 .mobile-drawer a {
-  padding: 14px 0;
+  padding: 12px 0;   /* FIX: slightly smaller */
   text-decoration: none;
   color: #111;
   font-weight: 600;
   border-bottom: 1px solid #eee;
+  font-size: 14px;   /* FIX: fits all items */
 }
+
 
 
 /* ONLY BACKGROUND CHANGE – NOTHING ELSE */
