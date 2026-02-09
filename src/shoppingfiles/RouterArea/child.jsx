@@ -55,6 +55,150 @@ const Child = () => {
           </div>
         ))}
       </section>
+
+      <section className="child-products">
+        <div className="child-products-grid">
+          {[
+            "k1.jpg",
+            "k2.avif",
+            "k3.jpg",
+            "k4.webp",
+            "k5.webp",
+            "k6.jpg",
+            "k7.jpg",
+            "k8.jpg",
+            "k9.jpg",
+            "k10.jpg",
+          ].map((img, i) => (
+            <div className="child-product-card" key={i}>
+              <img src={`/images9/${img}`} alt={`Child Product ${i + 1}`} />
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ===== CHILD CATEGORY GRID ===== */}
+      <div className="hm-container">
+        <div className="hm-row">
+          <div className="hm-item">
+            <img src="/images9/k11.jpg" alt="Tees" />
+            <div className="hm-details">
+              <span className="category">TEES</span>
+              <span className="explore">EXPLORE</span>
+            </div>
+          </div>
+
+          <div className="hm-item">
+            <img src="/images9/k12.jpg" alt="Bottomwear" />
+            <div className="hm-details">
+              <span className="category">BOTTOMWEAR</span>
+              <span className="explore">EXPLORE</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="hm-row">
+          <div className="hm-item">
+            <img src="/images9/k13.jpg" alt="Outerwear" />
+            <div className="hm-details">
+              <span className="category">OUTERWEAR</span>
+              <span className="explore">EXPLORE</span>
+            </div>
+          </div>
+
+          <div className="hm-item">
+            <img src="/images9/k14.jpg" alt="Sets" />
+            <div className="hm-details">
+              <span className="category">SETS</span>
+              <span className="explore">EXPLORE</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* TEXT SECTION */}
+      <div className="men-fulltext">
+        <h2>CHILDREN'S CLOTHING</h2>
+
+        <p>
+          Discover playful, comfortable, and stylish clothing for kids of all ages.
+          Our children's clothing collection is designed for everyday adventures,
+          from school days to weekend fun.
+        </p>
+
+        <p>
+          Explore a wide range of essentials including T-shirts, sweatshirts, dresses,
+          and bottoms made with soft fabrics that are gentle on young skin and easy
+          to move in.
+        </p>
+
+        <p>
+          From cozy outerwear to matching sets and seasonal favorites, our kidswear
+          is crafted to keep them comfortable, confident, and ready for anything.
+        </p>
+
+        <div className="men-breadcrumb">
+          VOGUECART.COM / <span>CHILD</span>
+        </div>
+      </div>
+      {/* FOOTER */}
+      <footer className="men-footer">
+        <div className="men-footer-top">
+          <div className="men-footer-col">
+            <h4>Shop</h4>
+            <ul>
+              <li>LADIES</li>
+              <li>MEN</li>
+              <li>KIDS</li>
+              <li>HOME</li>
+              <li>BEAUTY</li>
+            </ul>
+          </div>
+
+          <div className="men-footer-col">
+            <h4>Corporate Info</h4>
+            <ul>
+              <li>CAREERS</li>
+              <li>ABOUT VOGUECART</li>
+              <li>SUSTAINABILITY</li>
+              <li>PRESS</li>
+              <li>INVESTOR RELATIONS</li>
+            </ul>
+          </div>
+
+          <div className="men-footer-col">
+            <h4>Help</h4>
+            <ul>
+              <li>CUSTOMER SERVICE</li>
+              <li>MY ACCOUNT</li>
+              <li>FIND A STORE</li>
+              <li>LEGAL & PRIVACY</li>
+              <li>CONTACT</li>
+            </ul>
+          </div>
+
+          <div className="men-footer-col men-footer-news">
+            <p>
+              Join VogueCart Kids and get updates on new arrivals, special collections,
+              and exclusive offers.
+            </p>
+            <span className="men-read-more">READ MORE</span>
+          </div>
+        </div>
+
+        <div className="men-footer-bottom">
+          <div className="men-footer-left">
+            <div className="men-footer-brand">VOGUECART</div>
+            <p className="men-region">
+              INDIA (Rs.) <span>CHANGE REGION</span>
+            </p>
+            <p className="men-copyright">
+              © VOGUECART
+            </p>
+          </div>
+        </div>
+      </footer>
+
+
     </div>
   );
 };
