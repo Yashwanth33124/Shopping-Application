@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import "./child.css";
-
+import "./Men.css"
 const Child = () => {
   const cardsRef = useRef([]);
 
