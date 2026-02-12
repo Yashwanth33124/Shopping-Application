@@ -1,5 +1,5 @@
 import React from "react";
-import "./beauty.css";
+import "./Beauty.css";
 
 const Beauty = () => {
   return (
