@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from "react";
 import "./child.css";
-import "./Men.css"
 const Child = () => {
   const cardsRef = useRef([]);
 
@@ -77,46 +76,47 @@ const Child = () => {
         </div>
       </section>
 
-      {/* ===== CHILD CATEGORY GRID ===== */}
-      <div className="hm-container">
-        <div className="hm-row">
-          <div className="hm-item">
+      {/* CATEGORY GRID */}
+      <div className="child-container">
+        <div className="child-row">
+          <div className="child-item">
             <img src="/images9/k11.jpg" alt="Tees" />
-            <div className="hm-details">
-              <span className="category">TEES</span>
-              <span className="explore">EXPLORE</span>
+            <div className="child-details">
+              <span className="child-category">TEES</span>
+              <span className="child-explore">EXPLORE</span>
             </div>
           </div>
 
-          <div className="hm-item">
+          <div className="child-item">
             <img src="/images9/k12.jpg" alt="Bottomwear" />
-            <div className="hm-details">
-              <span className="category">BOTTOMWEAR</span>
-              <span className="explore">EXPLORE</span>
+            <div className="child-details">
+              <span className="child-category">BOTTOMWEAR</span>
+              <span className="child-explore">EXPLORE</span>
             </div>
           </div>
         </div>
 
-        <div className="hm-row">
-          <div className="hm-item">
+        <div className="child-row">
+          <div className="child-item">
             <img src="/images9/k13.jpg" alt="Outerwear" />
-            <div className="hm-details">
-              <span className="category">OUTERWEAR</span>
-              <span className="explore">EXPLORE</span>
+            <div className="child-details">
+              <span className="child-category">OUTERWEAR</span>
+              <span className="child-explore">EXPLORE</span>
             </div>
           </div>
 
-          <div className="hm-item">
+          <div className="child-item">
             <img src="/images9/k14.jpg" alt="Sets" />
-            <div className="hm-details">
-              <span className="category">SETS</span>
-              <span className="explore">EXPLORE</span>
+            <div className="child-details">
+              <span className="child-category">SETS</span>
+              <span className="child-explore">EXPLORE</span>
             </div>
           </div>
         </div>
       </div>
+
       {/* TEXT SECTION */}
-      <div className="men-fulltext">
+      <div className="child-fulltext">
         <h2>CHILDREN'S CLOTHING</h2>
 
         <p>
@@ -127,23 +127,23 @@ const Child = () => {
 
         <p>
           Explore a wide range of essentials including T-shirts, sweatshirts, dresses,
-          and bottoms made with soft fabrics that are gentle on young skin and easy
-          to move in.
+          and bottoms made with soft fabrics that are gentle on young skin.
         </p>
 
         <p>
           From cozy outerwear to matching sets and seasonal favorites, our kidswear
-          is crafted to keep them comfortable, confident, and ready for anything.
+          is crafted to keep them comfortable and confident.
         </p>
 
-        <div className="men-breadcrumb">
+        <div className="child-breadcrumb">
           VOGUECART.COM / <span>CHILD</span>
         </div>
       </div>
+
       {/* FOOTER */}
-      <footer className="men-footer">
-        <div className="men-footer-top">
-          <div className="men-footer-col">
+      <footer className="child-footer">
+        <div className="child-footer-top">
+          <div className="child-footer-col">
             <h4>Shop</h4>
             <ul>
               <li>LADIES</li>
@@ -154,7 +154,7 @@ const Child = () => {
             </ul>
           </div>
 
-          <div className="men-footer-col">
+          <div className="child-footer-col">
             <h4>Corporate Info</h4>
             <ul>
               <li>CAREERS</li>
@@ -165,7 +165,7 @@ const Child = () => {
             </ul>
           </div>
 
-          <div className="men-footer-col">
+          <div className="child-footer-col">
             <h4>Help</h4>
             <ul>
               <li>CUSTOMER SERVICE</li>
@@ -176,27 +176,26 @@ const Child = () => {
             </ul>
           </div>
 
-          <div className="men-footer-col men-footer-news">
+          <div className="child-footer-col child-footer-news">
             <p>
-              Join VogueCart Kids and get updates on new arrivals, special collections,
-              and exclusive offers.
+              Join VogueCart Kids and get updates on new arrivals,
+              special collections and exclusive offers.
             </p>
-            <span className="men-read-more">READ MORE</span>
+            <span className="child-read-more">READ MORE</span>
           </div>
         </div>
 
-        <div className="men-footer-bottom">
-          <div className="men-footer-left">
-            <div className="men-footer-brand">VOGUECART</div>
-            <p className="men-region">
+        <div className="child-footer-bottom">
+          <div className="child-footer-left">
+            <div className="child-footer-brand">VOGUECART</div>
+            <p className="child-region">
               INDIA (Rs.) <span>CHANGE REGION</span>
             </p>
-            <p className="men-copyright">
-              © VOGUECART
-            </p>
+            <p className="child-copyright">© VOGUECART</p>
           </div>
         </div>
       </footer>
+
 
 
     </div>
