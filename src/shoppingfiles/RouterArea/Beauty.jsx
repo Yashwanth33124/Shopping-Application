@@ -75,6 +75,112 @@ const Beauty = () => {
       <div className="beauty-bottom-section">
         <img src="/images10/sixth.jpg" alt="Lipstick" />
       </div>
+      {/* LUXURY PRODUCT SHOWCASE */}
+      <section className="beauty-products">
+
+        <h2 className="product-heading">Luxury Collection</h2>
+
+        <div className="product-grid">
+
+          {[
+            ...Array.from({ length: 7 }, (_, i) => `/images10/bag${i + 1}.avif`),
+            ...Array.from({ length: 7 }, (_, i) => `/images10/lp${i + 1}.avif`),
+            ...Array.from({ length: 7 }, (_, i) => `/images10/makeup${i + 1}.avif`),
+            ...Array.from({ length: 2 }, (_, i) => `/images10/perfume${i + 1}.avif`)
+          ].map((src, index) => (
+            <div className="product-card" key={index}>
+              <img src={src} alt="Beauty Product" />
+              <div className="product-overlay">
+                <button>Shop Now</button>
+              </div>
+            </div>
+          ))}
+
+        </div>
+      </section>
+
+      <div className="beauty-fulltext">
+        <h2>BEAUTY</h2>
+
+        <p>
+          Discover the latest in beauty essentials and skincare must-haves in our
+          beauty collection. From everyday makeup staples to luxurious skincare,
+          everything you need is right here.
+        </p>
+
+        <p>
+          Explore foundations, lipsticks, mascaras and more in shades that match
+          every mood and moment. Our skincare range includes cleansers, serums and
+          moisturizers for glowing skin.
+        </p>
+
+        <p>
+          Whether you're refreshing your routine or trying something new, our beauty
+          range has you covered all year round.
+        </p>
+
+        <div className="beauty-breadcrumb">
+          VOGUECART.COM / <span>BEAUTY</span>
+        </div>
+      </div>
+
+      <footer className="beauty-footer">
+        <div className="beauty-footer-top">
+          <div className="beauty-footer-col">
+            <h4>Shop</h4>
+            <ul>
+              <li>LADIES</li>
+              <li>MEN</li>
+              <li>KIDS</li>
+              <li>HOME</li>
+              <li>BEAUTY</li>
+            </ul>
+          </div>
+
+          <div className="beauty-footer-col">
+            <h4>Corporate Info</h4>
+            <ul>
+              <li>CAREERS</li>
+              <li>ABOUT VOGUECART</li>
+              <li>SUSTAINABILITY</li>
+              <li>PRESS</li>
+              <li>INVESTOR RELATIONS</li>
+            </ul>
+          </div>
+
+          <div className="beauty-footer-col">
+            <h4>Help</h4>
+            <ul>
+              <li>CUSTOMER SERVICE</li>
+              <li>MY ACCOUNT</li>
+              <li>FIND A STORE</li>
+              <li>LEGAL & PRIVACY</li>
+              <li>CONTACT</li>
+            </ul>
+          </div>
+
+          <div className="beauty-footer-col beauty-footer-news">
+            <p>
+              Sign up now and be the first to know about exclusive beauty launches
+              and offers!
+            </p>
+            <span className="beauty-read-more">READ MORE</span>
+          </div>
+        </div>
+
+        <div className="beauty-footer-bottom">
+          <div className="beauty-footer-left">
+            <div className="beauty-footer-brand">VOGUECART</div>
+            <p className="beauty-region">
+              INDIA (Rs.) <span>CHANGE REGION</span>
+            </p>
+            <p className="beauty-copyright">
+              © VOGUECART
+            </p>
+          </div>
+        </div>
+      </footer>
+
 
     </div>
   );

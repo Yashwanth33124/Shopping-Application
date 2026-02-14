@@ -124,3 +124,250 @@ body {
   /* background: rgba(0, 0, 0, 0.25); */
 }
 
+
+/* =================================== */
+/* ✨ EDITORIAL PREMIUM PRODUCT SECTION */
+/* =================================== */
+
+.beauty-products {
+  padding: 180px 8%;
+  position: relative;
+}
+
+/* FLOATING MASSIVE TITLE */
+.product-heading {
+  font-size: 120px;
+  font-weight: 900;
+  letter-spacing: -4px;
+  line-height: 1;
+  margin-bottom: 120px;
+  text-transform: uppercase;
+  color: black;
+  position: relative;
+}
+
+.product-heading::after {
+  content: "";
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  width: 120px;
+  height: 6px;
+  background: black;
+  transition: 0.6s ease;
+}
+
+.product-heading:hover::after {
+  width: 300px;
+}
+
+/* LUXURY MASONRY STYLE */
+.product-grid {
+  column-count: 3;
+  column-gap: 60px;
+}
+
+/* PRODUCT CARD */
+.product-card {
+  break-inside: avoid;
+  margin-bottom: 60px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+/* IMAGE */
+.product-card img {
+  width: 100%;
+  display: block;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* IMAGE HOVER ZOOM */
+.product-card:hover img {
+  transform: scale(1.08);
+}
+
+/* THIN PREMIUM BORDER */
+.product-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid black;
+  opacity: 0;
+  transition: 0.4s ease;
+}
+
+.product-card:hover::after {
+  opacity: 1;
+}
+
+/* MINIMAL OVERLAY */
+.product-overlay {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: 0.4s ease;
+}
+
+.product-card:hover .product-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* BUTTON */
+.product-overlay button {
+  background: transparent;
+  border: 1px solid black;
+  padding: 10px 28px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.product-overlay button:hover {
+  background: black;
+  color: white;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1200px) {
+  .product-grid {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 768px) {
+  .product-heading {
+    font-size: 60px;
+  }
+
+  .product-grid {
+    column-count: 1;
+  }
+}
+
+
+/* ===== BEAUTY FULL TEXT ===== */
+
+.beauty-fulltext {
+  width: 100%;
+  padding: 80px 60px 120px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #111;
+  background: #fff;
+}
+
+.beauty-fulltext h2 {
+  font-size: 16px;
+  letter-spacing: 1px;
+  margin-bottom: 24px;
+  font-weight: 600;
+}
+
+.beauty-fulltext p {
+  max-width: 1400px;
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: 18px;
+}
+
+.beauty-breadcrumb {
+  margin-top: 90px;
+  font-size: 13px;
+  letter-spacing: 1px;
+  color: #777;
+}
+
+.beauty-breadcrumb span {
+  color: #000;
+}
+
+/* ===== BEAUTY FOOTER ===== */
+
+.beauty-footer {
+  width: 100%;
+  padding: 80px 60px 40px;
+  background: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.beauty-footer-top {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 80px;
+  margin-bottom: 100px;
+}
+
+.beauty-footer-col h4 {
+  font-size: 14px;
+  margin-bottom: 18px;
+  font-weight: 600;
+}
+
+.beauty-footer-col ul {
+  list-style: none;
+  padding: 0;
+}
+
+.beauty-footer-col ul li {
+  font-size: 13px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.beauty-footer-col ul li:hover {
+  text-decoration: underline;
+}
+
+.beauty-footer-news p {
+  font-size: 13px;
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+
+.beauty-read-more {
+  font-size: 13px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* BOTTOM */
+
+.beauty-footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.beauty-footer-left {
+  max-width: 520px;
+}
+
+.beauty-footer-brand {
+  font-size: 44px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  margin-bottom: 28px;
+  font-family: "Playfair Display", serif;
+}
+
+.beauty-region {
+  font-size: 13px;
+  margin-bottom: 18px;
+}
+
+.beauty-region span {
+  text-decoration: underline;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.beauty-copyright {
+  font-size: 12px;
+  color: #444;
+}
