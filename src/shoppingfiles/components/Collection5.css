@@ -1,15 +1,18 @@
 .collection5 {
   background: white;
   margin: 0;
-  padding: 10px 0;          /* ⬅ less vertical padding */
+  padding: 10px 0;
+  /* ⬅ less vertical padding */
   overflow: hidden;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  min-height: 140px;        /* ⬅ reduced height */
-  margin-top: -250px;        /* ⬅ moves ScrollVelocity UP slightly */
+  min-height: 140px;
+  /* ⬅ reduced height */
+  margin-top: -250px;
+  /* ⬅ moves ScrollVelocity UP slightly */
 }
 
 /* ScrollVelocity wrapper */
@@ -37,4 +40,19 @@
   display: inline-block;
   padding: 0 20px;
   white-space: nowrap;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .collection5 {
+    margin-top: -120px;
+    /* Reduced negative margin */
+    min-height: 100px;
+    padding: 10px 0;
+  }
+
+  .collection5 span {
+    font-size: 32px;
+    padding: 0 10px;
+  }
 }

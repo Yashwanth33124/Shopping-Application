@@ -1,5 +1,6 @@
 import React from "react";
 import { getImgUrl } from "../../utils/imagePath";
+import "./Collection6.css";
 
 import { InfiniteMovingCards } from '../components/ui/infinite-moving-cards';
 
@@ -19,8 +20,8 @@ export default function Collection6() {
   ];
 
   return (
-    <div style={{ padding: "40px" }}>
-      <h2 style={{ fontSize: "28px", marginBottom: "20px" }}>
+    <div className="collection6-container">
+      <h2 className="collection6-title">
         Fashion Collection
       </h2>
 

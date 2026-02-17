@@ -84,17 +84,50 @@
 
 /* ================= MOBILE ================= */
 @media (max-width: 768px) {
+  .mag-section {
+    height: auto;
+    position: relative;
+    /* Disable sticky on mobile */
+    padding: 60px 0;
+    display: block;
+  }
+
   .mag-inner {
     grid-template-columns: 1fr;
-    padding: 0 24px;
+    padding: 0 20px;
     gap: 40px;
+    display: flex;
+    flex-direction: column-reverse;
+    /* Text below image or above? Usually text first is better for SEO but visual flow... let's keep grid or use flex. */
+  }
+
+  .mag-text {
+    opacity: 1;
+    transform: none;
+    /* Disable animation requirement on mobile if needed, or keep it */
+    text-align: center;
+    margin: auto;
   }
 
   .mag-text h1 {
-    font-size: 42px;
+    font-size: 36px;
+    margin-bottom: 15px;
+  }
+
+  .mag-text p {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+
+  .mag-image {
+    opacity: 1;
+    transform: none;
+    width: 100%;
   }
 
   .mag-image img {
-    height: 50vh;
+    height: 400px;
+    /* Fixed height for mobile image */
+    border-radius: 12px;
   }
 }

@@ -175,4 +175,32 @@
   .nav-btn {
     display: none;
   }
+
+  .banner-font {
+    font-size: 60px;
+    bottom: 15px;
+  }
+
+  .republic-split {
+    left: 10px;
+  }
+  
+  .day-split {
+    left: auto;
+    right: 15px;
+  }
+  
+  .sale-split {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .collection-card {
+    min-width: 260px;
+    height: 380px;
+  }
+  
+  .collection-row {
+    padding: 20px 20px 60px;
+  }
 }

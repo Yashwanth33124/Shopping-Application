@@ -15,7 +15,8 @@
   content: "";
   width: 60px;
   height: 3px;
-  background: #c9a96a; /* GOLD ACCENT */
+  background: #c9a96a;
+  /* GOLD ACCENT */
   display: block;
   margin-top: 12px;
   border-radius: 10px;
@@ -57,7 +58,7 @@
   background: #ffffff;
   border-radius: 22px;
   padding: 22px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   transition: all 0.4s ease;
   display: flex;
   flex-direction: column;
@@ -65,7 +66,7 @@
 
 .c4-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 25px 60px rgba(0,0,0,0.18);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.18);
 }
 
 /* IMAGE */
@@ -150,5 +151,27 @@
 
   .c4-title {
     font-size: 26px;
+  }
+
+  .c4-filters {
+    overflow-x: auto;
+    padding-bottom: 10px;
+    scrollbar-width: none;
+    /* Hide scrollbar */
+  }
+
+  .c4-filters::-webkit-scrollbar {
+    display: none;
+  }
+
+  .c4-filters button {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .c4-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+    /* 1 column on mobile for cleaner look */
+    gap: 20px;
   }
 }
