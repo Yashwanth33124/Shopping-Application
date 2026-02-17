@@ -1,4 +1,6 @@
 import React, { useEffect, useRef } from "react";
+import { getImgUrl } from "../../utils/imagePath";
+
 import "./Woman.css";
 
 const Woman = () => {
@@ -33,14 +35,14 @@ const Woman = () => {
     <div className="woman-page">
       {/* ===== VIDEO ===== */}
       <section className="woman-video">
-        <video src="/images4/gv.webm" autoPlay loop muted playsInline />
+        <video src={getImgUrl("/images4/gv.webm")} autoPlay loop muted playsInline />
       </section>
 
       {/* ===== FIRST 2 FEATURE IMAGES ===== */}
       <section className="woman-images">
         {[
-          { img: "/images5/fashine1.avif", title: "Denim Edit", price: "₹2,999" },
-          { img: "/images5/fashine2.avif", title: "Urban Casual", price: "₹3,499" },
+          { img: getImgUrl("/images5/fashine1.avif"), title: "Denim Edit", price: "₹2,999" },
+          { img: getImgUrl("/images5/fashine2.avif"), title: "Urban Casual", price: "₹3,499" },
         ].map((item, i) => (
           <div
             className="woman-image-card"
@@ -61,7 +63,7 @@ const Woman = () => {
         {Array.from({ length: 12 }).map((_, i) => (
           <div className="woman-grid-card" key={i}>
             <img
-              src={`/images5/fashine3 (${i + 1}).avif`}
+              src={getImgUrl(`/images5/fashine3 (${i + 1}).avif`)}
               alt={`Fashion ${i + 1}`}
             />
           </div>
@@ -70,7 +72,7 @@ const Woman = () => {
       <div className="hw-container">
         <div className="hw-row">
           <div className="hw-item">
-            <img src="/images5/fashine4.avif" alt="w1" />
+            <img src={getImgUrl("/images5/fashine4.avif")} alt="w1" />
             <div className="hw-details">
               <span className="category">TOPS</span>
               <span className="explore">EXPLORE</span>
@@ -78,7 +80,7 @@ const Woman = () => {
           </div>
 
           <div className="hw-item">
-            <img src="/images5/fashine5.avif" alt="w2" />
+            <img src={getImgUrl("/images5/fashine5.avif")} alt="w2" />
             <div className="hw-details">
               <span className="category">DRESSES</span>
               <span className="explore">EXPLORE</span>
@@ -88,7 +90,7 @@ const Woman = () => {
 
         <div className="hw-row">
           <div className="hw-item">
-            <img src="/images5/fashine6.avif" alt="w3" />
+            <img src={getImgUrl("/images5/fashine6.avif")} alt="w3" />
             <div className="hw-details">
               <span className="category">OUTERWEAR</span>
               <span className="explore">EXPLORE</span>
@@ -96,7 +98,7 @@ const Woman = () => {
           </div>
 
           <div className="hw-item">
-            <img src="/images5/fashine7.avif" alt="w4" />
+            <img src={getImgUrl("/images5/fashine7.avif")} alt="w4" />
             <div className="hw-details">
               <span className="category">TAILORING</span>
               <span className="explore">EXPLORE</span>

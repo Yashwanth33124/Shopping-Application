@@ -1,4 +1,6 @@
 import React, { useEffect, useRef } from "react";
+import { getImgUrl } from "../../utils/imagePath";
+
 import "./Men.css";
 
 const Men = () => {
@@ -35,7 +37,7 @@ const Men = () => {
       {/* HERO */}
       <section className="men-page">
         <div className="men-hero">
-          <img src="/images/MENROUTER.jpg" alt="Men Fashion" />
+          <img src={getImgUrl("/images/MENROUTER.jpg")} alt="Men Fashion" />
           <h1 className="men-hero-note">
             Classic Styles For <br /> Confident Men
           </h1>
@@ -50,7 +52,7 @@ const Men = () => {
             className="men2-media-left"
             ref={(el) => (cardsRef.current[0] = el)}
           >
-            <img src="/images/m1.avif" alt="Denim Collection" />
+            <img src={getImgUrl("/images/m1.avif")} alt="Denim Collection" />
             <div className="men2-text">
               <h2>Denim Edit</h2>
               <p>₹ 2,499</p>
@@ -62,7 +64,7 @@ const Men = () => {
             className="men2-media-right"
             ref={(el) => (cardsRef.current[1] = el)}
           >
-            <video src="/images/mv.webm" autoPlay muted loop playsInline />
+            <video src={getImgUrl("/images/mv.webm")} autoPlay muted loop playsInline />
             <div className="men2-text">
               <h2>Urban Casual</h2>
               <p>₹ 1,999</p>
@@ -82,7 +84,7 @@ const Men = () => {
         <div className="men-products-grid">
           {Array.from({ length: 12 }).map((_, i) => (
             <div className="product-card" key={i}>
-              <img src={`/images2/d${i + 1}.avif`} alt={`Product ${i + 1}`} />
+              <img src={getImgUrl(`/images2/d${i + 1}.avif`)} alt={`Product ${i + 1}`} />
             </div>
           ))}
         </div>
@@ -92,7 +94,7 @@ const Men = () => {
       <div className="hm-container">
         <div className="hm-row">
           <div className="hm-item">
-            <img src="/images3/a1.png" alt="a1" />
+            <img src={getImgUrl("/images3/a1.png")} alt="a1" />
             <div className="hm-details">
               <span className="category">TEES</span>
               <span className="explore">EXPLORE</span>
@@ -100,7 +102,7 @@ const Men = () => {
           </div>
 
           <div className="hm-item">
-            <img src="/images3/a2.jpeg" alt="a2" />
+            <img src={getImgUrl("/images3/a2.jpeg")} alt="a2" />
             <div className="hm-details">
               <span className="category">SWEATPANTS</span>
               <span className="explore">EXPLORE</span>
@@ -110,7 +112,7 @@ const Men = () => {
 
         <div className="hm-row">
           <div className="hm-item">
-            <img src="/images3/a3.jpg" alt="a3" />
+            <img src={getImgUrl("/images3/a3.jpg")} alt="a3" />
             <div className="hm-details">
               <span className="category">OUTERWEAR</span>
               <span className="explore">EXPLORE</span>
@@ -118,7 +120,7 @@ const Men = () => {
           </div>
 
           <div className="hm-item">
-            <img src="/images3/a4.jpeg" alt="a4" />
+            <img src={getImgUrl("/images3/a4.jpeg")} alt="a4" />
             <div className="hm-details">
               <span className="category">TAILORING</span>
               <span className="explore">EXPLORE</span>

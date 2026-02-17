@@ -1,4 +1,6 @@
 import React, { useEffect, useRef } from "react";
+import { getImgUrl } from "../../utils/imagePath";
+
 import "./child.css";
 const Child = () => {
   const cardsRef = useRef([]);
@@ -32,14 +34,14 @@ const Child = () => {
     <div className="child-page">
       {/* ===== VIDEO ===== */}
       <section className="child-video">
-        <video src="/image8/kidvideo.mp4" autoPlay loop muted playsInline />
+        <video src={getImgUrl("/image8/kidvideo.mp4")} autoPlay loop muted playsInline />
       </section>
 
       {/* ===== FEATURE IMAGES ===== */}
       <section className="child-images">
         {[
-          { img: "/image8/kid1.avif", title: "Playful Denim", price: "₹1,999" },
-          { img: "/image8/kid2.avif", title: "Everyday Comfort", price: "₹2,499" },
+          { img: getImgUrl("/image8/kid1.avif"), title: "Playful Denim", price: "₹1,999" },
+          { img: getImgUrl("/image8/kid2.avif"), title: "Everyday Comfort", price: "₹2,499" },
         ].map((item, i) => (
           <div
             className="child-image-card"
@@ -70,7 +72,7 @@ const Child = () => {
             "k10.jpg",
           ].map((img, i) => (
             <div className="child-product-card" key={i}>
-              <img src={`/images9/${img}`} alt={`Child Product ${i + 1}`} />
+              <img src={getImgUrl(`/images9/${img}`)} alt={`Child Product ${i + 1}`} />
             </div>
           ))}
         </div>
@@ -80,7 +82,7 @@ const Child = () => {
       <div className="child-container">
         <div className="child-row">
           <div className="child-item">
-            <img src="/images9/k11.jpg" alt="Tees" />
+            <img src={getImgUrl("/images9/k11.jpg")} alt="Tees" />
             <div className="child-details">
               <span className="child-category">TEES</span>
               <span className="child-explore">EXPLORE</span>
@@ -88,7 +90,7 @@ const Child = () => {
           </div>
 
           <div className="child-item">
-            <img src="/images9/k12.jpg" alt="Bottomwear" />
+            <img src={getImgUrl("/images9/k12.jpg")} alt="Bottomwear" />
             <div className="child-details">
               <span className="child-category">BOTTOMWEAR</span>
               <span className="child-explore">EXPLORE</span>
@@ -98,7 +100,7 @@ const Child = () => {
 
         <div className="child-row">
           <div className="child-item">
-            <img src="/images9/k13.jpg" alt="Outerwear" />
+            <img src={getImgUrl("/images9/k13.jpg")} alt="Outerwear" />
             <div className="child-details">
               <span className="child-category">OUTERWEAR</span>
               <span className="child-explore">EXPLORE</span>
@@ -106,7 +108,7 @@ const Child = () => {
           </div>
 
           <div className="child-item">
-            <img src="/images9/k14.jpg" alt="Sets" />
+            <img src={getImgUrl("/images9/k14.jpg")} alt="Sets" />
             <div className="child-details">
               <span className="child-category">SETS</span>
               <span className="child-explore">EXPLORE</span>

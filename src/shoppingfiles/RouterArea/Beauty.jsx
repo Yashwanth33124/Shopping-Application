@@ -1,4 +1,6 @@
 import React, { useEffect, useRef } from "react";
+import { getImgUrl } from "../../utils/imagePath";
+
 import "./Beauty.css";
 
 const Beauty = () => {
@@ -35,7 +37,7 @@ const Beauty = () => {
 
       {/* 🔥 FIRST BANNER (KEEP THIS) */}
       <div className="beauty-banner">
-        <img src="/images10/first.png" alt="Beauty Banner" />
+        <img src={getImgUrl("/images10/first.png")} alt="Beauty Banner" />
       </div>
 
       {/* 🔥 GRID SECTION */}
@@ -47,7 +49,7 @@ const Beauty = () => {
             className="beauty2-media-left"
             ref={(el) => (cardsRef.current[0] = el)}
           >
-            <img src="/images10/fifth.jpg" alt="Glow Beauty" />
+            <img src={getImgUrl("/images10/fifth.jpg")} alt="Glow Beauty" />
             <div className="beauty2-text">
               <h2>Pure Glow</h2>
               <p>Timeless beauty. Effortless confidence.</p>
@@ -59,7 +61,7 @@ const Beauty = () => {
             className="beauty2-media-right"
             ref={(el) => (cardsRef.current[1] = el)}
           >
-            <img src="/images10/fourth.avif" alt="Radiant Skin" />
+            <img src={getImgUrl("/images10/fourth.avif")} alt="Radiant Skin" />
             <div className="beauty2-text">
               <h2>Radiant Essence</h2>
               <p>Soft elegance meets modern luxury.</p>
@@ -73,7 +75,7 @@ const Beauty = () => {
 
       {/* SIXTH IMAGE SECTION */}
       <div className="beauty-bottom-section">
-        <img src="/images10/sixth.jpg" alt="Lipstick" />
+        <img src={getImgUrl("/images10/sixth.jpg")} alt="Lipstick" />
       </div>
       {/* LUXURY PRODUCT SHOWCASE */}
       <section className="beauty-products">
@@ -83,10 +85,10 @@ const Beauty = () => {
         <div className="product-grid">
 
           {[
-            ...Array.from({ length: 7 }, (_, i) => `/images10/bag${i + 1}.avif`),
-            ...Array.from({ length: 7 }, (_, i) => `/images10/lp${i + 1}.avif`),
-            ...Array.from({ length: 7 }, (_, i) => `/images10/makeup${i + 1}.avif`),
-            ...Array.from({ length: 2 }, (_, i) => `/images10/perfume${i + 1}.avif`)
+            ...Array.from({ length: 7 }, (_, i) => getImgUrl(`/images10/bag${i + 1}.avif`)),
+            ...Array.from({ length: 7 }, (_, i) => getImgUrl(`/images10/lp${i + 1}.avif`)),
+            ...Array.from({ length: 7 }, (_, i) => getImgUrl(`/images10/makeup${i + 1}.avif`)),
+            ...Array.from({ length: 2 }, (_, i) => getImgUrl(`/images10/perfume${i + 1}.avif`))
           ].map((src, index) => (
             <div className="product-card" key={index}>
               <img src={src} alt="Beauty Product" />

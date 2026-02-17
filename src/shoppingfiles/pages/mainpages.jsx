@@ -1,7 +1,7 @@
 import React from 'react'
 import './mainpages.css'
 
-import Header from '../components/Header'
+
 import Banner from '../components/Banner'
 import Collection from '../components/Collection'
 import DealShowcase from '../components/DealShowcase'
@@ -19,30 +19,30 @@ const Mainpage = () => {
 
   return (
     <div>
-      <Header />
 
-     
+
+
 
       <DealShowcase />
-        <Collection />
+      <Collection />
       <Collection2 />
-      <Collection5/>
-      
+      <Collection5 />
+
       <Collection3 />
-        <div className="main-content">
+      <div className="main-content">
         {/* <Banner /> */}
       </div>
-      <Collection6/>
+      <Collection6 />
       <Collection4 />
-      
-      
 
-     
-      
+
+
+
+
 
       <AnimatedWaveFooter />
 
-      
+
     </div>
   )
 }

@@ -1,31 +1,33 @@
 import React, { useEffect, useRef } from "react";
+import { getImgUrl } from "../../utils/imagePath";
+
 import "./DealShowcase.css";
 
 const sections = [
   {
     title: "WOMEN",
     subtitle: "Modern elegance for everyday icons",
-    image: "/image7/home1.webp",
+    image: getImgUrl("/image7/home1.webp"),
   },
   {
     title: "MEN",
     subtitle: "Tailored confidence. Refined style",
-    image: "/image7/home2.avif",
+    image: getImgUrl("/image7/home2.avif"),
   },
   {
     title: "BEAUTY",
     subtitle: "Minimal. Clean. Powerful",
-    image: "/image7/home3.avif",
+    image: getImgUrl("/image7/home3.avif"),
   },
   {
     title: "KIDS",
     subtitle: "Comfort meets playful design",
-    image: "/image7/home4.jpg",
+    image: getImgUrl("/image7/home4.jpg"),
   },
   {
     title: "VOGUECART",
     subtitle: "Fashion that defines you",
-    image: "/image7/home5.jpg",
+    image: getImgUrl("/image7/home5.jpg"),
   },
 ];
 
