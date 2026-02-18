@@ -1,5 +1,3 @@
-
-
 /* ================= RESET ================= */
 * {
   margin: 0;
@@ -153,6 +151,10 @@
   gap: 20px;
 }
 
+.mobile-menu-icon {
+  display: none;
+}
+
 /* Cart Button */
 .cart {
   display: flex;
@@ -230,23 +232,24 @@
 }
 
 /* ================= MOBILE DRAWER ================= */
-.mobile-menu-icon {
-  display: none;
-}
+
 .mobile-drawer {
   position: fixed;
   top: 0;
   left: -100%;
-  width: 100%;        /* FIX: full width on phone */
+  width: 100%;
+  /* FIX: full width on phone */
   height: 100vh;
   background: white;
   z-index: 9999;
   padding: 20px;
-  padding-bottom: 40px; /* FIX: space for last items */
+  padding-bottom: 40px;
+  /* FIX: space for last items */
   transition: left 0.35s ease;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;   /* FIX: allow scrolling */
+  overflow-y: auto;
+  /* FIX: allow scrolling */
 }
 
 
@@ -263,12 +266,14 @@
 }
 
 .mobile-drawer a {
-  padding: 12px 0;   /* FIX: slightly smaller */
+  padding: 12px 0;
+  /* FIX: slightly smaller */
   text-decoration: none;
   color: #111;
   font-weight: 600;
   border-bottom: 1px solid #eee;
-  font-size: 14px;   /* FIX: fits all items */
+  font-size: 14px;
+  /* FIX: fits all items */
 }
 
 
