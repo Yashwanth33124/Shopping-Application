@@ -1,10 +1,16 @@
 import React, { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { getImgUrl } from "../../utils/imagePath";
 
 import "./Beauty.css";
 
 const Beauty = () => {
   const cardsRef = useRef([]);
+  const navigate = useNavigate();
+
+  const handleProductClick = (item) => {
+    navigate(`/product/${item.id}`, { state: { product: item } });
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -74,7 +80,7 @@ const Beauty = () => {
       </section>
 
       {/* SIXTH IMAGE SECTION */}
-      <div className="beauty-bottom-section">
+      <div className="beauty-bottom-section clickable" onClick={() => handleProductClick({ id: "b-sixth", title: "Luxury Lipstick", price: "2299", image: getImgUrl("/images10/sixth.jpg") })}>
         <img src={getImgUrl("/images10/sixth.jpg")} alt="Lipstick" />
       </div>
       {/* LUXURY PRODUCT SHOWCASE */}
@@ -85,13 +91,13 @@ const Beauty = () => {
         <div className="product-grid">
 
           {[
-            ...Array.from({ length: 7 }, (_, i) => getImgUrl(`/images10/bag${i + 1}.avif`)),
-            ...Array.from({ length: 7 }, (_, i) => getImgUrl(`/images10/lp${i + 1}.avif`)),
-            ...Array.from({ length: 7 }, (_, i) => getImgUrl(`/images10/makeup${i + 1}.avif`)),
-            ...Array.from({ length: 2 }, (_, i) => getImgUrl(`/images10/perfume${i + 1}.avif`))
-          ].map((src, index) => (
-            <div className="product-card" key={index}>
-              <img src={src} alt="Beauty Product" />
+            ...Array.from({ length: 7 }, (_, i) => ({ id: `bag-${i}`, title: `Premium Bag ${i + 1}`, price: "4599", src: getImgUrl(`/images10/bag${i + 1}.avif`) })),
+            ...Array.from({ length: 7 }, (_, i) => ({ id: `lp-${i}`, title: `Lip Colour ${i + 1}`, price: "1899", src: getImgUrl(`/images10/lp${i + 1}.avif`) })),
+            ...Array.from({ length: 7 }, (_, i) => ({ id: `makeup-${i}`, title: `Makeup Essential ${i + 1}`, price: "2499", src: getImgUrl(`/images10/makeup${i + 1}.avif`) })),
+            ...Array.from({ length: 2 }, (_, i) => ({ id: `perfume-${i}`, title: `Signature Scent ${i + 1}`, price: "6999", src: getImgUrl(`/images10/perfume${i + 1}.avif`) }))
+          ].map((item, index) => (
+            <div className="product-card clickable" key={index} onClick={() => handleProductClick({ ...item, image: item.src })}>
+              <img src={item.src} alt={item.title} />
               <div className="product-overlay">
                 <button>Shop Now</button>
               </div>

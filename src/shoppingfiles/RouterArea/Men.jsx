@@ -1,10 +1,16 @@
 import React, { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { getImgUrl } from "../../utils/imagePath";
 
 import "./Men.css";
 
 const Men = () => {
   const cardsRef = useRef([]);
+  const navigate = useNavigate();
+
+  const handleProductClick = (item) => {
+    navigate(`/product/${item.id}`, { state: { product: item } });
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -49,8 +55,9 @@ const Men = () => {
         <div className="men2-media-section">
           {/* IMAGE */}
           <div
-            className="men2-media-left"
+            className="men2-media-left clickable"
             ref={(el) => (cardsRef.current[0] = el)}
+            onClick={() => handleProductClick({ id: "m1", title: "Denim Edit", price: "2499", image: getImgUrl("/images/m1.avif") })}
           >
             <img src={getImgUrl("/images/m1.avif")} alt="Denim Collection" />
             <div className="men2-text">
@@ -61,8 +68,9 @@ const Men = () => {
 
           {/* VIDEO */}
           <div
-            className="men2-media-right"
+            className="men2-media-right clickable"
             ref={(el) => (cardsRef.current[1] = el)}
+            onClick={() => handleProductClick({ id: "mv", title: "Urban Casual", price: "1999", image: getImgUrl("/images/mv.webm"), isVideo: true })}
           >
             <video src={getImgUrl("/images/mv.webm")} autoPlay muted loop playsInline />
             <div className="men2-text">
@@ -82,11 +90,23 @@ const Men = () => {
       {/* PRODUCT GRID */}
       <section className="men-products">
         <div className="men-products-grid">
-          {Array.from({ length: 12 }).map((_, i) => (
-            <div className="product-card" key={i}>
-              <img src={getImgUrl(`/images2/d${i + 1}.avif`)} alt={`Product ${i + 1}`} />
-            </div>
-          ))}
+          {Array.from({ length: 12 }).map((_, i) => {
+            const product = {
+              id: `men-grid-${i}`,
+              title: `Men Essential Item ${i + 1}`,
+              price: "1799",
+              image: getImgUrl(`/images2/d${i + 1}.avif`)
+            };
+            return (
+              <div
+                className="product-card clickable"
+                key={i}
+                onClick={() => handleProductClick(product)}
+              >
+                <img src={product.image} alt={product.title} />
+              </div>
+            );
+          })}
         </div>
       </section>
 

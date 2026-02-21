@@ -3,21 +3,20 @@ import "./Header.css";
 import { FaCartArrowDown, FaBars, FaTimes } from "react-icons/fa";
 import { FiUser } from "react-icons/fi";
 import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../Redux/AuthSlice";
 import Cartdropdown from "../Cartdown/Cartdropdown";
 import logo from "../../assets/logo.png";
 
 const Header = () => {
+  const dispatch = useDispatch();
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
   const [openCart, setOpenCart] = useState(false);
   const [mobileMenu, setMobileMenu] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [hovered, setHovered] = useState(false);
 
-  const cartItems = useSelector((state) => state.cart.items || []);
-  const cartCount = cartItems.reduce(
-    (total, item) => total + item.quantity,
-    0
-  );
+  const cartCount = 0; // Temporarily removed Redux
 
   useEffect(() => {
     const onScroll = () => {
@@ -27,12 +26,15 @@ const Header = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const handleLogout = () => {
+    dispatch(logout());
+  };
+
   return (
     <>
       <header
-        className={`headersection ${
-          scrolled || hovered ? "header-bg-white" : ""
-        }`}
+        className={`headersection ${scrolled || hovered ? "header-bg-white" : ""
+          }`}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
@@ -88,10 +90,19 @@ const Header = () => {
             )}
           </div>
 
-          {/* PROFILE ICON (Thin Outline Style) */}
-          <NavLink to="/login" className="profile-icon">
-            <FiUser />
-          </NavLink>
+          {/* PROFILE ICON & AUTH */}
+          <div className="auth-group">
+            {isAuthenticated ? (
+              <div className="user-info">
+                <span className="user-name">{user?.name || "User"}</span>
+                <button onClick={handleLogout} className="logout-btn">LOGOUT</button>
+              </div>
+            ) : (
+              <NavLink to="/login" className="profile-icon">
+                <FiUser />
+              </NavLink>
+            )}
+          </div>
         </div>
       </header>
 

@@ -1,9 +1,6 @@
 import React, { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Collection2.css";
-
-// REDUX
-import { useDispatch } from "react-redux";
-import { addToCart } from '../Redux/Cartslice';
 
 // TOAST
 import Toast from "./Toast";
@@ -26,10 +23,11 @@ import CHILD2 from "../../assets/CHILD2.jpg";
 
 const Collection2 = () => {
   const sliderRef = useRef(null);
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [showToast, setShowToast] = useState(false);
 
   const items = [
+    // ... items array remains the same ...
     { id: 1, img: MEN1, name: "ALLEN SOLLY", offer: "Buy 1 Get 1 Free" },
     { id: 2, img: WOMAN1, name: "VAN HEUSEN", offer: "Buy 1 Get 1 Free" },
     { id: 3, img: CHILD1, name: "AMERICAN EAGLE", offer: "Buy 1 Get 1 Free" },
@@ -44,18 +42,18 @@ const Collection2 = () => {
     { id: 12, img: WOMAN5, name: "FOREVER 21", offer: "Buy 2 at 40%" },
   ];
 
-  const handleAddToCart = (item) => {
-    dispatch(
-      addToCart({
-        id: item.id,
-        title: item.name,
-        image: item.img,
-        price: 0,
-      })
-    );
-
-    setShowToast(true);
-    setTimeout(() => setShowToast(false), 2000);
+  const handleProductClick = (item) => {
+    navigate(`/product/${item.id}`, {
+      state: {
+        product: {
+          id: item.id,
+          title: item.name,
+          image: item.img,
+          price: 0, // Placeholder price
+          offer: item.offer
+        }
+      }
+    });
   };
 
   return (
@@ -67,7 +65,7 @@ const Collection2 = () => {
           <div
             className="collection2-card"
             key={item.id}
-            onClick={() => handleAddToCart(item)}
+            onClick={() => handleProductClick(item)}
           >
             <div className="circle-img">
               <img src={item.img} alt={item.name} />

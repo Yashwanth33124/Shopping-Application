@@ -1,0 +1,232 @@
+.product-details-container {
+    display: flex;
+    min-height: 100vh;
+    background-color: #fff;
+    padding-top: 80px;
+    /* Offset for sticky header */
+}
+
+/* LEFT SIDE */
+.product-image-section {
+    width: 55%;
+    position: relative;
+    background-color: #f5f5f5;
+    min-height: 80vh;
+    /* Ensure some height */
+}
+
+.main-image {
+    width: 100%;
+    height: 100%;
+    max-height: 90vh;
+    /* Prevents overflow */
+    object-fit: cover;
+    display: block;
+}
+
+.view-products-badge {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    background-color: #fff;
+    border: none;
+    padding: 8px 16px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* RIGHT SIDE */
+.product-info-section {
+    width: 45%;
+    padding: 80px 5% 40px 5%;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 40px;
+}
+
+.product-title {
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.product-price {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.wishlist-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #000;
+    padding: 5px;
+}
+
+.color-section {
+    margin-bottom: 30px;
+}
+
+.color-label {
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+}
+
+.color-thumbnail {
+    width: 60px;
+    height: 80px;
+    border: 1px solid #ddd;
+    padding: 2px;
+    cursor: pointer;
+}
+
+.color-thumbnail.active {
+    border-color: #000;
+}
+
+.color-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.size-section {
+    margin-bottom: 40px;
+}
+
+.size-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid #eee;
+    border-left: 1px solid #eee;
+}
+
+.size-btn {
+    height: 50px;
+    background: #fff;
+    border: none;
+    border-right: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.size-btn:hover {
+    background-color: #f9f9f9;
+}
+
+.size-btn.selected {
+    background-color: #000;
+    color: #fff;
+}
+
+.size-guide {
+    display: block;
+    margin-top: 15px;
+    font-size: 11px;
+    font-weight: 600;
+    text-decoration: underline;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+.add-to-bag-btn {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    padding: 18px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: opacity 0.3s;
+}
+
+.add-to-bag-btn:hover {
+    opacity: 0.8;
+}
+
+.pickup-info {
+    font-size: 12px;
+    margin-bottom: 40px;
+}
+
+.underline {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/* COLLAPSIBLE */
+.collapsible-container {
+    border-top: 1px solid #eee;
+}
+
+.collapsible-item {
+    border-bottom: 1px solid #eee;
+}
+
+.collapsible-trigger {
+    width: 100%;
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: none;
+    border: none;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.collapsible-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+.collapsible-content.open {
+    max-height: 200px;
+    padding-bottom: 20px;
+}
+
+.collapsible-content p {
+    font-size: 12px;
+    line-height: 1.6;
+    color: #555;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+    .product-details-container {
+        flex-direction: column;
+    }
+
+    .product-image-section,
+    .product-info-section {
+        width: 100%;
+    }
+
+    .product-info-section {
+        padding: 40px 20px;
+    }
+}

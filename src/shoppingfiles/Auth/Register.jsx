@@ -1,8 +1,11 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { authSuccess } from "../Redux/AuthSlice";
 import "./Register.css";
 
 const Register = () => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         email: "",
@@ -25,7 +28,14 @@ const Register = () => {
         e.preventDefault();
         // Handle registration logic here
         console.log("Registration data:", formData);
-        navigate("/login");
+
+        // Simulate registration success
+        dispatch(authSuccess({
+            user: { email: formData.email, name: formData.name },
+            token: "dummy-reg-token-" + Date.now()
+        }));
+
+        navigate("/");
     };
 
     return (

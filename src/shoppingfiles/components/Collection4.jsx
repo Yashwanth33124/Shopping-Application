@@ -1,11 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getImgUrl } from "../../utils/imagePath";
 
 import "./Collection4.css";
-
-// REDUX
-import { useDispatch } from "react-redux";
-import { addToCart } from "../Redux/Cartslice";
 
 // TOAST
 import Toast from "./Toast";
@@ -34,7 +31,7 @@ const productsData = [
   { id: 16, title: "Women Elegant Wear", category: "WOMEN", price: 2599, image: getImgUrl("/images6/woman12.avif") },
   { id: 17, title: "Women Trendy Outfit", category: "WOMEN", price: 2299, image: getImgUrl("/images6/woman13.avif") },
   { id: 18, title: "Women Chic Style", category: "WOMEN", price: 2799, image: getImgUrl("/images6/woman14.avif") },
-  { id: 19, title: "Women Modern Fashion", category: "WOMEN", price: 2499, image: getImgUrl("/imagecops6/woman15.avif") },
+  { id: 19, title: "Women Modern Fashion", category: "WOMEN", price: 2499, image: getImgUrl("/images6/woman15.avif") },
   { id: 20, title: "Women Signature Look", category: "WOMEN", price: 2899, image: getImgUrl("/images6/woman16.avif") },
 
   // 🔥 NEW WOMEN (JPG)
@@ -45,7 +42,7 @@ const productsData = [
 ];
 
 const Collection4 = () => {
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [showToast, setShowToast] = useState(false);
   const [filter, setFilter] = useState("ALL");
 
@@ -54,8 +51,13 @@ const Collection4 = () => {
       ? productsData
       : productsData.filter((item) => item.category === filter);
 
-  const handleAddToCart = (item) => {
-    dispatch(addToCart(item));
+  const handleProductClick = (item) => {
+    navigate(`/product/${item.id}`, { state: { product: item } });
+  };
+
+  const handleAddToCart = (e, item) => {
+    e.stopPropagation(); // Prevent card navigation
+    // dispatch(addToCart(item)); // Removed Redux
     setShowToast(true);
     setTimeout(() => setShowToast(false), 2000);
   };
@@ -74,7 +76,7 @@ const Collection4 = () => {
 
       <div className="c4-grid">
         {filteredProducts.map((item) => (
-          <div className="c4-card" key={item.id}>
+          <div className="c4-card" key={item.id} onClick={() => handleProductClick(item)}>
             <div className="c4-img-wrap">
               <span className="c4-badge">NEW</span>
               <img src={item.image} alt={item.title} />
@@ -87,7 +89,7 @@ const Collection4 = () => {
 
               <button
                 className="c4-add-btn"
-                onClick={() => handleAddToCart(item)}
+                onClick={(e) => handleAddToCart(e, item)}
               >
                 Add to Cart
               </button>

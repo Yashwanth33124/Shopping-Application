@@ -38,12 +38,10 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to top,
-    rgba(0,0,0,0.65),
-    rgba(0,0,0,0.25),
-    transparent
-  );
+  background: linear-gradient(to top,
+      rgba(0, 0, 0, 0.65),
+      rgba(0, 0, 0, 0.25),
+      transparent);
   z-index: 1;
 }
 
@@ -70,14 +68,12 @@
   z-index: 2;
   max-width: 560px;
 
-  background: linear-gradient(
-    120deg,
-    #ffffff 20%,
-    #f5f5f5 35%,
-    #ffffff 50%,
-    #dcdcdc 65%,
-    #ffffff 80%
-  );
+  background: linear-gradient(120deg,
+      #ffffff 20%,
+      #f5f5f5 35%,
+      #ffffff 50%,
+      #dcdcdc 65%,
+      #ffffff 80%);
   background-size: 300% auto;
   color: transparent;
   background-clip: text;
@@ -86,8 +82,13 @@
 }
 
 @keyframes shine {
-  from { background-position: 0% center; }
-  to { background-position: 300% center; }
+  from {
+    background-position: 0% center;
+  }
+
+  to {
+    background-position: 300% center;
+  }
 }
 
 /* ===================== MEN2 SECTION ===================== */
@@ -177,6 +178,7 @@
   padding: 140px 60px 100px;
   background: #fff;
 }
+
 .men-editorial-text h1 {
   font-size: clamp(64px, 10vw, 140px);
   font-weight: 900;
@@ -206,7 +208,7 @@
   background: transparent !important;
   box-shadow: none !important;
   border: none !important;
-  
+
 }
 
 /* IMAGE */
@@ -216,10 +218,12 @@
   border-radius: 0 !important;
 
   width: 100%;
-  max-width: 340px;   /* BIG like H&M */
+  max-width: 340px;
+  /* BIG like H&M */
   height: auto;
   display: block;
 }
+
 /* CONTAINER */
 .hm-container {
   width: 100%;
@@ -231,9 +235,11 @@
 /* ROW – REDUCED WIDTH */
 .hm-row {
   width: 100%;
-  max-width: 750px;   /* ⭐ KEY: controls editorial width */
+  max-width: 750px;
+  /* ⭐ KEY: controls editorial width */
   display: flex;
-  margin: 0 auto;     /* center */
+  margin: 0 auto;
+  /* center */
 }
 
 /* ITEM */
@@ -246,7 +252,8 @@
   width: 100%;
   height: 520px;
   object-fit: cover;
-  display: block;     /* removes gaps */
+  display: block;
+  /* removes gaps */
 }
 
 /* TEXT */
@@ -265,9 +272,11 @@
   letter-spacing: 1.2px;
   color: #666;
 }
+
 .men-fulltext {
   width: 100%;
-  padding: 80px 60px 120px; /* H&M spacing */
+  padding: 80px 60px 120px;
+  /* H&M spacing */
   font-family: Arial, Helvetica, sans-serif;
   color: #111;
   background: #fff;
@@ -281,7 +290,8 @@
 }
 
 .men-fulltext p {
-  max-width: 1400px;      /* keeps text readable */
+  max-width: 1400px;
+  /* keeps text readable */
   font-size: 14px;
   line-height: 1.7;
   margin-bottom: 18px;
@@ -398,3 +408,7 @@
 
 
 
+
+.clickable {
+  cursor: pointer;
+}

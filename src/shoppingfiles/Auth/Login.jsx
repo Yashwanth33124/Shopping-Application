@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { loginSuccess } from "../Redux/AuthSlice";
+import { authSuccess } from "../Redux/AuthSlice";
 import "./Login.css";
 
 const Login = () => {
@@ -19,13 +19,13 @@ const Login = () => {
     }
 
     setError("");
+    // Simulate successful login for frontend development
     dispatch(
-      loginSuccess({
-        user: { email },
-        token: "dummy-jwt-token",
+      authSuccess({
+        user: { email, name: "User" },
+        token: "dummy-token-" + Date.now(),
       })
     );
-
     navigate("/");
   };
 

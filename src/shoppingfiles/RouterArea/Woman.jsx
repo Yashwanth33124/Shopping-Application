@@ -1,10 +1,16 @@
 import React, { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { getImgUrl } from "../../utils/imagePath";
 
 import "./Woman.css";
 
 const Woman = () => {
   const cardsRef = useRef([]);
+  const navigate = useNavigate();
+
+  const handleProductClick = (item) => {
+    navigate(`/product/${item.id}`, { state: { product: item } });
+  };
 
   useEffect(() => {
     const onScroll = () => {
@@ -41,18 +47,19 @@ const Woman = () => {
       {/* ===== FIRST 2 FEATURE IMAGES ===== */}
       <section className="woman-images">
         {[
-          { img: getImgUrl("/images5/fashine1.avif"), title: "Denim Edit", price: "₹2,999" },
-          { img: getImgUrl("/images5/fashine2.avif"), title: "Urban Casual", price: "₹3,499" },
+          { id: "wf1", img: getImgUrl("/images5/fashine1.avif"), title: "Denim Edit", price: "2999" },
+          { id: "wf2", img: getImgUrl("/images5/fashine2.avif"), title: "Urban Casual", price: "3499" },
         ].map((item, i) => (
           <div
-            className="woman-image-card"
+            className="woman-image-card clickable"
             key={i}
             ref={(el) => (cardsRef.current[i] = el)}
+            onClick={() => handleProductClick({ ...item, image: item.img })}
           >
             <img src={item.img} alt={item.title} />
             <div className="image-overlay">
               <h2>{item.title}</h2>
-              <p>{item.price}</p>
+              <p>₹ {item.price}</p>
             </div>
           </div>
         ))}
@@ -60,14 +67,23 @@ const Woman = () => {
 
       {/* ===== GRID IMAGES (fashion3-1 to fashion3-10) ===== */}
       <section className="woman-grid">
-        {Array.from({ length: 12 }).map((_, i) => (
-          <div className="woman-grid-card" key={i}>
-            <img
-              src={getImgUrl(`/images5/fashine3 (${i + 1}).avif`)}
-              alt={`Fashion ${i + 1}`}
-            />
-          </div>
-        ))}
+        {Array.from({ length: 12 }).map((_, i) => {
+          const product = {
+            id: `woman-grid-${i}`,
+            title: `Woman Chic Outfit ${i + 1}`,
+            price: "2599",
+            image: getImgUrl(`/images5/fashine3 (${i + 1}).avif`)
+          };
+          return (
+            <div
+              className="woman-grid-card clickable"
+              key={i}
+              onClick={() => handleProductClick(product)}
+            >
+              <img src={product.image} alt={product.title} />
+            </div>
+          );
+        })}
       </section>
       <div className="hw-container">
         <div className="hw-row">

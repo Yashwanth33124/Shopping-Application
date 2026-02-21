@@ -1,16 +1,9 @@
 import "./Cartdropdown.css";
-import { useSelector, useDispatch } from "react-redux";
-import { removeFromCart } from  '../Redux/Cartslice';
 import { useEffect } from "react";
 
 const Cartdropdown = ({ close }) => {
-  const cartItems = useSelector((state) => state.cart.items);
-  const dispatch = useDispatch();
-
-  const totalItems = cartItems.reduce(
-    (sum, item) => sum + item.quantity,
-    0
-  );
+  const cartItems = []; // Temporarily removed Redux
+  const totalItems = 0;
 
   // 🔥 AUTO CLOSE AFTER 1s WHEN CART IS EMPTY
   useEffect(() => {
@@ -47,7 +40,7 @@ const Cartdropdown = ({ close }) => {
 
               <button
                 className="remove-btn"
-                onClick={() => dispatch(removeFromCart(item.id))}
+                onClick={() => console.log("Remove item:", item.id)}
               >
                 ✕
               </button>

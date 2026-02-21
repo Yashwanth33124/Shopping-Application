@@ -1,9 +1,15 @@
 import React, { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { getImgUrl } from "../../utils/imagePath";
 
 import "./child.css";
 const Child = () => {
   const cardsRef = useRef([]);
+  const navigate = useNavigate();
+
+  const handleProductClick = (item) => {
+    navigate(`/product/${item.id}`, { state: { product: item } });
+  };
 
   useEffect(() => {
     const onScroll = () => {
@@ -40,18 +46,19 @@ const Child = () => {
       {/* ===== FEATURE IMAGES ===== */}
       <section className="child-images">
         {[
-          { img: getImgUrl("/image8/kid1.avif"), title: "Playful Denim", price: "₹1,999" },
-          { img: getImgUrl("/image8/kid2.avif"), title: "Everyday Comfort", price: "₹2,499" },
+          { id: "kf1", img: getImgUrl("/image8/kid1.avif"), title: "Playful Denim", price: "1999" },
+          { id: "kf2", img: getImgUrl("/image8/kid2.avif"), title: "Everyday Comfort", price: "2499" },
         ].map((item, i) => (
           <div
-            className="child-image-card"
+            className="child-image-card clickable"
             key={i}
             ref={(el) => (cardsRef.current[i] = el)}
+            onClick={() => handleProductClick({ ...item, image: item.img })}
           >
             <img src={item.img} alt={item.title} />
             <div className="image-overlay">
               <h2>{item.title}</h2>
-              <p>{item.price}</p>
+              <p>₹ {item.price}</p>
             </div>
           </div>
         ))}
@@ -70,11 +77,23 @@ const Child = () => {
             "k8.jpg",
             "k9.jpg",
             "k10.jpg",
-          ].map((img, i) => (
-            <div className="child-product-card" key={i}>
-              <img src={getImgUrl(`/images9/${img}`)} alt={`Child Product ${i + 1}`} />
-            </div>
-          ))}
+          ].map((img, i) => {
+            const product = {
+              id: `child-grid-${i}`,
+              title: `Child Casual Wear ${i + 1}`,
+              price: "1299",
+              image: getImgUrl(`/images9/${img}`)
+            };
+            return (
+              <div
+                className="child-product-card clickable"
+                key={i}
+                onClick={() => handleProductClick(product)}
+              >
+                <img src={product.image} alt={product.title} />
+              </div>
+            );
+          })}
         </div>
       </section>
 
