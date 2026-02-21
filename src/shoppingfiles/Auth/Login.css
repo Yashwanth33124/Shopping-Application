@@ -1,0 +1,190 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* MAIN CONTAINER */
+.login-container {
+  height: 100vh;
+  display: flex;
+  overflow: hidden;
+}
+
+/* LEFT SIDE */
+.login-left {
+  width: 50%;
+  /* ✅ equal width */
+  height: 100vh;
+  overflow-y: auto;
+  /* ✅ only left scroll */
+  background-color: #fff;
+  padding: 80px 10%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* RIGHT SIDE */
+.login-right {
+  width: 50%;
+  /* ✅ equal width */
+  height: 100vh;
+  position: sticky;
+  /* ✅ stays fixed visually */
+  top: 0;
+  background-image: url("/images11/login.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+/* BRAND FONT (ZARA STYLE OVERLAP) */
+.brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 100px;
+  font-weight: 900;
+  letter-spacing: -14px;
+  margin-bottom: 60px;
+  line-height: 0.8;
+  text-align: center;
+  text-transform: uppercase;
+  color: #000;
+  white-space: nowrap;
+}
+
+/* LOGIN TITLE */
+.login-title {
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  margin-bottom: 40px;
+}
+
+.error-message {
+  color: #ff3333;
+  font-size: 11px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* INPUTS */
+.input-group {
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group label {
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  color: #767676;
+}
+
+.input-group input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #000;
+  background: transparent;
+  padding: 10px 0;
+  font-size: 14px;
+  outline: none;
+}
+
+.input-with-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 0;
+  cursor: pointer;
+  font-size: 16px;
+  color: #000;
+}
+
+.forgot {
+  font-size: 12px;
+  color: #000;
+  margin: 10px 0 30px 0;
+  cursor: pointer;
+}
+
+/* BUTTONS */
+.btn {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: background 0.3s;
+}
+
+.black-btn {
+  background: #000;
+  color: #fff;
+  border: 1px solid #000;
+}
+
+.black-btn:hover {
+  background: #333;
+}
+
+.outline-btn {
+  background: #fff;
+  color: #000;
+  border: 1px solid #000;
+}
+
+.outline-btn:hover {
+  background: #f8f8f8;
+}
+
+.qr-btn i {
+  font-size: 18px;
+}
+
+/* ACCESS SECTION */
+.access {
+  margin-top: 50px;
+}
+
+.access-title {
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+
+.privacy-notice {
+  font-size: 11px;
+  color: #000;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.underline {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.social-btn img {
+  width: 18px;
+}
+
+.social-btn i {
+  font-size: 18px;
+}
+
+.help-footer {
+  margin-top: 50px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+}

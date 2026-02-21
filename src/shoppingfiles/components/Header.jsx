@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Header.css";
 import { FaCartArrowDown, FaBars, FaTimes } from "react-icons/fa";
+import { FiUser } from "react-icons/fi";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Cartdropdown from "../Cartdown/Cartdropdown";
@@ -18,7 +19,6 @@ const Header = () => {
     0
   );
 
-  /* ONLY SCROLL LOGIC */
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 5);
@@ -63,7 +63,10 @@ const Header = () => {
 
         {/* RIGHT */}
         <div className="right">
-          <div className="mobile-menu-icon" onClick={() => setMobileMenu(true)}>
+          <div
+            className="mobile-menu-icon"
+            onClick={() => setMobileMenu(true)}
+          >
             <FaBars />
           </div>
 
@@ -80,8 +83,15 @@ const Header = () => {
               </span>
             </button>
 
-            {openCart && <Cartdropdown close={() => setOpenCart(false)} />}
+            {openCart && (
+              <Cartdropdown close={() => setOpenCart(false)} />
+            )}
           </div>
+
+          {/* PROFILE ICON (Thin Outline Style) */}
+          <NavLink to="/login" className="profile-icon">
+            <FiUser />
+          </NavLink>
         </div>
       </header>
 
@@ -92,11 +102,21 @@ const Header = () => {
           <FaTimes onClick={() => setMobileMenu(false)} />
         </div>
 
-        <NavLink to="/" onClick={() => setMobileMenu(false)}>HOME</NavLink>
-        <NavLink to="/men" onClick={() => setMobileMenu(false)}>MEN</NavLink>
-        <NavLink to="/woman" onClick={() => setMobileMenu(false)}>WOMAN</NavLink>
-        <NavLink to="/beauty" onClick={() => setMobileMenu(false)}>BEAUTY</NavLink>
-        <NavLink to="/child" onClick={() => setMobileMenu(false)}>CHILD</NavLink>
+        <NavLink to="/" onClick={() => setMobileMenu(false)}>
+          HOME
+        </NavLink>
+        <NavLink to="/men" onClick={() => setMobileMenu(false)}>
+          MEN
+        </NavLink>
+        <NavLink to="/woman" onClick={() => setMobileMenu(false)}>
+          WOMAN
+        </NavLink>
+        <NavLink to="/beauty" onClick={() => setMobileMenu(false)}>
+          BEAUTY
+        </NavLink>
+        <NavLink to="/child" onClick={() => setMobileMenu(false)}>
+          CHILD
+        </NavLink>
       </div>
     </>
   );

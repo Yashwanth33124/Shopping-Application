@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import Header from "./shoppingfiles/components/Header";
@@ -8,13 +8,15 @@ import ScrollToTop from "./shoppingfiles/components/ScrollToTop";
 import Mainpage from "./shoppingfiles/pages/mainpages";
 import Men from "./shoppingfiles/RouterArea/Men";
 import Woman from "./shoppingfiles/RouterArea/Woman";
-import Child from  "./shoppingfiles/RouterArea/child";
+import Child from "./shoppingfiles/RouterArea/child";
 import Beauty from "./shoppingfiles/RouterArea/Beauty";
-
+import Login from "./shoppingfiles/Auth/Login";
+import Register from "./shoppingfiles/Auth/Register";
 
 function App() {
   const [showSplash, setShowSplash] = useState(true);
   const [exitSplash, setExitSplash] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const exitTimer = setTimeout(() => setExitSplash(true), 2200);
@@ -28,13 +30,11 @@ function App() {
 
   return (
     <>
-  
-   {/* <RefreshButton/> */}
       {showSplash && <SplashScreen exit={exitSplash} />}
 
       {!showSplash && (
         <>
-          <Header />
+          {location.pathname !== "/login" && location.pathname !== "/register" && <Header />}
           <ScrollToTop />
 
           <Routes>
@@ -43,6 +43,8 @@ function App() {
             <Route path="/woman" element={<Woman />} />
             <Route path="/child" element={<Child />} />
             <Route path="/beauty" element={<Beauty />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
           </Routes>
         </>
       )}

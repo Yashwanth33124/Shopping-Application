@@ -283,3 +283,30 @@
   background: #fff;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
+/* RIGHT SECTION ALIGNMENT */
+.right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+/* PROFILE ICON */
+.profile-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;      /* slightly bigger for clean look */
+  color: #000;          /* pure black */
+  text-decoration: none;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Soft premium hover */
+.profile-icon:hover {
+  opacity: 0.6;
+  transform: scale(1.05);
+}
