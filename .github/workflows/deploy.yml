@@ -1,6 +1,3 @@
-
-
-
 name: Deploy to GitHub Pages
 
 on:
@@ -16,6 +13,11 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: frontend   # 👈 IMPORTANT
+
     steps:
       - uses: actions/checkout@v4
 
@@ -28,7 +30,7 @@ jobs:
 
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: frontend/dist   # 👈 IMPORTANT
 
   deploy:
     needs: build
