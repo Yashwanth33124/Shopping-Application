@@ -16,7 +16,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: frontend   # 👈 IMPORTANT
+        working-directory: client   # ✅ FIXED
 
     steps:
       - uses: actions/checkout@v4
@@ -30,7 +30,7 @@ jobs:
 
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: frontend/dist   # 👈 IMPORTANT
+          path: client/dist   # ✅ FIXED
 
   deploy:
     needs: build
