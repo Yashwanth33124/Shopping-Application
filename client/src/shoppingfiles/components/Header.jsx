@@ -87,7 +87,7 @@ const Header = () => {
               }}
             >
               <PiShoppingBag />
-              <span className="cart-count-below">{cartCount || 0}</span>
+              {cartCount > 0 && <span className="cart-count-below">{cartCount}</span>}
             </button>
 
             {openCart && (
