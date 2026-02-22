@@ -40,10 +40,12 @@ const DealShowcase = () => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("active");
+            // Once it's active, we don't need to observe it anymore
+            observer.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.4 }
+      { threshold: 0.2, rootMargin: "0px 0px -10% 0px" } // Adjust threshold and margin for smoother trigger
     );
 
     sectionsRef.current.forEach((el) => el && observer.observe(el));

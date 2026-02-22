@@ -1,20 +1,34 @@
+import React, { useEffect } from "react";
 import "./Cartdropdown.css";
-import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { cartActions } from "../Redux/CartSlice";
+import { useNavigate } from "react-router-dom";
 
 const Cartdropdown = ({ close }) => {
-  const cartItems = []; // Temporarily removed Redux
-  const totalItems = 0;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const cartItems = useSelector((state) => state.cart.cartItems);
+  const totalItems = useSelector((state) => state.cart.totalQuantity);
 
-  // 🔥 AUTO CLOSE AFTER 1s WHEN CART IS EMPTY
+  // 🔥 AUTO CLOSE AFTER 1.5s WHEN CART IS EMPTY
   useEffect(() => {
     if (cartItems.length === 0) {
       const timer = setTimeout(() => {
         close();
-      }, 1000);
+      }, 1500);
 
       return () => clearTimeout(timer);
     }
   }, [cartItems, close]);
+
+  const handleRemove = (id) => {
+    dispatch(cartActions.deleteFromCart(id));
+  };
+
+  const handleViewCart = () => {
+    close();
+    navigate("/cart");
+  };
 
   return (
     <div className="cart-dropdown">
@@ -40,7 +54,7 @@ const Cartdropdown = ({ close }) => {
 
               <button
                 className="remove-btn"
-                onClick={() => console.log("Remove item:", item.id)}
+                onClick={() => handleRemove(item.id)}
               >
                 ✕
               </button>
@@ -51,7 +65,7 @@ const Cartdropdown = ({ close }) => {
 
       {/* FOOTER */}
       {cartItems.length > 0 && (
-        <button className="view-cart-btn">
+        <button className="view-cart-btn" onClick={handleViewCart}>
           View Cart
         </button>
       )}

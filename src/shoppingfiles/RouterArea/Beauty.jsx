@@ -52,8 +52,16 @@ const Beauty = () => {
 
           {/* LEFT IMAGE */}
           <div
-            className="beauty2-media-left"
+            className="beauty2-media-left clickable"
             ref={(el) => (cardsRef.current[0] = el)}
+            onClick={() => handleProductClick({
+              id: "b-glow",
+              title: "Pure Glow Oil",
+              price: "3499",
+              image: getImgUrl("/images10/fifth.jpg"),
+              sizes: ["50ml"],
+              category: "beauty"
+            })}
           >
             <img src={getImgUrl("/images10/fifth.jpg")} alt="Glow Beauty" />
             <div className="beauty2-text">
@@ -64,8 +72,16 @@ const Beauty = () => {
 
           {/* RIGHT IMAGE */}
           <div
-            className="beauty2-media-right"
+            className="beauty2-media-right clickable"
             ref={(el) => (cardsRef.current[1] = el)}
+            onClick={() => handleProductClick({
+              id: "b-essence",
+              title: "Radiant Essence",
+              price: "4299",
+              image: getImgUrl("/images10/fourth.avif"),
+              sizes: ["100ml"],
+              category: "beauty"
+            })}
           >
             <img src={getImgUrl("/images10/fourth.avif")} alt="Radiant Skin" />
             <div className="beauty2-text">
@@ -80,7 +96,14 @@ const Beauty = () => {
       </section>
 
       {/* SIXTH IMAGE SECTION */}
-      <div className="beauty-bottom-section clickable" onClick={() => handleProductClick({ id: "b-sixth", title: "Luxury Lipstick", price: "2299", image: getImgUrl("/images10/sixth.jpg") })}>
+      <div className="beauty-bottom-section clickable" onClick={() => handleProductClick({
+        id: "b-sixth",
+        title: "Luxury Lipstick",
+        price: "2299",
+        image: getImgUrl("/images10/sixth.jpg"),
+        sizes: ["One Size"],
+        category: "beauty"
+      })}>
         <img src={getImgUrl("/images10/sixth.jpg")} alt="Lipstick" />
       </div>
       {/* LUXURY PRODUCT SHOWCASE */}
@@ -91,10 +114,38 @@ const Beauty = () => {
         <div className="product-grid">
 
           {[
-            ...Array.from({ length: 7 }, (_, i) => ({ id: `bag-${i}`, title: `Premium Bag ${i + 1}`, price: "4599", src: getImgUrl(`/images10/bag${i + 1}.avif`) })),
-            ...Array.from({ length: 7 }, (_, i) => ({ id: `lp-${i}`, title: `Lip Colour ${i + 1}`, price: "1899", src: getImgUrl(`/images10/lp${i + 1}.avif`) })),
-            ...Array.from({ length: 7 }, (_, i) => ({ id: `makeup-${i}`, title: `Makeup Essential ${i + 1}`, price: "2499", src: getImgUrl(`/images10/makeup${i + 1}.avif`) })),
-            ...Array.from({ length: 2 }, (_, i) => ({ id: `perfume-${i}`, title: `Signature Scent ${i + 1}`, price: "6999", src: getImgUrl(`/images10/perfume${i + 1}.avif`) }))
+            ...Array.from({ length: 7 }, (_, i) => ({
+              id: `bag-${i}`,
+              title: `Premium Bag ${i + 1}`,
+              price: "4599",
+              src: getImgUrl(`/images10/bag${i + 1}.avif`),
+              sizes: ["One Size"],
+              category: "accessories"
+            })),
+            ...Array.from({ length: 7 }, (_, i) => ({
+              id: `lp-${i}`,
+              title: `Lip Colour ${i + 1}`,
+              price: "1899",
+              src: getImgUrl(`/images10/lp${i + 1}.avif`),
+              sizes: ["Standard"],
+              category: "beauty"
+            })),
+            ...Array.from({ length: 7 }, (_, i) => ({
+              id: `makeup-${i}`,
+              title: `Makeup Essential ${i + 1}`,
+              price: "2499",
+              src: getImgUrl(`/images10/makeup${i + 1}.avif`),
+              sizes: ["Standard"],
+              category: "beauty"
+            })),
+            ...Array.from({ length: 2 }, (_, i) => ({
+              id: `perfume-${i}`,
+              title: `Signature Scent ${i + 1}`,
+              price: "6999",
+              src: getImgUrl(`/images10/perfume${i + 1}.avif`),
+              sizes: ["50ml", "100ml"],
+              category: "beauty"
+            }))
           ].map((item, index) => (
             <div className="product-card clickable" key={index} onClick={() => handleProductClick({ ...item, image: item.src })}>
               <img src={item.src} alt={item.title} />

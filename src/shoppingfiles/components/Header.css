@@ -82,7 +82,7 @@
   width: 240px;
   padding: 10px 16px;
   border-radius: 999px;
-  border: 1px solid #ddd;
+  border: 1px solid #ffffff;
   font-size: 14px;
   outline: none;
 }
@@ -152,36 +152,41 @@
   display: none;
 }
 
-/* Cart Button */
-.cart {
+/* Cart Button Premium */
+.cart-btn-premium {
+  position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
-  border-radius: 999px;
-  border: 1px solid #222;
-  background: transparent;
+  justify-content: center;
+  background: none;
+  border: none;
+  font-size: 26px;
+  /* Icon size */
+  color: #000;
   cursor: pointer;
-  transition: all 0.3s ease;
+  padding: 0 0 10px 0;
+  /* Add bottom padding for the badge */
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-/* Cart Icon */
-.cart-icon {
-  opacity: 0;
-  transform: translateX(-6px);
-  transition: all 0.3s ease;
+.cart-btn-premium:hover {
+  transform: scale(1.08);
+  opacity: 0.7;
 }
 
-/* Cart Hover */
-.cart:hover {
-  background: #111;
-  color: #fff;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
-}
-
-.cart:hover .cart-icon {
-  opacity: 1;
-  transform: translateX(0);
+/* Numerical Badge underneath */
+.cart-badge {
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 13px;
+  font-weight: 800;
+  color: #000;
+  pointer-events: none;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: -0.5px;
 }
 
 /* ================= MOBILE FIX ================= */

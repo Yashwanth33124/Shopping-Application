@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getImgUrl } from "../../utils/imagePath";
+import { useDispatch } from "react-redux";
+import { cartActions } from "../Redux/CartSlice";
 
 import "./Collection4.css";
 
@@ -43,7 +45,7 @@ const productsData = [
 
 const Collection4 = () => {
   const navigate = useNavigate();
-  const [showToast, setShowToast] = useState(false);
+  const [notification, setNotification] = useState({ show: false, text: "" });
   const [filter, setFilter] = useState("ALL");
 
   const filteredProducts =
@@ -51,20 +53,22 @@ const Collection4 = () => {
       ? productsData
       : productsData.filter((item) => item.category === filter);
 
+  const dispatch = useDispatch();
+
   const handleProductClick = (item) => {
     navigate(`/product/${item.id}`, { state: { product: item } });
   };
 
   const handleAddToCart = (e, item) => {
     e.stopPropagation(); // Prevent card navigation
-    // dispatch(addToCart(item)); // Removed Redux
-    setShowToast(true);
-    setTimeout(() => setShowToast(false), 2000);
+    dispatch(cartActions.addToCart(item));
+    setNotification({ show: true, text: `${item.title} added to bag` });
+    setTimeout(() => setNotification({ show: false, text: "" }), 2500);
   };
 
   return (
     <section className="collection4">
-      {showToast && <Toast text="Added to cart 🛒" />}
+      {notification.show && <Toast text={notification.text} type="success" />}
 
       <h2 className="c4-title">Trending Collection</h2>
 

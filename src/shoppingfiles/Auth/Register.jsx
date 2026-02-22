@@ -104,7 +104,7 @@ const Register = () => {
                             checked={formData.newsletter}
                             onChange={handleChange}
                         />
-                        <label htmlFor="newsletter">I wish to receive Zara news on my e-mail</label>
+                        <label htmlFor="newsletter">I wish to receive Voguecart news on my e-mail</label>
                     </div>
 
                     <div className="checkbox-group">

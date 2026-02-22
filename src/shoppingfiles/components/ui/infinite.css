@@ -10,6 +10,7 @@
   display: flex;
   gap: 22px;
   animation: scroll 30s linear infinite;
+  will-change: transform;
 }
 
 .slide-track:hover {
@@ -113,6 +114,7 @@
   0% {
     transform: translateX(0);
   }
+
   100% {
     transform: translateX(-50%);
   }
@@ -123,6 +125,7 @@
     transform: scale(0.92);
     opacity: 0;
   }
+
   to {
     transform: scale(1);
     opacity: 1;

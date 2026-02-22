@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./Header.css";
-import { FaCartArrowDown, FaBars, FaTimes } from "react-icons/fa";
-import { FiUser } from "react-icons/fi";
-import { NavLink } from "react-router-dom";
+import { FaBars, FaTimes } from "react-icons/fa";
+import { FiUser, FiShoppingBag } from "react-icons/fi";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../Redux/AuthSlice";
 import Cartdropdown from "../Cartdown/Cartdropdown";
@@ -11,12 +11,13 @@ import logo from "../../assets/logo.png";
 const Header = () => {
   const dispatch = useDispatch();
   const { isAuthenticated, user } = useSelector((state) => state.auth);
+  const cartCount = useSelector((state) => state.cart.totalQuantity);
+  const navigate = useNavigate();
+
   const [openCart, setOpenCart] = useState(false);
   const [mobileMenu, setMobileMenu] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [hovered, setHovered] = useState(false);
-
-  const cartCount = 0; // Temporarily removed Redux
 
   useEffect(() => {
     const onScroll = () => {
@@ -72,17 +73,20 @@ const Header = () => {
             <FaBars />
           </div>
 
-          <div style={{ position: "relative" }}>
+          <div
+            style={{ position: "relative" }}
+            onMouseEnter={() => setOpenCart(true)}
+            onMouseLeave={() => setOpenCart(false)}
+          >
             <button
-              className="cart"
-              onClick={() => setOpenCart((prev) => !prev)}
+              className="cart-btn-premium"
+              onClick={() => {
+                setOpenCart(false);
+                navigate("/cart");
+              }}
             >
-              <span className="cart-text">
-                Cart {cartCount > 0 && `(${cartCount})`}
-              </span>
-              <span className="cart-icon">
-                <FaCartArrowDown />
-              </span>
+              <FiShoppingBag />
+              {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
             </button>
 
             {openCart && (
@@ -92,16 +96,9 @@ const Header = () => {
 
           {/* PROFILE ICON & AUTH */}
           <div className="auth-group">
-            {isAuthenticated ? (
-              <div className="user-info">
-                <span className="user-name">{user?.name || "User"}</span>
-                <button onClick={handleLogout} className="logout-btn">LOGOUT</button>
-              </div>
-            ) : (
-              <NavLink to="/login" className="profile-icon">
-                <FiUser />
-              </NavLink>
-            )}
+            <NavLink to={isAuthenticated ? "/account" : "/login"} className="profile-icon">
+              <FiUser />
+            </NavLink>
           </div>
         </div>
       </header>

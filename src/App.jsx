@@ -13,6 +13,8 @@ import Beauty from "./shoppingfiles/RouterArea/Beauty";
 import Login from "./shoppingfiles/Auth/Login";
 import Register from "./shoppingfiles/Auth/Register";
 import ProductDetails from "./shoppingfiles/pages/ProductDetails";
+import Cart from "./shoppingfiles/pages/Cart";
+import Account from "./shoppingfiles/pages/Account";
 
 function App() {
   const [showSplash, setShowSplash] = useState(true);
@@ -47,6 +49,8 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/product/:id" element={<ProductDetails />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/account" element={<Account />} />
           </Routes>
         </>
       )}
