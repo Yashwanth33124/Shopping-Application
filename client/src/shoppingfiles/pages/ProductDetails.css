@@ -256,14 +256,49 @@
         min-height: auto;
         position: relative;
         top: 0;
+        padding-top: 20px;
     }
 
     .product-info-section {
         width: 100%;
-        padding: 40px 20px;
+        padding: 30px 20px;
     }
 
     .main-image {
-        max-height: 70vh;
+        max-height: 60vh;
+        width: 100%;
+        object-fit: contain;
+    }
+}
+
+@media (max-width: 768px) {
+    .product-title {
+        font-size: 20px;
+    }
+
+    .product-price {
+        font-size: 18px;
+    }
+
+    .size-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .add-to-bag-btn {
+        padding: 15px;
+        font-size: 12px;
+    }
+
+    .view-products-badge {
+        bottom: 20px;
+        right: 20px;
+        padding: 6px 12px;
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .size-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 }

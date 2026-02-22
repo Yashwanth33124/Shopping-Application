@@ -8,7 +8,8 @@
 .woman-video {
   width: 100%;
   height: 100vh;
-  margin-bottom: 80px;     /* ✅ GAP ONLY BETWEEN VIDEO & IMAGES */
+  margin-bottom: 80px;
+  /* ✅ GAP ONLY BETWEEN VIDEO & IMAGES */
   overflow: hidden;
 }
 
@@ -24,7 +25,8 @@
 .woman-images {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  width: 100vw;            /* ✅ FULL BLEED */
+  width: 100vw;
+  /* ✅ FULL BLEED */
   margin: 0;
   padding: 0;
 }
@@ -34,7 +36,8 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center top; /* ✅ SHOW FACES */
+  object-position: center top;
+  /* ✅ SHOW FACES */
   display: block;
 }
 
@@ -43,7 +46,8 @@
 .woman-image-card img {
   width: 100%;
   height: 100%;
-  object-fit: cover;       /* ✅ SAME AS H&M */
+  object-fit: cover;
+  /* ✅ SAME AS H&M */
   display: block;
 }
 
@@ -105,7 +109,7 @@
 /* ================= GRID SECTION ================= */
 .woman-grid {
   display: grid;
-  grid-template-columns: repeat(6, 1fr); 
+  grid-template-columns: repeat(6, 1fr);
   gap: 24px;
   padding: 80px 60px;
   background: #ffffff;
@@ -147,7 +151,8 @@
 /* WOMEN FULL TEXT */
 .women-fulltext {
   width: 100%;
-  padding: 80px 60px 120px; /* same H&M-style spacing */
+  padding: 80px 60px 120px;
+  /* same H&M-style spacing */
   font-family: Arial, Helvetica, sans-serif;
   color: #111;
   background: #fff;
@@ -161,7 +166,8 @@
 }
 
 .women-fulltext p {
-  max-width: 1400px;      /* keeps text readable */
+  max-width: 1400px;
+  /* keeps text readable */
   font-size: 14px;
   line-height: 1.7;
   margin-bottom: 18px;

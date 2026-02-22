@@ -135,6 +135,24 @@
 
 @media (max-width: 768px) {
     .register-container {
-        padding: 40px 20px;
+        padding: 100px 20px 40px;
+    }
+
+    .section-title {
+        font-size: 18px;
+        margin-bottom: 30px;
+    }
+
+    .register-content {
+        max-width: 100%;
+    }
+
+    .phone-group {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .prefix-input {
+        width: 100%;
     }
 }

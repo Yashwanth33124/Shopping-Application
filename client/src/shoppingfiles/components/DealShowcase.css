@@ -1,6 +1,8 @@
 /* ================= CONTAINER ================= */
 .scroll-magazine {
   width: 100%;
+  scroll-snap-type: y proximity;
+  /* Better for grouping multiple sticky sections */
 }
 
 /* ================= SECTION ================= */
@@ -12,6 +14,9 @@
   overflow: hidden;
   display: flex;
   align-items: center;
+  scroll-snap-align: start;
+  /* Snaps to each new section */
+  scroll-snap-stop: always;
 }
 
 /* ================= INNER ================= */
@@ -88,12 +93,18 @@
 
 /* ================= MOBILE ================= */
 @media (max-width: 768px) {
+  .scroll-magazine {
+    scroll-snap-type: none;
+    /* Disable snapping on mobile for smoother auto-height scrolling */
+  }
+
   .mag-section {
     height: auto;
     position: relative;
     /* Disable sticky on mobile */
     padding: 60px 0;
     display: block;
+    scroll-snap-align: none;
   }
 
   .mag-inner {

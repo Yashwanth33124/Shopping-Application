@@ -177,3 +177,29 @@
         padding-bottom: 40px;
     }
 }
+
+@media (max-width: 768px) {
+    .account-page-container {
+        padding-top: 100px;
+    }
+
+    .account-title {
+        font-size: 28px;
+        margin-bottom: 30px;
+    }
+
+    .rewards-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .promo-banner.black,
+    .benefit-img {
+        height: 200px;
+    }
+
+    .account-nav li {
+        font-size: 14px;
+        margin-bottom: 12px;
+    }
+}

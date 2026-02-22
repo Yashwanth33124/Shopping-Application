@@ -188,3 +188,45 @@
   font-weight: 600;
   cursor: pointer;
 }
+
+/* RESPONSIVE */
+@media (max-width: 992px) {
+  .login-left {
+    width: 60%;
+    padding: 60px 5%;
+  }
+
+  .login-right {
+    width: 40%;
+  }
+
+  .brand {
+    font-size: 80px;
+    letter-spacing: -10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .login-container {
+    height: auto;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  .login-left {
+    width: 100%;
+    height: auto;
+    overflow-y: visible;
+    padding: 100px 20px 40px;
+  }
+
+  .login-right {
+    display: none;
+  }
+
+  .brand {
+    font-size: 60px;
+    letter-spacing: -8px;
+    margin-bottom: 40px;
+  }
+}

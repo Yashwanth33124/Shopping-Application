@@ -1,6 +1,13 @@
 .main-content {
   padding-top: 80px;
 }
+
 /* body {
   background-color: rgb(109, 109, 109);
 } */
+@media (max-width: 768px) {
+  .main-content {
+    padding-top: 64px;
+    /* Mobile header height is 64px */
+  }
+}
