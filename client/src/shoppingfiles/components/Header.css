@@ -161,32 +161,28 @@
   justify-content: center;
   background: none;
   border: none;
-  font-size: 26px;
+  font-size: 30px;
   /* Icon size */
   color: #000;
   cursor: pointer;
-  padding: 0 0 10px 0;
-  /* Add bottom padding for the badge */
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  padding: 0;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  line-height: 1;
 }
 
 .cart-btn-premium:hover {
-  transform: scale(1.08);
-  opacity: 0.7;
+  transform: translateY(-2px);
+  opacity: 0.8;
 }
 
 /* Numerical Badge underneath */
-.cart-badge {
-  position: absolute;
-  bottom: -12px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 13px;
-  font-weight: 800;
+.cart-count-below {
+  font-size: 10px;
+  font-weight: 600;
   color: #000;
-  pointer-events: none;
+  margin-top: -1px;
   font-family: 'Inter', sans-serif;
-  letter-spacing: -0.5px;
+  letter-spacing: 0.5px;
 }
 
 /* ================= MOBILE FIX ================= */

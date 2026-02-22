@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./Header.css";
 import { FaBars, FaTimes } from "react-icons/fa";
-import { FiUser, FiShoppingBag } from "react-icons/fi";
+import { FiUser } from "react-icons/fi";
+import { PiShoppingBag } from "react-icons/pi";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../Redux/AuthSlice";
@@ -85,8 +86,8 @@ const Header = () => {
                 navigate("/cart");
               }}
             >
-              <FiShoppingBag />
-              {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
+              <PiShoppingBag />
+              <span className="cart-count-below">{cartCount || 0}</span>
             </button>
 
             {openCart && (

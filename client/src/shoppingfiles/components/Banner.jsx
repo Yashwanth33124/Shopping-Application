@@ -5,8 +5,7 @@ import { Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 
-import banner1 from "../../assets/GentsBanner.gif";
-import banner2 from "../../assets/LadiesBanner.gif";
+
 
 import "./Banner.css";
 
