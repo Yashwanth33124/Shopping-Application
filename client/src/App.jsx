@@ -15,11 +15,16 @@ import Register from "./shoppingfiles/Auth/Register";
 import ProductDetails from "./shoppingfiles/pages/ProductDetails";
 import Cart from "./shoppingfiles/pages/Cart";
 import Account from "./shoppingfiles/pages/Account";
+import { useSelector, useDispatch } from "react-redux";
+import { cartActions } from "./shoppingfiles/Redux/CartSlice";
+import CartNotification from "./shoppingfiles/components/CartNotification";
 
 function App() {
   const [showSplash, setShowSplash] = useState(true);
   const [exitSplash, setExitSplash] = useState(false);
   const location = useLocation();
+  const dispatch = useDispatch();
+  const lastAddedItem = useSelector((state) => state.cart.lastAddedItem);
 
   useEffect(() => {
     const exitTimer = setTimeout(() => setExitSplash(true), 2200);
@@ -38,6 +43,11 @@ function App() {
       {!showSplash && (
         <>
           {location.pathname !== "/login" && location.pathname !== "/register" && <Header />}
+          <CartNotification
+            show={!!lastAddedItem}
+            product={lastAddedItem}
+            onClose={() => dispatch(cartActions.clearLastAddedItem())}
+          />
           <ScrollToTop />
 
           <Routes>

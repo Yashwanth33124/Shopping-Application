@@ -7,7 +7,7 @@ import { cartActions } from "../Redux/CartSlice";
 import "./Collection4.css";
 
 // TOAST
-import Toast from "./Toast";
+
 
 const productsData = [
   // ===== MEN =====
@@ -45,7 +45,6 @@ const productsData = [
 
 const Collection4 = () => {
   const navigate = useNavigate();
-  const [notification, setNotification] = useState({ show: false, text: "" });
   const [filter, setFilter] = useState("ALL");
 
   const filteredProducts =
@@ -60,15 +59,13 @@ const Collection4 = () => {
   };
 
   const handleAddToCart = (e, item) => {
-    e.stopPropagation(); // Prevent card navigation
+    e.stopPropagation();
     dispatch(cartActions.addToCart(item));
-    setNotification({ show: true, text: `${item.title} added to bag` });
-    setTimeout(() => setNotification({ show: false, text: "" }), 2500);
   };
 
   return (
     <section className="collection4">
-      {notification.show && <Toast text={notification.text} type="success" />}
+
 
       <h2 className="c4-title">Trending Collection</h2>
 

@@ -5,6 +5,7 @@ import { FiHeart, FiPlus, FiMinus } from "react-icons/fi";
 import { getImgUrl } from "../../utils/imagePath";
 import AnimatedWaveFooter from "../components/footer";
 import Toast from "../components/Toast";
+import CartNotification from "../components/CartNotification";
 
 // Mock data as fallback
 const fallbackProduct = {
@@ -31,6 +32,7 @@ const ProductDetails = () => {
     const [selectedSize, setSelectedSize] = useState("");
     const [openSection, setOpenSection] = useState("desc");
     const [notification, setNotification] = useState({ show: false, text: "", type: "success" });
+    const [cartNotif, setCartNotif] = useState({ show: false, product: null });
 
     // Get product from state or use fallback
     const product = location.state?.product || fallbackProduct;
@@ -57,11 +59,12 @@ const ProductDetails = () => {
             return;
         }
 
-        dispatch(cartActions.addToCart({
+        const itemToAdd = {
             ...product,
-            size: selectedSize || (product.sizes ? product.sizes[0] : "Standard")
-        }));
-        triggerToast(`${product.title} added to bag`, "success");
+            size: selectedSize || (product.sizes ? product.sizes[0] : "Standard"),
+            quantity: 1
+        };
+        dispatch(cartActions.addToCart(itemToAdd));
     };
 
     return (

@@ -4,6 +4,7 @@ const initialState = {
     cartItems: [],
     totalQuantity: 0,
     totalAmount: 0,
+    lastAddedItem: null,
 };
 
 const cartSlice = createSlice({
@@ -35,6 +36,21 @@ const cartSlice = createSlice({
                 (total, item) => total + Number(item.price) * Number(item.quantity),
                 0
             );
+
+            state.lastAddedItem = {
+                id: newItem.id,
+                title: newItem.title,
+                image: newItem.image,
+                price: newItem.price,
+                size: newItem.size || "Standard",
+                color: newItem.color || "Default",
+                quantity: existingItem ? existingItem.quantity : 1,
+                timestamp: Date.now()
+            };
+        },
+
+        clearLastAddedItem(state) {
+            state.lastAddedItem = null;
         },
 
         removeFromCart(state, action) {
