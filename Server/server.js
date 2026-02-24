@@ -16,10 +16,7 @@ app.use(express.json());
 // Routes
 app.use("/api/products", productRoutes);
 
-// Test Route (optional but useful)
-app.get("/", (req, res) => {
-  res.send("Ecommerce API is running...");
-});
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on PORT ${PORT}`);
