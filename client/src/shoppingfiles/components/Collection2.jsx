@@ -1,4 +1,6 @@
 import React, { useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { cartActions } from "../Redux/CartSlice";
 import { useNavigate } from "react-router-dom";
 import "./Collection2.css";
 
@@ -10,7 +12,7 @@ import MEN1 from "../../assets/MEN1.jpg";
 import MEN2 from "../../assets/MEN2.jpg";
 import MEN3 from "../../assets/MEN3.jpg";
 import MEN4 from "../../assets/MEN4.jpg";
-import MEN5 from "../../assets/MEN5.jpeg";
+import MEN5 from "../../assets/MEN5.jpg";
 
 import WOMAN1 from "../../assets/WOMAN1.jpg";
 import WOMAN2 from "../../assets/WOMAN2.jpg";
@@ -24,6 +26,7 @@ import CHILD2 from "../../assets/CHILD2.jpg";
 const Collection2 = () => {
   const sliderRef = useRef(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [showToast, setShowToast] = useState(false);
 
   const items = [
@@ -49,8 +52,9 @@ const Collection2 = () => {
           id: item.id,
           title: item.name,
           image: item.img,
-          price: 0, // Placeholder price
-          offer: item.offer
+          price: 2499,
+          color: "Multiple",
+          size: "Standard"
         }
       }
     });

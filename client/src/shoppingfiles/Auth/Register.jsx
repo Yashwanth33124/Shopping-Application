@@ -124,6 +124,10 @@ const Register = () => {
                     <button type="submit" className="create-account-btn">
                         CREATE ACCOUNT
                     </button>
+
+                    <button type="button" className="login-back-btn" onClick={() => navigate("/login")}>
+                        ALREADY HAVE AN ACCOUNT? LOG IN
+                    </button>
                 </form>
             </div>
         </div>

@@ -1,5 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { cartActions } from "../Redux/CartSlice";
 import { getImgUrl } from "../../utils/imagePath";
 
 import "./Beauty.css";
@@ -7,6 +9,7 @@ import "./Beauty.css";
 const Beauty = () => {
   const cardsRef = useRef([]);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleProductClick = (item) => {
     navigate(`/product/${item.id}`, { state: { product: item } });
@@ -96,14 +99,7 @@ const Beauty = () => {
       </section>
 
       {/* SIXTH IMAGE SECTION */}
-      <div className="beauty-bottom-section clickable" onClick={() => handleProductClick({
-        id: "b-sixth",
-        title: "Luxury Lipstick",
-        price: "2299",
-        image: getImgUrl("/images10/sixth.jpg"),
-        sizes: ["One Size"],
-        category: "beauty"
-      })}>
+      <div className="beauty-bottom-section">
         <img src={getImgUrl("/images10/sixth.jpg")} alt="Lipstick" />
       </div>
       {/* LUXURY PRODUCT SHOWCASE */}

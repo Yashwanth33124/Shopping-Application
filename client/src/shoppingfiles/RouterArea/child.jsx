@@ -1,10 +1,13 @@
 import React, { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { cartActions } from "../Redux/CartSlice";
 import { getImgUrl } from "../../utils/imagePath";
 
 import "./child.css";
 const Child = () => {
   const cardsRef = useRef([]);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleProductClick = (item) => {
@@ -46,8 +49,8 @@ const Child = () => {
       {/* ===== FEATURE IMAGES ===== */}
       <section className="child-images">
         {[
-          { id: "kf1", img: getImgUrl("/image8/kid1.avif"), title: "Playful Denim", price: "1999" },
-          { id: "kf2", img: getImgUrl("/image8/kid2.avif"), title: "Everyday Comfort", price: "2499" },
+          { id: "k-hero-1", img: getImgUrl("/image8/kid1.avif"), title: "Playful Denim", price: 1999 },
+          { id: "k-hero-2", img: getImgUrl("/image8/kid2.avif"), title: "Everyday Comfort", price: 2499 },
         ].map((item, i) => (
           <div
             className="child-image-card clickable"
@@ -81,7 +84,7 @@ const Child = () => {
             const product = {
               id: `child-grid-${i}`,
               title: `Child Casual Wear ${i + 1}`,
-              price: "1299",
+              price: 1299,
               image: getImgUrl(`/images9/${img}`)
             };
             return (
@@ -100,7 +103,7 @@ const Child = () => {
       {/* CATEGORY GRID */}
       <div className="child-container">
         <div className="child-row">
-          <div className="child-item">
+          <div className="child-item clickable" onClick={() => handleProductClick({ id: "k-cat-tees", title: "Child Tees", price: 799, image: getImgUrl("/images9/k11.jpg") })}>
             <img src={getImgUrl("/images9/k11.jpg")} alt="Tees" />
             <div className="child-details">
               <span className="child-category">TEES</span>
@@ -108,7 +111,7 @@ const Child = () => {
             </div>
           </div>
 
-          <div className="child-item">
+          <div className="child-item clickable" onClick={() => handleProductClick({ id: "k-cat-bottom", title: "Child Bottomwear", price: 1199, image: getImgUrl("/images9/k12.jpg") })}>
             <img src={getImgUrl("/images9/k12.jpg")} alt="Bottomwear" />
             <div className="child-details">
               <span className="child-category">BOTTOMWEAR</span>
@@ -118,7 +121,7 @@ const Child = () => {
         </div>
 
         <div className="child-row">
-          <div className="child-item">
+          <div className="child-item clickable" onClick={() => handleProductClick({ id: "k-cat-outer", title: "Child Outerwear", price: 1999, image: getImgUrl("/images9/k13.jpg") })}>
             <img src={getImgUrl("/images9/k13.jpg")} alt="Outerwear" />
             <div className="child-details">
               <span className="child-category">OUTERWEAR</span>
@@ -126,7 +129,7 @@ const Child = () => {
             </div>
           </div>
 
-          <div className="child-item">
+          <div className="child-item clickable" onClick={() => handleProductClick({ id: "k-cat-sets", title: "Child Sets", price: 2299, image: getImgUrl("/images9/k14.jpg") })}>
             <img src={getImgUrl("/images9/k14.jpg")} alt="Sets" />
             <div className="child-details">
               <span className="child-category">SETS</span>

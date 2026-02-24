@@ -65,6 +65,7 @@ const ProductDetails = () => {
             quantity: 1
         };
         dispatch(cartActions.addToCart(itemToAdd));
+        navigate("/cart");
     };
 
     return (
@@ -84,7 +85,11 @@ const ProductDetails = () => {
                             playsInline
                         />
                     ) : (
-                        <img src={product.image} alt={product.title} className="main-image" />
+                        <img
+                            src={product.images?.[0] || product.image || product.src || product.img}
+                            alt={product.title}
+                            className="main-image"
+                        />
                     )}
                     <button className="view-products-badge">VIEW PRODUCTS</button>
                 </div>
@@ -104,7 +109,7 @@ const ProductDetails = () => {
                     <div className="color-section">
                         <p className="color-label">COLOR: {product.color || "Standard"}</p>
                         <div className="color-thumbnail active">
-                            <img src={product.image} alt="Color variant" />
+                            <img src={product.images?.[0] || product.image || product.src || product.img} alt="Color variant" />
                         </div>
                     </div>
 

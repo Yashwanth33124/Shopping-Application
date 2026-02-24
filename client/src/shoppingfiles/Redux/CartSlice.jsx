@@ -20,7 +20,7 @@ const cartSlice = createSlice({
                 state.cartItems.push({
                     id: newItem.id,
                     title: newItem.title,
-                    image: newItem.image,
+                    image: newItem.images?.[0] || newItem.image || newItem.src || newItem.img,
                     price: newItem.price,
                     quantity: 1,
                     totalPrice: newItem.price,
@@ -40,7 +40,7 @@ const cartSlice = createSlice({
             state.lastAddedItem = {
                 id: newItem.id,
                 title: newItem.title,
-                image: newItem.image,
+                image: newItem.images?.[0] || newItem.image || newItem.src || newItem.img,
                 price: newItem.price,
                 size: newItem.size || "Standard",
                 color: newItem.color || "Default",

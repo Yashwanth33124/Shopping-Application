@@ -1,11 +1,14 @@
 import React, { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { cartActions } from "../Redux/CartSlice";
 import { getImgUrl } from "../../utils/imagePath";
 
 import "./Woman.css";
 
 const Woman = () => {
   const cardsRef = useRef([]);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleProductClick = (item) => {
@@ -47,8 +50,8 @@ const Woman = () => {
       {/* ===== FIRST 2 FEATURE IMAGES ===== */}
       <section className="woman-images">
         {[
-          { id: "wf1", img: getImgUrl("/images5/fashine1.avif"), title: "Denim Edit", price: "2999" },
-          { id: "wf2", img: getImgUrl("/images5/fashine2.avif"), title: "Urban Casual", price: "3499" },
+          { id: "w-hero-1", img: getImgUrl("/images5/fashine1.avif"), title: "Denim Edit", price: 2999 },
+          { id: "w-hero-2", img: getImgUrl("/images5/fashine2.avif"), title: "Urban Casual", price: 3499 },
         ].map((item, i) => (
           <div
             className="woman-image-card clickable"
@@ -71,7 +74,7 @@ const Woman = () => {
           const product = {
             id: `woman-grid-${i}`,
             title: `Woman Chic Outfit ${i + 1}`,
-            price: "2599",
+            price: 2599,
             image: getImgUrl(`/images5/fashine3 (${i + 1}).avif`)
           };
           return (
@@ -87,7 +90,7 @@ const Woman = () => {
       </section>
       <div className="hw-container">
         <div className="hw-row">
-          <div className="hw-item">
+          <div className="hw-item clickable" onClick={() => handleProductClick({ id: "w-cat-tops", title: "Woman Tops", price: 1299, image: getImgUrl("/images5/fashine4.avif") })}>
             <img src={getImgUrl("/images5/fashine4.avif")} alt="w1" />
             <div className="hw-details">
               <span className="category">TOPS</span>
@@ -95,7 +98,7 @@ const Woman = () => {
             </div>
           </div>
 
-          <div className="hw-item">
+          <div className="hw-item clickable" onClick={() => handleProductClick({ id: "w-cat-dress", title: "Woman Dresses", price: 2499, image: getImgUrl("/images5/fashine5.avif") })}>
             <img src={getImgUrl("/images5/fashine5.avif")} alt="w2" />
             <div className="hw-details">
               <span className="category">DRESSES</span>
@@ -105,7 +108,7 @@ const Woman = () => {
         </div>
 
         <div className="hw-row">
-          <div className="hw-item">
+          <div className="hw-item clickable" onClick={() => handleProductClick({ id: "w-cat-outer", title: "Woman Outerwear", price: 4599, image: getImgUrl("/images5/fashine6.avif") })}>
             <img src={getImgUrl("/images5/fashine6.avif")} alt="w3" />
             <div className="hw-details">
               <span className="category">OUTERWEAR</span>
@@ -113,7 +116,7 @@ const Woman = () => {
             </div>
           </div>
 
-          <div className="hw-item">
+          <div className="hw-item clickable" onClick={() => handleProductClick({ id: "w-cat-tailored", title: "Woman Tailoring", price: 6999, image: getImgUrl("/images5/fashine7.avif") })}>
             <img src={getImgUrl("/images5/fashine7.avif")} alt="w4" />
             <div className="hw-details">
               <span className="category">TAILORING</span>

@@ -1,11 +1,14 @@
 import React, { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { cartActions } from "../Redux/CartSlice";
 import { getImgUrl } from "../../utils/imagePath";
 
 import "./Men.css";
 
 const Men = () => {
   const cardsRef = useRef([]);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleProductClick = (item) => {
@@ -57,7 +60,7 @@ const Men = () => {
           <div
             className="men2-media-left clickable"
             ref={(el) => (cardsRef.current[0] = el)}
-            onClick={() => handleProductClick({ id: "m1", title: "Denim Edit", price: "2499", image: getImgUrl("/images/m1.avif") })}
+            onClick={() => handleProductClick({ id: "m-hero-1", title: "Denim Edit", price: 2499, image: getImgUrl("/images/m1.avif") })}
           >
             <img src={getImgUrl("/images/m1.avif")} alt="Denim Collection" />
             <div className="men2-text">
@@ -70,7 +73,14 @@ const Men = () => {
           <div
             className="men2-media-right clickable"
             ref={(el) => (cardsRef.current[1] = el)}
-            onClick={() => handleProductClick({ id: "mv", title: "Urban Casual", price: "1999", image: getImgUrl("/images/mv.webm"), isVideo: true })}
+            onClick={() => handleProductClick({
+              id: "m-hero-video",
+              title: "Urban Casual",
+              price: 1999,
+              image: getImgUrl("/images/mv.webm"),
+              video: getImgUrl("/images/mv.webm"),
+              isVideo: true
+            })}
           >
             <video src={getImgUrl("/images/mv.webm")} autoPlay muted loop playsInline />
             <div className="men2-text">
@@ -90,12 +100,12 @@ const Men = () => {
       {/* PRODUCT GRID */}
       <section className="men-products">
         <div className="men-products-grid">
-          {Array.from({ length: 12 }).map((_, i) => {
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((num, i) => {
             const product = {
-              id: `men-grid-${i}`,
-              title: `Men Essential Item ${i + 1}`,
-              price: "1799",
-              image: getImgUrl(`/images2/d${i + 1}.avif`)
+              id: `men-grid-${num}`,
+              title: `Men Essential Item ${num}`,
+              price: 1799,
+              image: getImgUrl(`/images2/d${num}.avif`)
             };
             return (
               <div
@@ -113,7 +123,7 @@ const Men = () => {
       {/* CATEGORY GRID */}
       <div className="hm-container">
         <div className="hm-row">
-          <div className="hm-item">
+          <div className="hm-item clickable" onClick={() => handleProductClick({ id: "m-cat-tees", title: "Men Tees", price: 999, image: getImgUrl("/images3/a1.png") })}>
             <img src={getImgUrl("/images3/a1.png")} alt="a1" />
             <div className="hm-details">
               <span className="category">TEES</span>
@@ -121,7 +131,7 @@ const Men = () => {
             </div>
           </div>
 
-          <div className="hm-item">
+          <div className="hm-item clickable" onClick={() => handleProductClick({ id: "m-cat-pants", title: "Men Sweatpants", price: 1499, image: getImgUrl("/images3/a2.jpeg") })}>
             <img src={getImgUrl("/images3/a2.jpeg")} alt="a2" />
             <div className="hm-details">
               <span className="category">SWEATPANTS</span>
@@ -131,7 +141,7 @@ const Men = () => {
         </div>
 
         <div className="hm-row">
-          <div className="hm-item">
+          <div className="hm-item clickable" onClick={() => handleProductClick({ id: "m-cat-outer", title: "Men Outerwear", price: 3999, image: getImgUrl("/images3/a3.jpg") })}>
             <img src={getImgUrl("/images3/a3.jpg")} alt="a3" />
             <div className="hm-details">
               <span className="category">OUTERWEAR</span>
@@ -139,7 +149,7 @@ const Men = () => {
             </div>
           </div>
 
-          <div className="hm-item">
+          <div className="hm-item clickable" onClick={() => handleProductClick({ id: "m-cat-tailored", title: "Men Tailoring", price: 5999, image: getImgUrl("/images3/a4.jpeg") })}>
             <img src={getImgUrl("/images3/a4.jpeg")} alt="a4" />
             <div className="hm-details">
               <span className="category">TAILORING</span>

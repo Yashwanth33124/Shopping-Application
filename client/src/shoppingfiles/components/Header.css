@@ -116,7 +116,7 @@
 
 /* Hover pill */
 .center ul li:hover {
-  background: rgba(255, 0, 195, 0.08);
+  background: transparent;
 }
 
 /* ================= ACTIVE SYMBOL ================= */

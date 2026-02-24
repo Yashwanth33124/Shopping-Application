@@ -156,3 +156,21 @@
         width: 100%;
     }
 }
+
+.login-back-btn {
+    background-color: transparent;
+    border: 1px solid #000;
+    padding: 15px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    margin-top: -10px;
+}
+
+.login-back-btn:hover {
+    background-color: #000;
+    color: #fff;
+}

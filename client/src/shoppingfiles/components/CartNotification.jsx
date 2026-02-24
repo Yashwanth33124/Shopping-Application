@@ -3,43 +3,55 @@ import "./CartNotification.css";
 import { FiX } from "react-icons/fi";
 
 const CartNotification = ({ product, show, onClose }) => {
+    const [isClosing, setIsClosing] = React.useState(false);
+    const [isMounted, setIsMounted] = React.useState(false);
+
     useEffect(() => {
         if (show) {
+            setIsMounted(true);
+            setIsClosing(false);
             const timer = setTimeout(() => {
-                onClose();
-            }, 3000);
+                handleClose();
+            }, 2500); // 2 to 3 seconds as requested
             return () => clearTimeout(timer);
         }
-    }, [show, onClose]);
+    }, [show]);
 
-    if (!show || !product) return null;
+    const handleClose = () => {
+        setIsClosing(true);
+        setTimeout(() => {
+            setIsMounted(false);
+            onClose();
+        }, 500); // Wait for transition
+    };
+
+    if (!isMounted && !show) return null;
+
+    const displayProduct = product || {};
 
     return (
-        <div className="cart-notification-container">
+        <div className={`cart-notification-container ${show && !isClosing ? "active" : "leaving"}`}>
             <div className="cart-notification-card">
-                <button className="notif-close-btn" onClick={onClose}>
-                    +
-                </button>
                 <div className="notif-body">
                     <div className="notif-image-section">
-                        <img src={product.image} alt={product.title} />
+                        <img src={displayProduct.image} alt={displayProduct.title} />
                     </div>
                     <div className="notif-info-section">
-                        <h3 className="notif-product-title">{product.title}</h3>
-                        <p className="notif-product-price">₹ {product.price}</p>
+                        <h3 className="notif-product-title">{displayProduct.title}</h3>
+                        <p className="notif-product-price">Rs. {displayProduct.price}</p>
 
                         <div className="notif-specs">
                             <div className="notif-spec-item">
-                                <span className="spec-label">Color</span>
-                                <span className="spec-value">{product.color || "Standard"}</span>
+                                <span className="spec-label">Colour</span>
+                                <span className="spec-value">{displayProduct.color || "Default"}</span>
                             </div>
                             <div className="notif-spec-item">
                                 <span className="spec-label">Size</span>
-                                <span className="spec-value">{product.size || "S"}</span>
+                                <span className="spec-value">{displayProduct.size || "S"}</span>
                             </div>
                             <div className="notif-spec-item">
                                 <span className="spec-label">Quantity</span>
-                                <span className="spec-value">{product.quantity || 1}</span>
+                                <span className="spec-value">{displayProduct.quantity || 1}</span>
                             </div>
                         </div>
                     </div>
