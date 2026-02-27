@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { authSuccess } from "../Redux/AuthSlice";
 import "./Register.css";
 
 const Register = () => {
-    const dispatch = useDispatch();
     const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
         email: "",
         password: "",
@@ -18,24 +16,47 @@ const Register = () => {
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
+
         setFormData((prev) => ({
             ...prev,
             [name]: type === "checkbox" ? checked : value,
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Handle registration logic here
-        console.log("Registration data:", formData);
 
-        // Simulate registration success
-        dispatch(authSuccess({
-            user: { email: formData.email, name: formData.name },
-            token: "dummy-reg-token-" + Date.now()
-        }));
+        try {
+            const response = await fetch(
+                "http://localhost:3001/api/auth/register",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        username: formData.name, // backend expects username
+                        email: formData.email,
+                        password: formData.password,
+                        telephone: formData.telephone,
+                    }),
+                }
+            );
 
-        navigate("/");
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message || "Registration failed");
+            }
+
+            console.log("Registration success:", data.message);
+
+            // redirect to login after successful registration
+            navigate("/login");
+
+        } catch (error) {
+            console.error("Registration error:", error.message);
+        }
     };
 
     return (
@@ -82,6 +103,7 @@ const Register = () => {
                             <label>PREFIX</label>
                             <div className="prefix-value">+91</div>
                         </div>
+
                         <div className="telephone-input">
                             <label>TELEPHONE</label>
                             <input
@@ -94,7 +116,9 @@ const Register = () => {
                         </div>
                     </div>
 
-                    <p className="sms-notice">We will send you an SMS to verify your phone number</p>
+                    <p className="sms-notice">
+                        We will send you an SMS to verify your phone number
+                    </p>
 
                     <div className="checkbox-group">
                         <input
@@ -104,7 +128,9 @@ const Register = () => {
                             checked={formData.newsletter}
                             onChange={handleChange}
                         />
-                        <label htmlFor="newsletter">I wish to receive Voguecart news on my e-mail</label>
+                        <label htmlFor="newsletter">
+                            I wish to receive Voguecart news on my e-mail
+                        </label>
                     </div>
 
                     <div className="checkbox-group">
@@ -117,7 +143,10 @@ const Register = () => {
                             required
                         />
                         <label htmlFor="privacy">
-                            I accept the <span className="underline">privacy statement</span>
+                            I accept the{" "}
+                            <span className="underline">
+                                privacy statement
+                            </span>
                         </label>
                     </div>
 
@@ -125,7 +154,11 @@ const Register = () => {
                         CREATE ACCOUNT
                     </button>
 
-                    <button type="button" className="login-back-btn" onClick={() => navigate("/login")}>
+                    <button
+                        type="button"
+                        className="login-back-btn"
+                        onClick={() => navigate("/login")}
+                    >
                         ALREADY HAVE AN ACCOUNT? LOG IN
                     </button>
                 </form>
