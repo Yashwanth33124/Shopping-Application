@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../Redux/AuthSlice";
 import { useNavigate } from "react-router-dom";
+import { FiArrowLeft, FiPackage, FiTruck, FiCheck, FiMapPin } from "react-icons/fi";
 import "./Account.css";
 
 const Account = () => {
     const { user, isPrime } = useSelector((state) => state.auth);
-    const [activeTab, setActiveTab] = React.useState("ACCOUNT & REWARDS");
+    const { orders } = useSelector((state) => state.orders);
+    const [activeTab, setActiveTab] = useState("ACCOUNT & REWARDS");
+    const [selectedOrder, setSelectedOrder] = useState(null);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -15,29 +18,118 @@ const Account = () => {
         navigate("/");
     };
 
+    const handleTrackOrder = (order) => {
+        setSelectedOrder(order);
+    };
+
+    const renderTrackingView = (order) => {
+        return (
+            <div className="tracking-container">
+                <div className="back-btn-container">
+                    <button className="back-to-orders-btn" onClick={() => setSelectedOrder(null)}>
+                        <FiArrowLeft /> BACK TO ORDERS
+                    </button>
+                </div>
+
+                <div className="tracking-header">
+                    <h2 className="section-subtitle">TRACK YOUR ORDER</h2>
+                    <p className="tracking-id">Order ID: {order.id} | Tracking ID: {order.trackingId}</p>
+                </div>
+
+                <div className="tracking-layout">
+                    <div className="tracking-timeline">
+                        {order.timeline.map((step, index) => (
+                            <div key={index} className={`timeline-item ${step.completed ? 'completed' : ''} ${order.status === step.status ? 'active' : ''}`}>
+                                <div className="timeline-dot"></div>
+                                <div className="timeline-content">
+                                    <h3>{step.status}</h3>
+                                    {step.completed ? (
+                                        <p>{step.date} {step.time}</p>
+                                    ) : (
+                                        <p>Pending</p>
+                                    )}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    <aside className="order-tracking-summary-sidebar">
+                        <h2>ORDER SUMMARY</h2>
+                        <div className="order-items-mini">
+                            {order.items.map((item, idx) => (
+                                <div className="mini-item-row" key={idx}>
+                                    <img src={item.image} alt={item.title} className="mini-img" />
+                                    <div className="mini-info">
+                                        <h4>{item.title}</h4>
+                                        <p>Qty: {item.quantity || 1} | ₹ {item.price}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                        <div className="tracking-totals">
+                            <div className="tracking-total-row">
+                                <span>TOTAL PAID</span>
+                                <span>₹ {order.total.toLocaleString('en-IN')}</span>
+                            </div>
+                        </div>
+                        <div className="delivery-address-mini" style={{ marginTop: '20px', fontSize: '12px' }}>
+                            <p style={{ fontWeight: 700, marginBottom: '5px' }}><FiMapPin /> DELIVERY ADDRESS</p>
+                            <p>{order.address.fullAddress}</p>
+                            <p>{order.address.city}, {order.address.state}</p>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        );
+    };
+
     const renderContent = () => {
+        if (selectedOrder) {
+            return renderTrackingView(selectedOrder);
+        }
+
         switch (activeTab) {
             case "ORDERS":
                 return (
                     <div className="orders-section">
                         <h2 className="section-subtitle">ORDER HISTORY</h2>
-                        <div className="orders-list">
-                            {[1, 2].map((order) => (
-                                <div className="order-item-card" key={order}>
-                                    <div className="order-header">
-                                        <span className="order-date">FEBRUARY 20, 2026</span>
-                                        <span className="order-status">DELIVERED</span>
-                                    </div>
-                                    <div className="order-body">
-                                        <div className="order-img-mock"></div>
-                                        <div className="order-info">
-                                            <p className="order-id">Order #VC-209384{order}</p>
-                                            <p className="order-total">Total: ₹ 3,499</p>
+                        {orders.length === 0 ? (
+                            <div className="empty-orders">
+                                <FiPackage size={40} style={{ marginBottom: '15px', color: '#ccc' }} />
+                                <p>You haven't placed any orders yet.</p>
+                                <button className="shop-now-btn" onClick={() => navigate("/")}>SHOP NOW</button>
+                            </div>
+                        ) : (
+                            <div className="orders-list">
+                                {orders.map((order) => (
+                                    <div className="order-item-card" key={order.id} onClick={() => handleTrackOrder(order)}>
+                                        <div className="order-header">
+                                            <span className="order-date">{order.date}</span>
+                                            <span className="order-status">{order.status.toUpperCase()}</span>
+                                        </div>
+                                        <div className="order-body">
+                                            <div className="order-img-preview-group">
+                                                {order.items.slice(0, 3).map((item, i) => (
+                                                    <img key={i} src={item.image} alt="product" className="order-img-preview" />
+                                                ))}
+                                                {order.items.length > 3 && (
+                                                    <div className="order-img-mock" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', fontWeight: 700 }}>
+                                                        +{order.items.length - 3}
+                                                    </div>
+                                                )}
+                                            </div>
+                                            <div className="order-info">
+                                                <p className="order-id">Order {order.id}</p>
+                                                <p className="order-total">Total: ₹ {order.total.toLocaleString('en-IN')}</p>
+                                                <p className="order-track-link" style={{ fontSize: '11px', fontWeight: 700, marginTop: '10px', textDecoration: 'underline' }}>
+                                                    <FiTruck style={{ verticalAlign: 'middle', marginRight: '5px' }} /> TRACK ORDER
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            ))}
-                        </div>
+                                ))}
+                            </div>
+                        )}
                     </div>
                 );
             case "SETTINGS":
@@ -64,7 +156,6 @@ const Account = () => {
             default:
                 return (
                     <>
-                        {/* PRIME SUBSCRIPTION BANNER */}
                         <div className="prime-status-banner">
                             <div className="prime-banner-content">
                                 <span className="prime-badge">VOGUE PRIME</span>
@@ -121,7 +212,6 @@ const Account = () => {
     return (
         <div className="account-page-container">
             <div className="account-layout">
-                {/* SIDEBAR */}
                 <aside className="account-sidebar">
                     <div className="user-brief">
                         <p>Welcome, {user?.name || "User"}</p>
@@ -139,21 +229,21 @@ const Account = () => {
                     <nav className="account-nav">
                         <ul>
                             <li
-                                className={activeTab === "ACCOUNT & REWARDS" ? "active" : ""}
-                                onClick={() => setActiveTab("ACCOUNT & REWARDS")}
+                                className={activeTab === "ACCOUNT & REWARDS" && !selectedOrder ? "active" : ""}
+                                onClick={() => { setActiveTab("ACCOUNT & REWARDS"); setSelectedOrder(null); }}
                             >
                                 ACCOUNT & REWARDS
                             </li>
                             <li
-                                className={activeTab === "ORDERS" ? "active" : ""}
-                                onClick={() => setActiveTab("ORDERS")}
+                                className={activeTab === "ORDERS" || selectedOrder ? "active" : ""}
+                                onClick={() => { setActiveTab("ORDERS"); setSelectedOrder(null); }}
                             >
                                 ORDERS
                             </li>
                             <li onClick={() => navigate("/prime")}>VOGUEPRIME MEMBERSHIP</li>
                             <li
                                 className={activeTab === "SETTINGS" ? "active" : ""}
-                                onClick={() => setActiveTab("SETTINGS")}
+                                onClick={() => { setActiveTab("SETTINGS"); setSelectedOrder(null); }}
                             >
                                 SETTINGS
                             </li>
@@ -165,9 +255,8 @@ const Account = () => {
                     </button>
                 </aside>
 
-                {/* MAIN CONTENT */}
                 <main className="account-main">
-                    <h1 className="account-title">{activeTab}</h1>
+                    <h1 className="account-title">{selectedOrder ? "TRACKING" : activeTab}</h1>
                     {renderContent()}
                 </main>
             </div>

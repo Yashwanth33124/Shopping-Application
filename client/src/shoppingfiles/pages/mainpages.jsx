@@ -15,12 +15,15 @@ import PrimeWelcomeNotification from '../components/PrimeWelcomeNotification'
 
 
 const Mainpage = () => {
-  const { isPrime, isAuthenticated } = useSelector((state) => state.auth);
+  const { isPrime, isAuthenticated, user } = useSelector((state) => state.auth);
   const [showPrimeWelcome, setShowPrimeWelcome] = useState(false);
 
   useEffect(() => {
-    // Check if user is prime and hasn't seen the welcome message in this session
-    const hasSeenWelcome = sessionStorage.getItem('hasSeenPrimeWelcome');
+    if (!user) return;
+
+    // Check if user is prime and hasn't seen the welcome message
+    const storageKey = `hasSeenPrimeWelcome_${user.email || 'user'}`;
+    const hasSeenWelcome = localStorage.getItem(storageKey);
 
     if (isPrime && isAuthenticated && !hasSeenWelcome) {
       // Small delay for better UX after page load
@@ -29,11 +32,14 @@ const Mainpage = () => {
       }, 1500);
       return () => clearTimeout(timer);
     }
-  }, [isPrime, isAuthenticated]);
+  }, [isPrime, isAuthenticated, user]);
 
   const handleCloseWelcome = () => {
     setShowPrimeWelcome(false);
-    sessionStorage.setItem('hasSeenPrimeWelcome', 'true');
+    if (user) {
+      const storageKey = `hasSeenPrimeWelcome_${user.email || 'user'}`;
+      localStorage.setItem(storageKey, 'true');
+    }
   };
 
   return (

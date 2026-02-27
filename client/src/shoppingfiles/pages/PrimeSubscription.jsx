@@ -8,7 +8,9 @@ import "./PrimeSubscription.css";
 
 const PrimeSubscription = () => {
     const [selectedPlan, setSelectedPlan] = useState("monthly");
-    const { user, isPrime } = useSelector((state) => state.auth);
+    const [showPayment, setShowPayment] = useState(false);
+    const [cardDetails, setCardDetails] = useState({ number: "", expiry: "", cvv: "" });
+    const { user, isPrime, primePlan } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -49,17 +51,77 @@ const PrimeSubscription = () => {
         }
     };
 
-    const handleSubscribe = () => {
+    const handleProceedToPayment = (key) => {
         if (!user) {
             navigate("/login");
             return;
         }
-        // In a real app, this would involve a payment gateway
-        dispatch(updatePrimeStatus(true));
-        // Remove alert and navigate home to show the new welcome notification
-        sessionStorage.removeItem('hasSeenPrimeWelcome'); // Reset to ensure it shows
+        setSelectedPlan(key);
+        setShowPayment(true);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    const handleConfirmPayment = () => {
+        dispatch(updatePrimeStatus({ isPrime: true, plan: plans[selectedPlan].name }));
+        if (user) {
+            const storageKey = `hasSeenPrimeWelcome_${user.email || 'user'}`;
+            localStorage.removeItem(storageKey);
+        }
+        setShowPayment(false);
+        // We can show a small success state or just redirect
         navigate("/");
     };
+
+    if (showPayment) {
+        return (
+            <div className="prime-payment-wrapper">
+                <button className="prime-back-btn" onClick={() => setShowPayment(false)}>
+                    <FiArrowLeft />
+                </button>
+                <div className="prime-payment-content">
+                    <div className="member-logo">VOGUE<span>PRIME</span></div>
+                    <h1>Membership Payment</h1>
+                    <p className="payment-plan-desc">You are subscribing to the <strong>{plans[selectedPlan].name}</strong> plan for <strong>{plans[selectedPlan].price}</strong></p>
+
+                    <div className="prime-payment-form">
+                        <div className="form-group">
+                            <label>Card Number</label>
+                            <input
+                                type="text"
+                                placeholder="0000 0000 0000 0000"
+                                value={cardDetails.number}
+                                onChange={(e) => setCardDetails({ ...cardDetails, number: e.target.value })}
+                            />
+                        </div>
+                        <div className="form-row">
+                            <div className="form-group">
+                                <label>Expiry Date</label>
+                                <input
+                                    type="text"
+                                    placeholder="MM / YY"
+                                    value={cardDetails.expiry}
+                                    onChange={(e) => setCardDetails({ ...cardDetails, expiry: e.target.value })}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>CVV</label>
+                                <input
+                                    type="password"
+                                    placeholder="***"
+                                    value={cardDetails.cvv}
+                                    onChange={(e) => setCardDetails({ ...cardDetails, cvv: e.target.value })}
+                                />
+                            </div>
+                        </div>
+                        <button className="prime-pay-btn" onClick={handleConfirmPayment}>
+                            AUTHORIZE PAYMENT {plans[selectedPlan].price}
+                        </button>
+                        <p className="secure-text"><i className="fas fa-lock"></i> Secure SSL Encrypted Gateway</p>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="prime-subscription-container">
@@ -68,40 +130,52 @@ const PrimeSubscription = () => {
             </button>
             <header className="prime-header">
                 <div className="prime-logo">VOGUE<span>PRIME</span></div>
-                <h1>Elevate Your Shopping Experience</h1>
-                <p>Join the elite circle and enjoy exclusive benefits tailored just for you.</p>
+                {isPrime ? (
+                    <>
+                        <h1>Welcome to the Inner Circle</h1>
+                        <p>You are currently an active member with the <strong>{primePlan}</strong> plan.</p>
+                        <div className="active-status-badge">ACTIVE MEMBER</div>
+                    </>
+                ) : (
+                    <>
+                        <h1>Elevate Your Shopping Experience</h1>
+                        <p>Join the elite circle and enjoy exclusive benefits tailored just for you.</p>
+                    </>
+                )}
             </header>
 
             <div className="plans-grid">
-                {Object.keys(plans).map((key) => (
-                    <div
-                        key={key}
-                        className={`plan-card ${selectedPlan === key ? 'selected' : ''} ${plans[key].popular ? 'popular' : ''}`}
-                        onClick={() => setSelectedPlan(key)}
-                    >
-                        {plans[key].popular && <span className="popular-badge">MOST POPULAR</span>}
-                        <h3>{plans[key].name}</h3>
-                        <div className="price-tag">
-                            <span className="amount">{plans[key].price}</span>
-                            <span className="period">{plans[key].period}</span>
-                        </div>
-                        <ul className="feature-list">
-                            {plans[key].features.map((feature, index) => (
-                                <li key={index}><i className="fas fa-check"></i> {feature}</li>
-                            ))}
-                        </ul>
-                        <button
-                            className="subscribe-btn"
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                setSelectedPlan(key);
-                                handleSubscribe();
-                            }}
+                {Object.keys(plans).map((key) => {
+                    const isCurrentPlan = isPrime && primePlan === plans[key].name;
+                    return (
+                        <div
+                            key={key}
+                            className={`plan-card ${selectedPlan === key ? 'selected' : ''} ${plans[key].popular ? 'popular' : ''} ${isCurrentPlan ? 'is-active-plan' : ''}`}
+                            onClick={() => !isPrime && setSelectedPlan(key)}
                         >
-                            {isPrime ? "Manage Plan" : "Get Prime Now"}
-                        </button>
-                    </div>
-                ))}
+                            {plans[key].popular && <span className="popular-badge">MOST POPULAR</span>}
+                            <h3>{plans[key].name}</h3>
+                            <div className="price-tag">
+                                <span className="amount">{plans[key].price}</span>
+                                <span className="period">{plans[key].period}</span>
+                            </div>
+                            <ul className="feature-list">
+                                {plans[key].features.map((feature, index) => (
+                                    <li key={index}><i className="fas fa-check"></i> {feature}</li>
+                                ))}
+                            </ul>
+                            <button
+                                className={`subscribe-btn ${isCurrentPlan ? 'active-plan-btn' : ''}`}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleProceedToPayment(key);
+                                }}
+                            >
+                                {isCurrentPlan ? "MANAGE PLAN" : isPrime ? "UPGRADE / SWITCH" : "GET PRIME NOW"}
+                            </button>
+                        </div>
+                    );
+                })}
             </div>
 
             <section className="prime-stack-section">

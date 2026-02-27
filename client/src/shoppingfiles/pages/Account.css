@@ -260,12 +260,40 @@
 .orders-list {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 30px;
+}
+
+.empty-orders {
+    padding: 60px 0;
+    text-align: center;
+    border: 1px dashed #ddd;
+    border-radius: 8px;
+}
+
+.empty-orders p {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.shop-now-btn {
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 12px 30px;
+    font-weight: 700;
+    cursor: pointer;
 }
 
 .order-item-card {
     border: 1px solid #eee;
-    padding: 20px;
+    padding: 30px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.order-item-card:hover {
+    border-color: #aaa;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
 
 .order-header {
@@ -292,6 +320,19 @@
 .order-body {
     display: flex;
     gap: 20px;
+}
+
+.order-img-preview-group {
+    display: flex;
+    gap: 10px;
+}
+
+.order-img-preview {
+    width: 60px;
+    height: 80px;
+    background: #f5f5f5;
+    object-fit: cover;
+    border: 1px solid #eee;
 }
 
 .order-img-mock {
@@ -375,13 +416,166 @@
         gap: 20px;
     }
 
-    .promo-banner.black,
-    .benefit-img {
-        height: 200px;
-    }
-
     .account-nav li {
         font-size: 14px;
         margin-bottom: 12px;
+    }
+}
+
+/* TRACKING VIEW */
+.tracking-container {
+    animation: fadeIn 0.4s ease;
+}
+
+.back-btn-container {
+    margin-bottom: 30px;
+}
+
+.back-to-orders-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: none;
+    border: none;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 0;
+    letter-spacing: 1px;
+}
+
+.tracking-header {
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.tracking-id {
+    font-size: 14px;
+    color: #666;
+    margin-top: 5px;
+}
+
+.tracking-layout {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 60px;
+}
+
+.tracking-timeline {
+    position: relative;
+    padding-left: 30px;
+}
+
+.tracking-timeline::before {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 5px;
+    bottom: 5px;
+    width: 2px;
+    background: #f0f0f0;
+}
+
+.timeline-item {
+    position: relative;
+    padding-bottom: 40px;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -30px;
+    top: 5px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ccc;
+    z-index: 1;
+}
+
+.timeline-item.completed .timeline-dot {
+    background: #000;
+}
+
+.timeline-item.active .timeline-dot {
+    background: #000;
+    box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.1);
+}
+
+.timeline-content h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.timeline-content p {
+    font-size: 12px;
+    color: #666;
+}
+
+.order-tracking-summary-sidebar {
+    background: #f9f9f9;
+    padding: 30px;
+    height: fit-content;
+}
+
+.order-tracking-summary-sidebar h2 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+.mini-item-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.mini-img {
+    width: 50px;
+    height: 65px;
+    object-fit: cover;
+}
+
+.mini-info h4 {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.mini-info p {
+    font-size: 12px;
+    color: #444;
+}
+
+.tracking-totals {
+    margin-top: 25px;
+    border-top: 1px solid #ddd;
+    padding-top: 15px;
+}
+
+.tracking-total-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 900px) {
+    .tracking-layout {
+        grid-template-columns: 1fr;
     }
 }

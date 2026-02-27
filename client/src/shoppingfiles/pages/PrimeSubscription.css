@@ -189,6 +189,118 @@
     color: #000;
 }
 
+/* ACTIVE PLAN STYLES */
+.active-status-badge {
+    display: inline-block;
+    padding: 8px 16px;
+    background: #000;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-top: 20px;
+}
+
+.plan-card.is-active-plan {
+    border: 2px solid #000;
+    background: #fff;
+    pointer-events: none;
+}
+
+.active-plan-btn {
+    background: #008a00 !important;
+    cursor: default !important;
+}
+
+/* PAYMENT WRAPPER */
+.prime-payment-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    padding: 20px;
+    position: relative;
+    font-family: 'Poppins', sans-serif;
+}
+
+.prime-payment-content {
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+}
+
+.member-logo {
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+}
+
+.member-logo span {
+    font-weight: 100;
+}
+
+.payment-plan-desc {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 40px;
+}
+
+.prime-payment-form {
+    text-align: left;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #000;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #000;
+    font-size: 14px;
+    outline: none;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+
+.prime-pay-btn {
+    width: 100%;
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 20px;
+    font-weight: 900;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 20px;
+    letter-spacing: 1px;
+    transition: background 0.3s;
+}
+
+.prime-pay-btn:hover {
+    background: #333;
+}
+
+.secure-text {
+    font-size: 11px;
+    color: #888;
+    margin-top: 15px;
+    text-align: center;
+}
+
 @media (max-width: 768px) {
     .prime-header h1 {
         font-size: 2rem;
@@ -196,5 +308,10 @@
 
     .plan-card.popular {
         transform: scale(1);
+    }
+
+    .prime-back-btn {
+        top: 20px;
+        left: 20px;
     }
 }

@@ -146,7 +146,7 @@ const Beauty = () => {
             <div className="product-card clickable" key={index} onClick={() => handleProductClick({ ...item, image: item.src })}>
               <img src={item.src} alt={item.title} />
               <div className="product-overlay">
-                <button>Shop Now</button>
+                <button>Add To Cart</button>
               </div>
             </div>
           ))}

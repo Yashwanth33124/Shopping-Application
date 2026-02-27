@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { FiArrowLeft, FiCheckCircle, FiLock, FiPlus } from "react-icons/fi";
 import { cartActions } from "../Redux/CartSlice";
+import { orderActions } from "../Redux/OrderSlice";
 import "./Checkout.css";
 
 const INDIAN_STATES = [
@@ -92,6 +93,20 @@ const Checkout = () => {
     };
 
     const handleCompletePurchase = () => {
+        const orderData = {
+            id: `#VC-${Math.floor(1000000 + Math.random() * 9000000)}`,
+            date: new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' }).toUpperCase(),
+            items: [...cartItems],
+            total: finalTotal,
+            address: {
+                city: formData.city,
+                state: formData.state,
+                fullAddress: `${formData.address}${formData.building ? ', ' + formData.building : ''}`
+            },
+            paymentMethod: paymentMethod === "card" ? "CREDIT/DEBIT CARD" : "CASH ON DELIVERY"
+        };
+
+        dispatch(orderActions.addOrder(orderData));
         setOrderStep("success");
         setTimeout(() => {
             dispatch(cartActions.clearCart());

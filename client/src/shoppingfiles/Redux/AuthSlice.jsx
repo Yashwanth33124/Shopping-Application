@@ -5,6 +5,7 @@ const initialState = {
     token: localStorage.getItem("token") || null,
     isAuthenticated: !!localStorage.getItem("token"),
     isPrime: JSON.parse(localStorage.getItem("user"))?.isPrime || false,
+    primePlan: JSON.parse(localStorage.getItem("user"))?.primePlan || null,
     loading: false,
     error: null,
 };
@@ -23,6 +24,7 @@ const authSlice = createSlice({
             state.token = action.payload.token;
             state.isAuthenticated = true;
             state.isPrime = action.payload.user.isPrime || false;
+            state.primePlan = action.payload.user.primePlan || null;
             localStorage.setItem("user", JSON.stringify(action.payload.user));
             localStorage.setItem("token", action.payload.token);
         },
@@ -32,8 +34,11 @@ const authSlice = createSlice({
         },
         updatePrimeStatus: (state, action) => {
             if (state.user) {
-                state.user.isPrime = action.payload;
-                state.isPrime = action.payload;
+                const { isPrime, plan } = action.payload;
+                state.user.isPrime = isPrime;
+                state.user.primePlan = plan;
+                state.isPrime = isPrime;
+                state.primePlan = plan;
                 localStorage.setItem("user", JSON.stringify(state.user));
             }
         },
@@ -42,6 +47,7 @@ const authSlice = createSlice({
             state.token = null;
             state.isAuthenticated = false;
             state.isPrime = false;
+            state.primePlan = null;
             localStorage.removeItem("user");
             localStorage.removeItem("token");
         },

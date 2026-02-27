@@ -27,6 +27,14 @@
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
     border: 1px solid #eee;
     position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.cart-notification-card:hover {
+    background: #fcfcfc;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
 }
 
 

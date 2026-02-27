@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
 import "./CartNotification.css";
 import { FiX } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 
 const CartNotification = ({ product, show, onClose }) => {
     const [isClosing, setIsClosing] = React.useState(false);
     const [isMounted, setIsMounted] = React.useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (show) {
@@ -25,13 +27,21 @@ const CartNotification = ({ product, show, onClose }) => {
         }, 500); // Wait for transition
     };
 
+    const handleCardClick = () => {
+        navigate("/cart");
+        handleClose();
+    };
+
     if (!isMounted && !show) return null;
 
     const displayProduct = product || {};
 
     return (
         <div className={`cart-notification-container ${show && !isClosing ? "active" : "leaving"}`}>
-            <div className="cart-notification-card">
+            <div
+                className="cart-notification-card"
+                onClick={handleCardClick}
+            >
                 <div className="notif-body">
                     <div className="notif-image-section">
                         <img src={displayProduct.image} alt={displayProduct.title} />
