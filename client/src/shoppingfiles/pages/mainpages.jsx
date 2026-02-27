@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import './mainpages.css'
-
+import { useSelector } from 'react-redux'
 
 import Banner from '../components/Banner'
 import Collection from '../components/Collection'
@@ -11,17 +11,37 @@ import Collection4 from '../components/Collection4'
 import AnimatedWaveFooter from '../components/footer'
 import Collection5 from '../components/Collection5'
 import Collection6 from '../components/Collection6'
+import PrimeWelcomeNotification from '../components/PrimeWelcomeNotification'
 
 
 const Mainpage = () => {
+  const { isPrime, isAuthenticated } = useSelector((state) => state.auth);
+  const [showPrimeWelcome, setShowPrimeWelcome] = useState(false);
 
+  useEffect(() => {
+    // Check if user is prime and hasn't seen the welcome message in this session
+    const hasSeenWelcome = sessionStorage.getItem('hasSeenPrimeWelcome');
 
+    if (isPrime && isAuthenticated && !hasSeenWelcome) {
+      // Small delay for better UX after page load
+      const timer = setTimeout(() => {
+        setShowPrimeWelcome(true);
+      }, 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [isPrime, isAuthenticated]);
+
+  const handleCloseWelcome = () => {
+    setShowPrimeWelcome(false);
+    sessionStorage.setItem('hasSeenPrimeWelcome', 'true');
+  };
 
   return (
     <div>
-
-
-
+      <PrimeWelcomeNotification
+        show={showPrimeWelcome}
+        onClose={handleCloseWelcome}
+      />
 
       <DealShowcase />
       <Collection />
@@ -35,14 +55,7 @@ const Mainpage = () => {
       <Collection6 />
       <Collection4 />
 
-
-
-
-
-
       <AnimatedWaveFooter />
-
-
     </div>
   )
 }

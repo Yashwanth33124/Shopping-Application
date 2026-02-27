@@ -4,6 +4,7 @@ const initialState = {
     user: JSON.parse(localStorage.getItem("user")) || null,
     token: localStorage.getItem("token") || null,
     isAuthenticated: !!localStorage.getItem("token"),
+    isPrime: JSON.parse(localStorage.getItem("user"))?.isPrime || false,
     loading: false,
     error: null,
 };
@@ -21,6 +22,7 @@ const authSlice = createSlice({
             state.user = action.payload.user;
             state.token = action.payload.token;
             state.isAuthenticated = true;
+            state.isPrime = action.payload.user.isPrime || false;
             localStorage.setItem("user", JSON.stringify(action.payload.user));
             localStorage.setItem("token", action.payload.token);
         },
@@ -28,15 +30,23 @@ const authSlice = createSlice({
             state.loading = false;
             state.error = action.payload;
         },
+        updatePrimeStatus: (state, action) => {
+            if (state.user) {
+                state.user.isPrime = action.payload;
+                state.isPrime = action.payload;
+                localStorage.setItem("user", JSON.stringify(state.user));
+            }
+        },
         logout: (state) => {
             state.user = null;
             state.token = null;
             state.isAuthenticated = false;
+            state.isPrime = false;
             localStorage.removeItem("user");
             localStorage.removeItem("token");
         },
     },
 });
 
-export const { authStart, authSuccess, authFailure, logout } = authSlice.actions;
+export const { authStart, authSuccess, authFailure, logout, updatePrimeStatus } = authSlice.actions;
 export default authSlice.reducer;

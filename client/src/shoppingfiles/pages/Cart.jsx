@@ -8,12 +8,13 @@ import "./Cart.css";
 const Cart = () => {
     const cartItems = useSelector((state) => state.cart.cartItems);
     const totalAmount = useSelector((state) => state.cart.totalAmount);
-    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+    const { isAuthenticated, isPrime } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const shippingFee = cartItems.length > 0 ? 499 : 0;
-    const finalTotal = totalAmount + shippingFee;
+    const shippingFee = (cartItems.length > 0 && !isPrime) ? 499 : 0;
+    const primeDiscount = isPrime ? Math.round(totalAmount * 0.1) : 0; // 10% discount for Prime
+    const finalTotal = totalAmount + shippingFee - primeDiscount;
 
     const handleIncrement = (id) => {
         const item = cartItems.find(i => i.id === id);
@@ -103,8 +104,14 @@ const Cart = () => {
                             </div>
                             <div className="summary-row">
                                 <span>Estimated shipping fee</span>
-                                <span>₹ {shippingFee}</span>
+                                <span>{shippingFee === 0 && cartItems.length > 0 ? <span className="free-text">FREE (PRIME)</span> : `₹ ${shippingFee}`}</span>
                             </div>
+                            {isPrime && (
+                                <div className="summary-row prime-savings">
+                                    <span>VOGUE PRIME Discount (10%)</span>
+                                    <span>- ₹ {primeDiscount}</span>
+                                </div>
+                            )}
                         </div>
 
                         <div className="summary-total">
@@ -112,7 +119,7 @@ const Cart = () => {
                             <span>₹ {finalTotal}</span>
                         </div>
 
-                        <button className="checkout-btn">CONTINUE TO CHECKOUT</button>
+                        <button className="checkout-btn" onClick={() => navigate("/checkout")}>CONTINUE TO CHECKOUT</button>
 
                         <div className="summary-auth-links">
                             {!isAuthenticated && (

@@ -297,6 +297,23 @@
     cursor: pointer;
 }
 
+.free-text {
+    color: #2e7d32;
+    font-weight: 700;
+}
+
+.prime-savings {
+    color: #444;
+    font-weight: 700;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px dashed #eee;
+}
+
+.cart-summary-section .summary-row.prime-savings span {
+    color: #000 !important;
+}
+
 /* RESPONSIVE */
 @media (max-width: 1024px) {
     .cart-content-layout {

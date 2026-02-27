@@ -1,13 +1,15 @@
 import React, { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { cartActions } from "../Redux/CartSlice";
+import { FiLock } from "react-icons/fi";
 import { getImgUrl } from "../../utils/imagePath";
 
 import "./Men.css";
 
 const Men = () => {
   const cardsRef = useRef([]);
+  const { isPrime } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -105,7 +107,7 @@ const Men = () => {
               id: `men-grid-${num}`,
               title: `Men Essential Item ${num}`,
               price: 1799,
-              image: getImgUrl(`/images2/d${num}.avif`)
+              image: getImgUrl(`/images2/d${num}.avif`),
             };
             return (
               <div

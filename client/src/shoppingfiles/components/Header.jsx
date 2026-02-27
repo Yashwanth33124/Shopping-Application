@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Header.css";
-import { FaBars, FaTimes } from "react-icons/fa";
+import { FaBars, FaTimes, FaGem } from "react-icons/fa";
 import { FiUser } from "react-icons/fi";
 import { PiShoppingBag } from "react-icons/pi";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -11,7 +11,7 @@ import logo from "../../assets/logo.png";
 
 const Header = () => {
   const dispatch = useDispatch();
-  const { isAuthenticated, user } = useSelector((state) => state.auth);
+  const { isAuthenticated, user, isPrime } = useSelector((state) => state.auth);
   const cartCount = useSelector((state) => state.cart.totalQuantity);
   const navigate = useNavigate();
 
@@ -97,8 +97,12 @@ const Header = () => {
 
           {/* PROFILE ICON & AUTH */}
           <div className="auth-group">
-            <NavLink to={isAuthenticated ? "/account" : "/login"} className="profile-icon">
+            <NavLink
+              to={isAuthenticated ? "/account" : "/login"}
+              className={`profile-icon ${isPrime ? 'prime-aura' : ''}`}
+            >
               <FiUser />
+              {isPrime && <span className="prime-signature">VOGUE PRIME</span>}
             </NavLink>
           </div>
         </div>

@@ -1,0 +1,200 @@
+.prime-subscription-container {
+    padding: 80px 20px;
+    background: #fafafa;
+    background-image:
+        radial-gradient(at 0% 0%, hsla(253, 16%, 7%, 0.03) 0, transparent 50%),
+        radial-gradient(at 50% 0%, hsla(225, 39%, 30%, 0.02) 0, transparent 50%),
+        radial-gradient(at 100% 0%, hsla(339, 49%, 30%, 0.02) 0, transparent 50%);
+    color: #111;
+    min-height: 100vh;
+    font-family: 'Outfit', sans-serif;
+    position: relative;
+}
+
+.prime-back-btn {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #000;
+    transition: transform 0.2s;
+}
+
+.prime-back-btn:hover {
+    transform: translateX(-5px);
+}
+
+.prime-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.prime-logo {
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    color: #1a1a1a;
+}
+
+.prime-logo span {
+    color: #000;
+    margin-left: 5px;
+    font-weight: 300;
+}
+
+.prime-header h1 {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    background: linear-gradient(45deg, #111, #444);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.prime-header p {
+    font-size: 1.1rem;
+    color: #555;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.plans-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto 80px;
+    padding: 20px;
+}
+
+.plan-card {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    padding: 40px;
+    border-radius: 20px;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+}
+
+.plan-card:hover {
+    transform: translateY(-10px);
+    border-color: #000;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+.plan-card.selected {
+    border-color: #000;
+    background: #fff;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
+}
+
+.plan-card.popular {
+    transform: scale(1.05);
+    background: #fff;
+    border-width: 2px;
+    border-color: #000;
+}
+
+.popular-badge {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #000;
+    color: #fff;
+    padding: 5px 15px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    border-radius: 20px;
+}
+
+.plan-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #1a1a1a;
+}
+
+.price-tag {
+    margin-bottom: 30px;
+}
+
+.amount {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #000;
+}
+
+.period {
+    color: #666;
+    font-size: 1rem;
+}
+
+.feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 40px;
+    flex-grow: 1;
+}
+
+.feature-list li {
+    margin-bottom: 12px;
+    color: #444;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.feature-list li i {
+    color: #000;
+    font-size: 0.8rem;
+}
+
+.subscribe-btn {
+    width: 100%;
+    padding: 15px;
+    border-radius: 10px;
+    border: none;
+    background: #000;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.subscribe-btn:hover {
+    background: #333;
+}
+
+.prime-stack-section {
+    padding: 100px 20px;
+    background: #fff;
+    text-align: center;
+}
+
+.stack-title {
+    font-size: 14px;
+    letter-spacing: 5px;
+    font-weight: 800;
+    margin-bottom: 50px;
+    color: #000;
+}
+
+@media (max-width: 768px) {
+    .prime-header h1 {
+        font-size: 2rem;
+    }
+
+    .plan-card.popular {
+        transform: scale(1);
+    }
+}

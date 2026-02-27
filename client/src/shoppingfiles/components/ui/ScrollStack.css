@@ -1,0 +1,108 @@
+.scroll-stack-container {
+    position: relative;
+    width: 100%;
+    background: transparent;
+}
+
+/* THE KEY: This wrapper stays at the top while children slide into it */
+.scroll-stack-sticky-wrapper {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.scroll-stack-item {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    will-change: transform, opacity;
+}
+
+.scroll-stack-card {
+    width: 90%;
+    max-width: 800px;
+    height: 480px;
+    background: #ffffff !important;
+    border: 1.5px solid #000;
+    border-radius: 24px;
+    padding: 60px;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #000;
+}
+
+.scroll-stack-card h2 {
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 24px;
+    font-family: "Playfair Display", serif;
+}
+
+.scroll-stack-card p {
+    font-size: 20px;
+    color: #555;
+    line-height: 1.6;
+    max-width: 500px;
+}
+
+.scroll-stack-card .badge {
+    background: #000;
+    color: #fff;
+    padding: 8px 18px;
+    font-size: 13px;
+    font-weight: 800;
+    margin-bottom: 30px;
+    letter-spacing: 2px;
+    border-radius: 4px;
+}
+
+.scroll-stack-final {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    pointer-events: none;
+}
+
+.scroll-stack-final h1 {
+    font-size: clamp(60px, 12vw, 120px);
+    font-weight: 950;
+    color: #000;
+    text-align: center;
+    letter-spacing: -2px;
+    line-height: 1;
+    font-family: "Playfair Display", serif;
+    text-transform: uppercase;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .scroll-stack-card {
+        padding: 30px;
+        height: 420px;
+        width: 95%;
+    }
+
+    .scroll-stack-card h2 {
+        font-size: 28px;
+    }
+
+    .scroll-stack-card p {
+        font-size: 16px;
+    }
+}
