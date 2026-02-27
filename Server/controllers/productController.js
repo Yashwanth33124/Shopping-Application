@@ -4,6 +4,7 @@ const fs = require("fs");
 
 exports.createProduct = async (req, res) => {
   try {
+
     // 1️⃣ Upload image to Cloudinary
     const result = await cloudinary.uploader.upload(req.file.path);
 
@@ -14,6 +15,7 @@ exports.createProduct = async (req, res) => {
       price: req.body.price,
       category: req.body.category,
       stock: req.body.stock,
+      role: req.body.role || "normal",   
       image: result.secure_url,
     });
 

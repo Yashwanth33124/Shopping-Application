@@ -5,12 +5,15 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  description: {
+    type: String,
+  },
   price: {
     type: Number,
     required: true,
   },
   image: {
-    type: String, // Cloudinary URL
+    type: String,
     required: true,
   },
   category: {
@@ -20,6 +23,14 @@ const productSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+
+  // ✅ ADD THIS
+  role: {
+    type: String,
+    enum: ["normal", "prime"],
+    default: "normal",
+  }
+
 }, { timestamps: true });
 
 module.exports = mongoose.model("Product", productSchema);
