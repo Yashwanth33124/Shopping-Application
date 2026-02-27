@@ -4,54 +4,64 @@ const jwt = require('jsonwebtoken')
 
 //register controller 
 
-const registerUser = async(req,res) => {
-    try{
-       //extract user information from request body 
-       const {username,email,password,role} = req.body 
-       
-       //firstly we need to is the user already exists 
-       const checkExistingUser = await User.findOne({$or: [{username},{email}]})
+const registerUser = async (req, res) => {
+  try {
+    const { email, password, name, telephone } = req.body;
 
-       if(checkExistingUser){
-        return res.status(400).json({
-            success: false,
-            message: "User already exists!"
-        })
-       }
-
-       //hashed password 
-
-       const salt = await bcrypt.genSalt(10)
-       const hashedPassword = await bcrypt.hash(password,salt)
-       
-       //create a new user and save to database
-       const newlyCreatedUser = new User({
-        username,
-        email,
-        password:hashedPassword,
-        role: role || 'user'
-       }) 
-       await newlyCreatedUser.save() 
-
-       if(newlyCreatedUser){
-        return res.status(201).json({
-            success: true,
-            message:"User registered successfully"
-       })
-      } else{
-       return res.status(400).json({
-            success: false,
-            message: "Unable to register the user! please try again"
-        })
-      }
-    }catch(e){
-        console.log(e) 
-       return  res.status(500).json({
-            success: false,
-            message: 'Something went wrong! please try again'
-        })
+    // validation
+    if (!email || !password || !name || !telephone) {
+      return res.status(400).json({
+        success: false,
+        message: "All required fields must be filled",
+      });
     }
-}
+
+    // phone validation (India example)
+    const phoneRegex = /^[6-9]\d{9}$/;
+    if (!phoneRegex.test(telephone)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid phone number",
+      });
+    }
+
+    // check existing user
+    const checkExistingUser = await User.findOne({ email });
+
+    if (checkExistingUser) {
+      return res.status(400).json({
+        success: false,
+        message: "User already exists!",
+      });
+    }
+
+    // hash password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    // create new user
+    const newlyCreatedUser = new User({
+      username: name,
+      email,
+      password: hashedPassword,
+      telephone,
+      role: "user",
+    });
+
+    await newlyCreatedUser.save();
+
+    return res.status(201).json({
+      success: true,
+      message: "User registered successfully",
+    });
+  } catch (e) {
+    console.log(e);
+    return res.status(500).json({
+      success: false,
+      message: "Something went wrong",
+    });
+  }
+};
 
 const loginUser = async(req,res) => {
     try{
