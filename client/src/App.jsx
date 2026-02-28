@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import Header from "./shoppingfiles/components/Header";
@@ -22,12 +22,14 @@ import { cartActions } from "./shoppingfiles/Redux/CartSlice";
 import CartNotification from "./shoppingfiles/components/CartNotification";
 
 import ProtectedRoute from "./shoppingfiles/RouterArea/ProtectedRoute";
+import PublicRoute from "./shoppingfiles/RouterArea/PublicRoute";
 
 function App() {
   const [showSplash, setShowSplash] = useState(true);
   const [exitSplash, setExitSplash] = useState(false);
   const location = useLocation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // Defensive selector
   const { isPrime, isAuthenticated } = useSelector((state) => state.auth);
@@ -35,13 +37,19 @@ function App() {
 
   useEffect(() => {
     const exitTimer = setTimeout(() => setExitSplash(true), 2200);
-    const removeTimer = setTimeout(() => setShowSplash(false), 3000);
+    const removeTimer = setTimeout(() => {
+      setShowSplash(false);
+      // After splash, if new user (not authenticated) and at root, redirect to login
+      if (location.pathname === "/" && !isAuthenticated) {
+        navigate("/login", { replace: true });
+      }
+    }, 3000);
 
     return () => {
       clearTimeout(exitTimer);
       clearTimeout(removeTimer);
     };
-  }, []);
+  }, [isAuthenticated, location.pathname, navigate]);
 
   // Debugging log (optional, but helps if we could see it)
   // console.log("Rendering App, path:", location.pathname);
@@ -94,8 +102,16 @@ function App() {
                 <Beauty />
               </ProtectedRoute>
             } />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={
+              <PublicRoute>
+                <Login />
+              </PublicRoute>
+            } />
+            <Route path="/register" element={
+              <PublicRoute>
+                <Register />
+              </PublicRoute>
+            } />
             <Route path="/product/:id" element={
               <ProtectedRoute>
                 <ProductDetails />
