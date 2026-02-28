@@ -135,21 +135,62 @@ const Account = () => {
             case "SETTINGS":
                 return (
                     <div className="settings-section">
-                        <h2 className="section-subtitle">ACCOUNT SETTINGS</h2>
-                        <div className="settings-form">
-                            <div className="form-group">
-                                <label>Full Name</label>
-                                <input type="text" defaultValue={user?.name || "User"} />
+                        <div className="settings-grid-view">
+                            <div className="settings-group">
+                                <p className="settings-data-text">{user?.email || "cheruvuyashwanth99@gmail.com"}</p>
+                                <p className="settings-data-text">{user?.phone || "+91 9618391199"}</p>
+                                <p className="settings-data-text">{user?.name || "Cheruvu yashwanth Kumar"}</p>
+                                <p className="settings-data-text">{user?.dob || "24/08/2004"}</p>
+                                <button className="settings-action-link">EDIT MY DETAILS</button>
                             </div>
-                            <div className="form-group">
-                                <label>Email Address</label>
-                                <input type="email" defaultValue={user?.email || "user@example.com"} />
+
+                            <div className="settings-divider"></div>
+
+                            <div className="settings-group">
+                                <button className="settings-action-link uppercase">ADD NEW ADDRESS</button>
+                                {orders.length > 0 && (
+                                    <div className="saved-address-preview">
+                                        <p>{orders[0].address.fullAddress}</p>
+                                        <p>{orders[0].address.city}, {orders[0].address.state}</p>
+                                    </div>
+                                )}
                             </div>
-                            <div className="form-group">
-                                <label>Password</label>
-                                <input type="password" placeholder="••••••••" />
+
+                            <div className="settings-divider"></div>
+
+                            <div className="settings-group">
+                                <p className="subscription-status-line">
+                                    Membership - <strong>{isPrime ? "VOGUE PRIME Member" : "Normal Member"}</strong>
+                                </p>
+                                <p className="subscription-status-line">
+                                    Newsletter Subscription - <strong>{isPrime ? "Subscribed" : "Normal"}</strong>
+                                </p>
+                                <p className="subscription-status-line">
+                                    Direct Mail Marketing - <strong>{isPrime ? "Subscribed" : "Normal"}</strong>
+                                </p>
+                                <button className="settings-action-link uppercase">EDIT SUBSCRIPTIONS</button>
                             </div>
-                            <button className="save-settings-btn">SAVE CHANGES</button>
+
+                            <div className="settings-divider"></div>
+
+                            <div className="settings-group">
+                                <button className="settings-action-link uppercase">CHANGE PASSWORD</button>
+                            </div>
+
+                            <div className="settings-divider"></div>
+
+                            <div className="settings-group">
+                                <h3 className="settings-subheading">GO TO MY PRIVACY PORTAL</h3>
+                                <p className="settings-info-text">
+                                    On VOGUE Group's privacy portal you can see your subscriptions, accounts, memberships and/or guest profiles connected to your email address across our brands and countries. Here you can edit subscriptions, request a copy of your data or choose to delete your account.
+                                </p>
+                            </div>
+
+                            <div className="settings-divider"></div>
+
+                            <div className="settings-group">
+                                <button className="settings-action-link uppercase sign-out-action" onClick={handleLogout}>SIGN OUT</button>
+                            </div>
                         </div>
                     </div>
                 );

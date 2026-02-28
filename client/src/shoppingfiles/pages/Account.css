@@ -579,3 +579,89 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* SETTINGS PAGE ENHANCEMENTS */
+.settings-grid-view {
+    display: flex;
+    flex-direction: column;
+    max-width: 700px;
+    animation: fadeIn 0.4s ease;
+}
+
+.settings-group {
+    padding: 35px 0;
+}
+
+.settings-group:first-child {
+    padding-top: 0;
+}
+
+.settings-divider {
+    height: 1px;
+    background-color: #e0e0e0;
+    width: 100%;
+}
+
+.settings-data-text {
+    font-size: 16px;
+    margin-bottom: 6px;
+    font-weight: 400;
+    color: #111;
+    letter-spacing: 0.2px;
+}
+
+.settings-action-link {
+    background: none;
+    border: none;
+    padding: 0;
+    margin-top: 25px;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: underline;
+    cursor: pointer;
+    text-align: left;
+    display: inline-block;
+    color: #111;
+    letter-spacing: 0.5px;
+    transition: opacity 0.2s;
+}
+
+.settings-action-link:hover {
+    opacity: 0.7;
+}
+
+.settings-action-link.uppercase {
+    text-transform: uppercase;
+}
+
+.settings-subheading {
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+}
+
+.settings-info-text {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #111;
+    max-width: 550px;
+}
+
+.subscription-status-line {
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: #111;
+}
+
+.saved-address-preview {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #444;
+    line-height: 1.4;
+}
+
+.sign-out-action {
+    margin-top: 5px;
+}
