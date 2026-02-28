@@ -21,6 +21,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { cartActions } from "./shoppingfiles/Redux/CartSlice";
 import CartNotification from "./shoppingfiles/components/CartNotification";
 
+import ProtectedRoute from "./shoppingfiles/RouterArea/ProtectedRoute";
+
 function App() {
   const [showSplash, setShowSplash] = useState(true);
   const [exitSplash, setExitSplash] = useState(false);
@@ -28,7 +30,7 @@ function App() {
   const dispatch = useDispatch();
 
   // Defensive selector
-  const { isPrime } = useSelector((state) => state.auth);
+  const { isPrime, isAuthenticated } = useSelector((state) => state.auth);
   const lastAddedItem = useSelector((state) => state.cart?.lastAddedItem || null);
 
   useEffect(() => {
@@ -67,18 +69,58 @@ function App() {
           <ScrollToTop />
 
           <Routes>
-            <Route path="/" element={<Mainpage />} />
-            <Route path="/men" element={<Men />} />
-            <Route path="/woman" element={<Woman />} />
-            <Route path="/child" element={<Child />} />
-            <Route path="/beauty" element={<Beauty />} />
+            <Route path="/" element={
+              <ProtectedRoute>
+                <Mainpage />
+              </ProtectedRoute>
+            } />
+            <Route path="/men" element={
+              <ProtectedRoute>
+                <Men />
+              </ProtectedRoute>
+            } />
+            <Route path="/woman" element={
+              <ProtectedRoute>
+                <Woman />
+              </ProtectedRoute>
+            } />
+            <Route path="/child" element={
+              <ProtectedRoute>
+                <Child />
+              </ProtectedRoute>
+            } />
+            <Route path="/beauty" element={
+              <ProtectedRoute>
+                <Beauty />
+              </ProtectedRoute>
+            } />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/product/:id" element={<ProductDetails />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/account" element={<Account />} />
-            <Route path="/prime" element={<PrimeSubscription />} />
-            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/product/:id" element={
+              <ProtectedRoute>
+                <ProductDetails />
+              </ProtectedRoute>
+            } />
+            <Route path="/cart" element={
+              <ProtectedRoute>
+                <Cart />
+              </ProtectedRoute>
+            } />
+            <Route path="/account" element={
+              <ProtectedRoute>
+                <Account />
+              </ProtectedRoute>
+            } />
+            <Route path="/prime" element={
+              <ProtectedRoute>
+                <PrimeSubscription />
+              </ProtectedRoute>
+            } />
+            <Route path="/checkout" element={
+              <ProtectedRoute>
+                <Checkout />
+              </ProtectedRoute>
+            } />
             <Route path="*" element={<div style={{ padding: '100px', textAlign: 'center' }}>404 Page Not Found</div>} />
           </Routes>
         </>
