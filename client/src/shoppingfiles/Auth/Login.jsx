@@ -14,26 +14,58 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!email.trim() || !password.trim()) {
-      setError("Please enter cumulative email and password.");
+      setError("Please enter email and password.");
       return;
     }
 
-    setError("");
-    // Simulate successful login for frontend development
-    dispatch(
-      authSuccess({
-        user: { email, name: "User" },
-        token: "dummy-token-" + Date.now(),
-      })
-    );
-    navigate(from, { replace: true });
+    try {
+      setError("");
+
+      const response = await fetch(
+        "http://localhost:3001/api/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+            password,
+          }),
+        }
+      );
+
+      const data = await response.json();
+      
+      console.log("LOGIN RESPONSE:", data);
+      
+      if (!response.ok) {
+        throw new Error(data.message);
+      }
+
+      // ✅ Save JWT
+      localStorage.setItem("token", data.accessToken);
+
+      // ✅ Update Redux
+      dispatch(
+        authSuccess({
+          user: { email },
+          token: data.accessToken,
+        })
+      );
+
+      navigate("/");
+
+    } catch (err) {
+      setError(err.message);
+      console.error(err);
+    }
   };
 
   return (
     <div className="login-container">
-      {/* LEFT SIDE */}
       <div className="login-left">
         <h1 className="brand">VOGUECART</h1>
 
@@ -47,62 +79,32 @@ const Login = () => {
             <input
               type="email"
               value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-                if (error) setError("");
-              }}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
-          <div className="input-group password-group">
+          <div className="input-group">
             <label>PASSWORD</label>
-            <div className="input-with-icon">
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                  if (error) setError("");
-                }}
-              />
-              <span className="eye-icon"><i className="fa-regular fa-eye"></i></span>
-            </div>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </div>
-
-          <p className="forgot">Have you forgotten your password?</p>
 
           <button className="btn black-btn" onClick={handleLogin}>
             LOG IN
           </button>
 
-          <button className="btn outline-btn" onClick={() => navigate("/register")}>
+          <button
+            className="btn outline-btn"
+            onClick={() => navigate("/register")}
+          >
             REGISTER
           </button>
-
-          <button className="btn outline-btn qr-btn">
-            <i className="fa-solid fa-qrcode"></i> LOG IN WITH QR CODE
-          </button>
-
-          <div className="access">
-            <h4 className="access-title">ACCESS WITH</h4>
-            <p className="privacy-notice">
-              By logging in with my social login, I agree to link my account in accordance with the <span className="underline">Privacy Policy</span>
-            </p>
-            <button className="btn outline-btn social-btn">
-              <img src="https://img.icons8.com/color/24/000000/google-logo.png" alt="google" />
-              CONTINUE WITH GOOGLE
-            </button>
-            <button className="btn outline-btn social-btn">
-              <i className="fa-brands fa-apple"></i>
-              CONTINUE WITH APPLE
-            </button>
-          </div>
-
-          <div className="help-footer">HELP</div>
         </div>
       </div>
 
-      {/* RIGHT SIDE */}
       <div className="login-right"></div>
     </div>
   );
