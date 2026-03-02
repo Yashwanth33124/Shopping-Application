@@ -13,9 +13,11 @@ const Register = () => {
         newsletter: false,
         privacy: false,
     });
+    const [error, setError] = useState("");
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
+        setError(""); // Clear error on change
 
         setFormData((prev) => ({
             ...prev,
@@ -25,6 +27,7 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setError("");
 
         try {
             const response = await fetch(
@@ -55,6 +58,7 @@ const Register = () => {
             navigate("/login");
 
         } catch (error) {
+            setError(error.message);
             console.error("Registration error:", error.message);
         }
     };
@@ -63,6 +67,8 @@ const Register = () => {
         <div className="register-container">
             <div className="register-content">
                 <h2 className="section-title">PERSONAL DETAILS</h2>
+
+                {error && <p className="error-message-box" style={{ color: 'red', textAlign: 'center', marginBottom: '20px', fontWeight: 'bold' }}>{error}</p>}
 
                 <form onSubmit={handleSubmit} className="register-form">
                     <div className="register-input-group">

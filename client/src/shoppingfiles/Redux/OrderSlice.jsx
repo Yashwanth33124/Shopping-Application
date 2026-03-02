@@ -23,9 +23,14 @@ const orderSlice = createSlice({
             };
             state.orders.unshift(newOrder); // Add to beginning
             localStorage.setItem("vogue_orders", JSON.stringify(state.orders));
+        },
+        clearOrders: (state) => {
+            state.orders = [];
+            localStorage.removeItem("vogue_orders");
         }
     }
 });
 
-export const orderActions = orderSlice.actions;
+export const { addOrder, clearOrders } = orderSlice.actions;
+export const orderActions = orderSlice.actions; // for backward compatibility if any
 export default orderSlice.reducer;

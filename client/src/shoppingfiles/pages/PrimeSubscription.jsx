@@ -61,15 +61,32 @@ const PrimeSubscription = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    const handleConfirmPayment = () => {
-        dispatch(updatePrimeStatus({ isPrime: true, plan: plans[selectedPlan].name }));
-        if (user) {
-            const storageKey = `hasSeenPrimeWelcome_${user.email || 'user'}`;
-            localStorage.removeItem(storageKey);
+    const handleConfirmPayment = async () => {
+        try {
+            const response = await fetch("http://localhost:3001/api/auth/update-prime-status", {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    userId: user.id || user._id,
+                    isPrime: true,
+                    plan: plans[selectedPlan].name
+                })
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                dispatch(updatePrimeStatus({ isPrime: true, plan: plans[selectedPlan].name }));
+                if (user) {
+                    const storageKey = `hasSeenPrimeWelcome_${user.email || 'user'}`;
+                    localStorage.removeItem(storageKey);
+                }
+                setShowPayment(false);
+                navigate("/");
+            }
+        } catch (error) {
+            console.error("Prime update failed", error);
         }
-        setShowPayment(false);
-        // We can show a small success state or just redirect
-        navigate("/");
     };
 
     if (showPayment) {

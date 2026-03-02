@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { logout } from "../Redux/AuthSlice";
+import { logout, updateUser } from "../Redux/AuthSlice";
+import { clearOrders } from "../Redux/OrderSlice";
 import { useNavigate } from "react-router-dom";
 import { FiArrowLeft, FiPackage, FiTruck, FiCheck, FiMapPin } from "react-icons/fi";
 import "./Account.css";
@@ -10,11 +11,83 @@ const Account = () => {
     const { orders } = useSelector((state) => state.orders);
     const [activeTab, setActiveTab] = useState("ACCOUNT & REWARDS");
     const [selectedOrder, setSelectedOrder] = useState(null);
+    const [isEditing, setIsEditing] = useState(false);
+    const [editForm, setEditForm] = useState({ username: "", telephone: "", dob: "" });
+    const [isAddingAddress, setIsAddingAddress] = useState(false);
+    const [addressForm, setAddressForm] = useState({ fullAddress: "", city: "", state: "" });
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    const handleSaveProfile = async () => {
+        try {
+            const response = await fetch("http://localhost:3001/api/auth/update-profile", {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ userId: user.id || user._id, ...editForm })
+            });
+            const data = await response.json();
+            if (data.success) {
+                dispatch(updateUser(data.user));
+                setIsEditing(false);
+            }
+        } catch (error) {
+            console.error("Update failed", error);
+        }
+    };
+
+    const handleAddAddress = async () => {
+        try {
+            const response = await fetch("http://localhost:3001/api/auth/add-address", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ userId: user.id || user._id, ...addressForm })
+            });
+            const data = await response.json();
+            if (data.success) {
+                dispatch(updateUser(data.user));
+                setIsAddingAddress(false);
+                setAddressForm({ fullAddress: "", city: "", state: "" });
+            }
+        } catch (error) {
+            console.error("Address add failed", error);
+        }
+    };
+
+    useEffect(() => {
+        const fetchUserData = async () => {
+            const token = localStorage.getItem("token");
+            if (!token) return;
+
+            // Fetch if username/telephone missing
+            if (user && (!user.username || !user.telephone)) {
+                try {
+                    // Try fetch by ID first if available
+                    const url = user.id || user._id
+                        ? `http://localhost:3001/api/auth/profile/${user.id || user._id}`
+                        : `http://localhost:3001/api/auth/me`;
+
+                    const response = await fetch(url, {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+                    const data = await response.json();
+                    if (data.success) {
+                        dispatch(updateUser(data.user));
+                    }
+                } catch (error) {
+                    console.error("Error fetching user profile:", error);
+                }
+            }
+        };
+
+        fetchUserData();
+    }, [user, dispatch]);
+
     const handleLogout = () => {
         dispatch(logout());
+        dispatch(clearOrders());
         navigate("/");
     };
 
@@ -137,22 +210,58 @@ const Account = () => {
                     <div className="settings-section">
                         <div className="settings-grid-view">
                             <div className="settings-group">
-                                <p className="settings-data-text">{user?.email || "cheruvuyashwanth99@gmail.com"}</p>
-                                <p className="settings-data-text">{user?.phone || "+91 9618391199"}</p>
-                                <p className="settings-data-text">{user?.name || "Cheruvu yashwanth Kumar"}</p>
-                                <p className="settings-data-text">{user?.dob || "24/08/2004"}</p>
-                                <button className="settings-action-link">EDIT MY DETAILS</button>
+                                {isEditing ? (
+                                    <div className="edit-details-form">
+                                        <input type="text" value={editForm.username} onChange={(e) => setEditForm({ ...editForm, username: e.target.value })} placeholder="Username" className="edit-input" />
+                                        <input type="text" value={editForm.telephone} onChange={(e) => setEditForm({ ...editForm, telephone: e.target.value })} placeholder="Telephone" className="edit-input" />
+                                        <input type="text" value={editForm.dob} onChange={(e) => setEditForm({ ...editForm, dob: e.target.value })} placeholder="DOB (DD/MM/YYYY)" className="edit-input" />
+                                        <div className="edit-btns">
+                                            <button className="settings-action-link" onClick={handleSaveProfile}>SAVE CHANGES</button>
+                                            <button className="settings-action-link" onClick={() => setIsEditing(false)}>CANCEL</button>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <>
+                                        <p className="settings-data-text">{user?.email}</p>
+                                        <p className="settings-data-text">{user?.telephone}</p>
+                                        <p className="settings-data-text">{user?.username}</p>
+                                        {user?.dob && <p className="settings-data-text">{user.dob}</p>}
+                                        <button className="settings-action-link" onClick={() => { setIsEditing(true); setEditForm({ username: user.username, telephone: user.telephone, dob: user.dob || "" }); }}>EDIT MY DETAILS</button>
+                                    </>
+                                )}
                             </div>
 
                             <div className="settings-divider"></div>
 
                             <div className="settings-group">
-                                <button className="settings-action-link uppercase">ADD NEW ADDRESS</button>
-                                {orders.length > 0 && (
-                                    <div className="saved-address-preview">
-                                        <p>{orders[0].address.fullAddress}</p>
-                                        <p>{orders[0].address.city}, {orders[0].address.state}</p>
+                                {isAddingAddress ? (
+                                    <div className="edit-details-form">
+                                        <input type="text" value={addressForm.fullAddress} onChange={(e) => setAddressForm({ ...addressForm, fullAddress: e.target.value })} placeholder="Full Address" className="edit-input" />
+                                        <input type="text" value={addressForm.city} onChange={(e) => setAddressForm({ ...addressForm, city: e.target.value })} placeholder="City" className="edit-input" />
+                                        <input type="text" value={addressForm.state} onChange={(e) => setAddressForm({ ...addressForm, state: e.target.value })} placeholder="State" className="edit-input" />
+                                        <div className="edit-btns">
+                                            <button className="settings-action-link uppercase" onClick={handleAddAddress}>SAVE ADDRESS</button>
+                                            <button className="settings-action-link uppercase" onClick={() => setIsAddingAddress(false)}>CANCEL</button>
+                                        </div>
                                     </div>
+                                ) : (
+                                    <>
+                                        <button className="settings-action-link uppercase" onClick={() => setIsAddingAddress(true)}>ADD NEW ADDRESS</button>
+                                        {user?.addresses && user.addresses.length > 0 ? (
+                                            <div className="saved-addresses-list">
+                                                {user.addresses.map((addr, idx) => (
+                                                    <div key={idx} className="saved-address-preview">
+                                                        <p>{addr.fullAddress}</p>
+                                                        <p>{addr.city}, {addr.state}</p>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        ) : (
+                                            <p className="settings-info-text" style={{ marginTop: '20px', color: '#888' }}>
+                                                No saved addresses found. Please add a new address.
+                                            </p>
+                                        )}
+                                    </>
                                 )}
                             </div>
 
@@ -255,7 +364,7 @@ const Account = () => {
             <div className="account-layout">
                 <aside className="account-sidebar">
                     <div className="user-brief">
-                        <p>Welcome, {user?.name || "User"}</p>
+                        <p>Welcome, {user?.username || "User"}</p>
                         <p className="points-info">250 Points to Bonus Reward</p>
                         <div className="points-meter">
                             <p>500 Points to Plus Status</p>

@@ -65,7 +65,7 @@ const DealShowcase = () => {
             <div className="mag-text">
               <h1>{sec.title}</h1>
               <p>{sec.subtitle}</p>
-              <span className="mag-cta">EXPLORE</span>
+              {/* <span className="mag-cta">EXPLORE</span> */}
             </div>
 
             <div className="mag-image">

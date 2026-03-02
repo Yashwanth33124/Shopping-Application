@@ -38,9 +38,9 @@ const Login = () => {
       );
 
       const data = await response.json();
-      
+
       console.log("LOGIN RESPONSE:", data);
-      
+
       if (!response.ok) {
         throw new Error(data.message);
       }
@@ -48,10 +48,9 @@ const Login = () => {
       // ✅ Save JWT
       localStorage.setItem("token", data.accessToken);
 
-      // ✅ Update Redux
       dispatch(
         authSuccess({
-          user: { email },
+          user: data.user,
           token: data.accessToken,
         })
       );

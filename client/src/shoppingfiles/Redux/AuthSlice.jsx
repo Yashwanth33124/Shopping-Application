@@ -51,8 +51,14 @@ const authSlice = createSlice({
             localStorage.removeItem("user");
             localStorage.removeItem("token");
         },
+        updateUser: (state, action) => {
+            state.user = { ...state.user, ...action.payload };
+            if (action.payload.isPrime !== undefined) state.isPrime = action.payload.isPrime;
+            if (action.payload.primePlan !== undefined) state.primePlan = action.payload.primePlan;
+            localStorage.setItem("user", JSON.stringify(state.user));
+        },
     },
 });
 
-export const { authStart, authSuccess, authFailure, logout, updatePrimeStatus } = authSlice.actions;
+export const { authStart, authSuccess, authFailure, logout, updatePrimeStatus, updateUser } = authSlice.actions;
 export default authSlice.reducer;

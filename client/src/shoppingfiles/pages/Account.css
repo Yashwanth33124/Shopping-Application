@@ -665,3 +665,42 @@
 .sign-out-action {
     margin-top: 5px;
 }
+
+.edit-details-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 400px;
+}
+
+.edit-input {
+    padding: 12px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.edit-input:focus {
+    border-color: #000;
+}
+
+.edit-btns {
+    display: flex;
+    gap: 20px;
+}
+
+.saved-addresses-list {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.saved-addresses-list .saved-address-preview {
+    margin-top: 0;
+    padding: 15px;
+    background: #f9f9f9;
+    border: 1px solid #eee;
+}
