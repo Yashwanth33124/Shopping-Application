@@ -14,10 +14,28 @@ const Register = () => {
         privacy: false,
     });
     const [error, setError] = useState("");
+    const [passwordCriteria, setPasswordCriteria] = useState({
+        length: false,
+        special: false,
+        number: false
+    });
+    const [isPasswordFocused, setIsPasswordFocused] = useState(false);
+
+    const validatePassword = (pass) => {
+        setPasswordCriteria({
+            length: pass.length >= 8,
+            special: /[!@#$%^&*(),.?":{}|<>]/.test(pass),
+            number: /\d/.test(pass)
+        });
+    };
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
         setError(""); // Clear error on change
+
+        if (name === "password") {
+            validatePassword(value);
+        }
 
         setFormData((prev) => ({
             ...prev,
@@ -28,6 +46,11 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError("");
+
+        if (!passwordCriteria.length || !passwordCriteria.special || !passwordCriteria.number) {
+            setError("Password does not meet the requirements.");
+            return;
+        }
 
         try {
             const response = await fetch(
@@ -65,10 +88,15 @@ const Register = () => {
 
     return (
         <div className="register-container">
-            <div className="register-content">
+            <div className={`register-content ${error ? 'shake' : ''}`}>
                 <h2 className="section-title">PERSONAL DETAILS</h2>
 
-                {error && <p className="error-message-box" style={{ color: 'red', textAlign: 'center', marginBottom: '20px', fontWeight: 'bold' }}>{error}</p>}
+                {error && (
+                    <div className="unique-error-box">
+                        <div className="error-icon">!</div>
+                        <div className="error-text">{error}</div>
+                    </div>
+                )}
 
                 <form onSubmit={handleSubmit} className="register-form">
                     <div className="register-input-group">
@@ -89,8 +117,23 @@ const Register = () => {
                             name="password"
                             value={formData.password}
                             onChange={handleChange}
+                            onFocus={() => setIsPasswordFocused(true)}
+                            onBlur={() => setIsPasswordFocused(false)}
                             required
                         />
+                        {(isPasswordFocused || formData.password) && (
+                            <div className="password-requirements">
+                                <p className={passwordCriteria.length ? "met" : "unmet"}>
+                                    {passwordCriteria.length ? "✓" : "○"} At least 8 characters
+                                </p>
+                                <p className={passwordCriteria.special ? "met" : "unmet"}>
+                                    {passwordCriteria.special ? "✓" : "○"} Special character (!@#$ etc.)
+                                </p>
+                                <p className={passwordCriteria.number ? "met" : "unmet"}>
+                                    {passwordCriteria.number ? "✓" : "○"} At least one number
+                                </p>
+                            </div>
+                        )}
                     </div>
 
                     <div className="register-input-group">

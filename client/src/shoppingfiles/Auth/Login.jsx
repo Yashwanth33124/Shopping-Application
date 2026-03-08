@@ -68,10 +68,15 @@ const Login = () => {
       <div className="login-left">
         <h1 className="brand">VOGUECART</h1>
 
-        <div className="login-form">
+        <div className={`login-form ${error ? 'shake' : ''}`}>
           <h3 className="login-title">LOG IN</h3>
 
-          {error && <p className="error-message">{error}</p>}
+          {error && (
+            <div className="unique-error-box">
+              <div className="error-icon">!</div>
+              <div className="error-text">{error}</div>
+            </div>
+          )}
 
           <div className="input-group">
             <label>EMAIL</label>
