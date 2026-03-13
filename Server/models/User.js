@@ -26,6 +26,30 @@ const UserSchema = new mongoose.Schema({
     unique: true
   },
 
+  dob: {
+    type: String,
+    default: ""
+  },
+
+  addresses: [
+    {
+      fullAddress: String,
+      city: String,
+      state: String,
+      isDefault: Boolean
+    }
+  ],
+
+  isPrime: {
+    type: Boolean,
+    default: false
+  },
+
+  primePlan: {
+    type: String,
+    default: null
+  },
+
   role: {
     type: String,
     enum: ['user', 'admin'],
