@@ -1,73 +1,125 @@
-const Product = require("../models/product");
+const Product = require("../models/product")
 
-// Get all products
+// Get Products with Filtering + Search + Sorting + Pagination
 exports.getAllProducts = async (req, res) => {
   try {
-    const allProducts = await Product.find({})
-    if(allProducts.length > 0){
-      res.status(200).json({
-        success: true,
-        message: "List of Products fetched Successfully",
-        data: allProducts
-      })
-    } else {
-      res.status(404).json({
-        success: false,
-        message: "No Products found in collection"
-      })
+
+    const {
+      category,
+      search,
+      minPrice,
+      maxPrice,
+      sort,
+      page = 1,
+      limit = 10
+    } = req.query
+
+    // Dynamic Filter Object
+    let filter = {}
+
+    if (category) {
+      filter.category = category
     }
+
+    if (search) {
+      filter.title = { $regex: search, $options: "i" }
+    }
+
+    if (minPrice || maxPrice) {
+      filter.price = {}
+
+      if (minPrice) filter.price.$gte = Number(minPrice)
+      if (maxPrice) filter.price.$lte = Number(maxPrice)
+    }
+
+    // Sorting Logic
+    let sortOption = {}
+
+    if (sort === "price_asc") sortOption.price = 1
+    if (sort === "price_desc") sortOption.price = -1
+    if (sort === "newest") sortOption.createdAt = -1
+
+    // Pagination Logic
+    const pageNumber = Number(page)
+    const limitNumber = Number(limit)
+
+    const skip = (pageNumber - 1) * limitNumber
+
+    // Final Query
+    const products = await Product
+      .find(filter)
+      .sort(sortOption)
+      .skip(skip)
+      .limit(limitNumber)
+
+    const totalProducts = await Product.countDocuments(filter)
+
+    res.status(200).json({
+      success: true,
+      message: "Products fetched successfully",
+      currentPage: pageNumber,
+      totalPages: Math.ceil(totalProducts / limitNumber),
+      totalProducts,
+      data: products
+    })
+
   } catch (error) {
     res.status(500).json({
       success: false,
-      message:"Some thing went wrong Please try again"
-    });
+      message: "Something went wrong",
+      error: error.message
+    })
   }
-};
+}
 
-// Get products by category
-exports.getProductsByCategory = async (req, res) => {
-  try {
-    const category = req.params.category;
+exports.getProductsByCategory = async (req,res)=>{
+  try{
+  const category = req.params.category;
 
-    const products = await Product.find({ category });
-    if(products.length > 0){
-      res.status(200).json({
-        success: true,
-        message: `Products of ${category} fetched successfully`,
-        data: products
-      })
-    }
-    else{
-      res.status(404).json({
-        success : false,
-        message: `No products found in category ${category}`
-      })
-    }
-  } catch (error) {
-    res.status(500).json({ 
+  const products = await Product.find({category})
+  if(products.length > 0){
+    res.status(200).json({
+      success: true,
+      message: `Products of ${category} fetched Successfully`,
+      data: products
+    })
+  }else{
+    res.status(404).json({
+      success : false,
+      message: `No products found by category ${category}`
+    })
+  }
+  }catch(err){
+     res.status(500).json({
       success: false,
-      message: "Something went wrong try again later" 
-    });
+      message:"Something went wrong! Please try again"
+     })
   }
-};
+}
 
-// Get single product
+
+// Get Single Product
 exports.getSingleProduct = async (req, res) => {
   try {
-    const product = await Product.findById(req.params.id);
-     if(!product){
-      res.status(404).json({
-        success : false,
-        message: `Product not found with the id ${req.params.id}`
+
+    const product = await Product.findById(req.params.id)
+
+    if (!product) {
+      return res.status(404).json({
+        success: false,
+        message: "Product not found"
       })
-     } else{
-      res.status(200).json({
-        success: true,
-        message: "Product found successfully",
-        data: product
-      })
-     }
+    }
+
+    res.status(200).json({
+      success: true,
+      data: product
+    })
+
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({
+      success: false,
+      message: "Something went wrong"
+    })
   }
-};
+}
