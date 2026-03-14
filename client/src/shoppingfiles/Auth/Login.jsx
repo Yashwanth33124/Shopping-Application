@@ -79,24 +79,6 @@ const Login = () => {
             REGISTER
           </button>
 
-          <button className="btn outline-btn qr-btn">
-            <i className="fa-solid fa-qrcode"></i> LOG IN WITH QR CODE
-          </button>
-
-          <div className="access">
-            <h4 className="access-title">ACCESS WITH</h4>
-            <p className="privacy-notice">
-              By logging in with my social login, I agree to link my account in accordance with the <span className="underline">Privacy Policy</span>
-            </p>
-            <button className="btn outline-btn social-btn">
-              <img src="https://img.icons8.com/color/24/000000/google-logo.png" alt="google" />
-              CONTINUE WITH GOOGLE
-            </button>
-            <button className="btn outline-btn social-btn">
-              <i className="fa-brands fa-apple"></i>
-              CONTINUE WITH APPLE
-            </button>
-          </div>
 
           <div className="help-footer">HELP</div>
         </div>

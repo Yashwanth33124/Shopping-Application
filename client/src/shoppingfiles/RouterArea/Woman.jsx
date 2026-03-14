@@ -1,19 +1,33 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { cartActions } from "../Redux/CartSlice";
 import { getImgUrl } from "../../utils/imagePath";
+import { fetchProductsByCategory } from "../../utils/api";
 
 import "./Woman.css";
 
 const Woman = () => {
   const cardsRef = useRef([]);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleProductClick = (item) => {
-    navigate(`/product/${item.id}`, { state: { product: item } });
+    navigate(`/product/${item._id || item.id}`, { state: { product: item } });
   };
+
+  useEffect(() => {
+    const loadProducts = async () => {
+      setLoading(true);
+      const data = await fetchProductsByCategory("woman");
+      setProducts(data);
+      setLoading(false);
+    };
+    loadProducts();
+  }, []);
+
 
   useEffect(() => {
     const onScroll = () => {
@@ -68,26 +82,29 @@ const Woman = () => {
         ))}
       </section>
 
-      {/* ===== GRID IMAGES (fashion3-1 to fashion3-10) ===== */}
+      {/* ===== GRID IMAGES ===== */}
       <section className="woman-grid">
-        {Array.from({ length: 12 }).map((_, i) => {
-          const product = {
-            id: `woman-grid-${i}`,
-            title: `Woman Chic Outfit ${i + 1}`,
-            price: 2599,
-            image: getImgUrl(`/images5/fashine3 (${i + 1}).avif`)
-          };
-          return (
-            <div
-              className="woman-grid-card clickable"
-              key={i}
-              onClick={() => handleProductClick(product)}
-            >
-              <img src={product.image} alt={product.title} />
-            </div>
-          );
-        })}
+        {loading ? (
+          <div className="loading-state">Loading products...</div>
+        ) : products.length > 0 ? (
+          <>
+            {products.map((product, i) => (
+              <div
+                className="woman-grid-card clickable"
+                key={product._id || i}
+                onClick={() => handleProductClick(product)}
+              >
+                <img src={product.image} alt={product.name || product.title} />
+              </div>
+            ))}
+          </>
+        ) : (
+          <div className="no-products">
+            <p>No products available in this category yet.</p>
+          </div>
+        )}
       </section>
+
       <div className="hw-container">
         <div className="hw-row">
           <div className="hw-item clickable" onClick={() => handleProductClick({ id: "w-cat-tops", title: "Woman Tops", price: 1299, image: getImgUrl("/images5/fashine4.avif") })}>
