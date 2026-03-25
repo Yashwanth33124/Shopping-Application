@@ -131,7 +131,7 @@ const Beauty = () => {
                 key={product._id || index}
                 onClick={() => handleProductClick(product)}
               >
-                <img src={product.image} alt={product.name || product.title} />
+                <img src={getImgUrl(product.image)} alt={product.name || product.title} />
                 <div className="product-overlay">
                   <button>Shop Now</button>
                 </div>

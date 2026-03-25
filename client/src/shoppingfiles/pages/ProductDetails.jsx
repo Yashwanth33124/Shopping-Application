@@ -6,22 +6,22 @@ import { getImgUrl } from "../../utils/imagePath";
 import AnimatedWaveFooter from "../components/footer";
 import Toast from "../components/Toast";
 import CartNotification from "../components/CartNotification";
+import LogoLoader from "../components/LogoLoader";
+import { useSelector, useDispatch } from "react-redux";
+import { cartActions } from "../Redux/CartSlice";
+import { wishlistActions } from "../Redux/WishlistSlice";
 
-// Mock data as fallback
 const fallbackProduct = {
     id: "fallback",
     title: "OVERSIZED POPLIN SHIRT",
     price: 3999,
     color: "Blue/striped",
-    image: getImgUrl("/images6/woman11.avif"),
+    image: "/images6/woman11.avif",
     sizes: ["XXS", "XS", "S", "M", "L", "XL", "XXL"],
     description: "Oversized shirt in airy, striped poplin. Collar, buttons down the front, and a chest pocket. Long sleeves with wide, buttoned cuffs.",
     materials: "100% Cotton",
     delivery: "Standard delivery: 3-5 business days. Free returns."
 };
-
-import { useSelector, useDispatch } from "react-redux";
-import { cartActions } from "../Redux/CartSlice";
 
 const ProductDetails = () => {
     const { id } = useParams();
@@ -33,14 +33,20 @@ const ProductDetails = () => {
     const [openSection, setOpenSection] = useState("desc");
     const [notification, setNotification] = useState({ show: false, text: "", type: "success" });
     const [cartNotif, setCartNotif] = useState({ show: false, product: null });
+    const [quantity, setQuantity] = useState(1);
+    const [imgLoaded, setImgLoaded] = useState(false);
 
+    const wishlistItems = useSelector((state) => state.wishlist.items);
+    
     // Get product from state or use fallback
     const product = location.state?.product || fallbackProduct;
+    const isInWishlist = wishlistItems.some(item => item._id === product._id);
 
     // Scroll to top on mount
     useEffect(() => {
         window.scrollTo(0, 0);
-    }, []);
+        setImgLoaded(false); // Reset on product change
+    }, [id]);
 
     const toggleSection = (section) => {
         setOpenSection(openSection === section ? "" : section);
@@ -52,8 +58,8 @@ const ProductDetails = () => {
     };
 
     const handleAddToCart = () => {
-        // If it's clothing (not beauty/accessories) and no size is selected
-        const isClothing = product.category !== "beauty" && product.category !== "accessories";
+        const cat = product.category?.toLowerCase();
+        const isClothing = cat !== "beauty" && cat !== "accessories";
         if (isClothing && !selectedSize && !product.sizes?.includes("One Size")) {
             triggerToast("Please select a size", "warning");
             return;
@@ -62,10 +68,15 @@ const ProductDetails = () => {
         const itemToAdd = {
             ...product,
             size: selectedSize || (product.sizes ? product.sizes[0] : "Standard"),
-            quantity: 1
+            quantity: quantity
         };
         dispatch(cartActions.addToCart(itemToAdd));
-        navigate("/cart");
+        setCartNotif({ show: true, product: itemToAdd });
+    };
+
+    const handleWishlistToggle = () => {
+        dispatch(wishlistActions.toggleWishlist(product));
+        triggerToast(isInWishlist ? "Removed from Favourites" : "Added to Favourites");
     };
 
     return (
@@ -74,23 +85,20 @@ const ProductDetails = () => {
             <div className="product-details-container">
                 {/* LEFT SIDE: IMAGE */}
                 <div className="product-image-section">
-                    {product.video ? (
-                        <video
-                            src={product.video}
-                            alt={product.title}
-                            className="main-image"
-                            autoPlay
-                            loop
-                            muted
-                            playsInline
-                        />
-                    ) : (
-                        <img
-                            src={product.images?.[0] || product.image || product.src || product.img}
-                            alt={product.title}
-                            className="main-image"
-                        />
+                    {!imgLoaded && (
+                        <div className="loader-overlay">
+                            <LogoLoader size="100px" />
+                        </div>
                     )}
+                    <img
+                        src={getImgUrl(product.image || product.src || product.img)}
+                        alt={product.name || product.title}
+                        className="main-image"
+                        onLoad={() => {
+                            setTimeout(() => setImgLoaded(true), 400); // Small delay to appreciate the loader
+                        }}
+                        style={{ opacity: imgLoaded ? 1 : 0, transition: 'opacity 0.4s ease' }}
+                    />
                     <button className="view-products-badge">VIEW PRODUCTS</button>
                 </div>
 
@@ -99,10 +107,13 @@ const ProductDetails = () => {
                     <div className="product-header">
                         <div className="title-price">
                             <h1 className="product-title">{product.name || product.title}</h1>
-                            <p className="product-price">₹ {product.price}</p>
+                            <p className="product-price">₹ {product.price?.toLocaleString()}</p>
                         </div>
 
-                        <button className="wishlist-btn">
+                        <button 
+                            className={`wishlist-btn ${isInWishlist ? "active" : ""}`}
+                            onClick={handleWishlistToggle}
+                        >
                             <FiHeart />
                         </button>
                     </div>
@@ -110,15 +121,19 @@ const ProductDetails = () => {
                     <div className="color-section">
                         <p className="color-label">COLOR: {product.color || "Standard"}</p>
                         <div className="color-thumbnail active">
-                            <img src={product.images?.[0] || product.image || product.src || product.img} alt="Color variant" />
+                            <img src={getImgUrl(product.image)} alt="Color variant" />
                         </div>
                     </div>
 
                     <div className="size-section">
-                        {product.category === "beauty" || product.category === "accessories" || (product.sizes && (product.sizes.includes("One Size") || product.sizes.includes("Standard"))) ? (
-                            <div className="size-label-single">
-                                <span>SIZE: </span>
-                                <strong>{product.sizes ? product.sizes[0] : "One Size"}</strong>
+                        {product.category?.toLowerCase() === "beauty" || product.category?.toLowerCase() === "accessories" ? (
+                            <div className="quantity-selector-wrap">
+                                <span className="qty-label">QUANTITY</span>
+                                <div className="qty-controls">
+                                    <button onClick={() => setQuantity(Math.max(1, quantity - 1))}><FiMinus /></button>
+                                    <span>{quantity}</span>
+                                    <button onClick={() => setQuantity(quantity + 1)}><FiPlus /></button>
+                                </div>
                             </div>
                         ) : (
                             <>
@@ -176,6 +191,13 @@ const ProductDetails = () => {
                     </div>
                 </div>
             </div>
+            
+            <CartNotification 
+                show={cartNotif.show} 
+                product={cartNotif.product} 
+                onClose={() => setCartNotif({ ...cartNotif, show: false })} 
+            />
+            
             <AnimatedWaveFooter />
         </div>
     );

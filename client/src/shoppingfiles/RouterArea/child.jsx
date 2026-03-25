@@ -19,8 +19,10 @@ const Child = () => {
 
   useEffect(() => {
     const loadProducts = async () => {
+      console.log("Loading child products...");
       setLoading(true);
       const data = await fetchProductsByCategory("child");
+      console.log(`Loaded ${data.length} child products`);
       setProducts(data);
       setLoading(false);
     };
@@ -92,7 +94,7 @@ const Child = () => {
                 key={product._id || i}
                 onClick={() => handleProductClick(product)}
               >
-                <img src={product.image} alt={product.name || product.title} />
+                <img src={getImgUrl(product.image)} alt={product.name || product.title} />
               </div>
             ))}
           </div>

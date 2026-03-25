@@ -126,22 +126,7 @@
 }
 
 /* BUTTON */
-.c4-add-btn {
-  margin-top: auto;
-  padding: 12px;
-  border-radius: 999px;
-  border: 1px solid #0f0f0f;
-  background: transparent;
-  color: #0f0f0f;
-  font-weight: 700;
-  cursor: pointer;
-  transition: 0.3s;
-}
 
-.c4-add-btn:hover {
-  background: #0f0f0f;
-  color: #ffffff;
-}
 
 /* MOBILE */
 @media (max-width: 768px) {

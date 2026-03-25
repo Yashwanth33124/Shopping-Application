@@ -94,7 +94,7 @@ const Woman = () => {
                 key={product._id || i}
                 onClick={() => handleProductClick(product)}
               >
-                <img src={product.image} alt={product.name || product.title} />
+                <img src={getImgUrl(product.image)} alt={product.name || product.title} />
               </div>
             ))}
           </>

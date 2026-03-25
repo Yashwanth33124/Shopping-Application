@@ -176,6 +176,63 @@
     margin-left: 5px;
 }
 
+/* Quantity Selector */
+.quantity-selector-wrap {
+    padding: 15px 0;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.qty-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #000;
+}
+
+.qty-controls {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: #fff;
+    border: 1px solid #eee;
+    padding: 8px 16px;
+}
+
+.qty-controls button {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: transform 0.2s;
+}
+
+.qty-controls button:hover {
+    transform: scale(1.2);
+}
+
+.qty-controls span {
+    font-size: 14px;
+    font-weight: 600;
+    min-width: 20px;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+}
+
+.wishlist-btn.active {
+    color: #ff4757;
+}
+
+.wishlist-btn.active svg {
+    fill: #ff4757;
+}
+
 .add-to-bag-btn {
     background-color: #000;
     color: #fff;

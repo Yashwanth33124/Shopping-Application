@@ -17,6 +17,8 @@ import Cart from "./shoppingfiles/pages/Cart";
 import Account from "./shoppingfiles/pages/Account";
 import PrimeSubscription from "./shoppingfiles/pages/PrimeSubscription";
 import Checkout from "./shoppingfiles/pages/Checkout";
+import SearchResults from "./shoppingfiles/pages/SearchResults";
+import Wishlist from "./shoppingfiles/pages/Wishlist";
 import { useSelector, useDispatch } from "react-redux";
 import { cartActions } from "./shoppingfiles/Redux/CartSlice";
 import CartNotification from "./shoppingfiles/components/CartNotification";
@@ -135,6 +137,16 @@ function App() {
             <Route path="/checkout" element={
               <ProtectedRoute>
                 <Checkout />
+              </ProtectedRoute>
+            } />
+            <Route path="/search" element={
+              <ProtectedRoute>
+                <SearchResults />
+              </ProtectedRoute>
+            } />
+            <Route path="/wishlist" element={
+              <ProtectedRoute>
+                <Wishlist />
               </ProtectedRoute>
             } />
             <Route path="*" element={<div style={{ padding: '100px', textAlign: 'center' }}>404 Page Not Found</div>} />

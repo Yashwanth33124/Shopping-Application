@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./Header.css";
-import { FaBars, FaTimes, FaGem } from "react-icons/fa";
-import { FiUser } from "react-icons/fi";
+import { FaBars, FaTimes } from "react-icons/fa";
+import { FiUser, FiHeart } from "react-icons/fi";
 import { PiShoppingBag } from "react-icons/pi";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../Redux/AuthSlice";
 import Cartdropdown from "../Cartdown/Cartdropdown";
@@ -14,11 +14,20 @@ const Header = () => {
   const { isAuthenticated, user, isPrime } = useSelector((state) => state.auth);
   const cartCount = useSelector((state) => state.cart.totalQuantity);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [openCart, setOpenCart] = useState(false);
   const [mobileMenu, setMobileMenu] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [hovered, setHovered] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  // Clear search term when navigating away from search results
+  useEffect(() => {
+    if (location.pathname !== "/search") {
+      setSearchTerm("");
+    }
+  }, [location.pathname]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -35,8 +44,7 @@ const Header = () => {
   return (
     <>
       <header
-        className={`headersection ${scrolled || hovered ? "header-bg-white" : ""
-          }`}
+        className={`headersection ${scrolled || hovered ? "header-bg-white" : ""}`}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
@@ -50,7 +58,17 @@ const Header = () => {
           </NavLink>
 
           <div className="search">
-            <input type="text" placeholder="Search products" />
+            <input
+              type="text"
+              placeholder="Search products"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  navigate(`/search?q=${searchTerm}`);
+                }
+              }}
+            />
           </div>
         </div>
 
@@ -67,11 +85,14 @@ const Header = () => {
 
         {/* RIGHT */}
         <div className="right">
-          <div
-            className="mobile-menu-icon"
-            onClick={() => setMobileMenu(true)}
-          >
+          <div className="mobile-menu-icon" onClick={() => setMobileMenu(true)}>
             <FaBars />
+          </div>
+
+          <div className="wishlist-btn-group">
+            <NavLink to="/wishlist" className="wishlist-link">
+              <FiHeart />
+            </NavLink>
           </div>
 
           <div
@@ -90,12 +111,9 @@ const Header = () => {
               {cartCount > 0 && <span className="cart-count-below">{cartCount}</span>}
             </button>
 
-            {openCart && (
-              <Cartdropdown close={() => setOpenCart(false)} />
-            )}
+            {openCart && <Cartdropdown close={() => setOpenCart(false)} />}
           </div>
 
-          {/* PROFILE ICON & AUTH */}
           <div className="auth-group">
             <NavLink
               to={isAuthenticated ? "/account" : "/login"}
@@ -108,28 +126,17 @@ const Header = () => {
         </div>
       </header>
 
-      {/* MOBILE DRAWER MENU */}
+      {/* MOBILE DRAWER */}
       <div className={`mobile-drawer ${mobileMenu ? "open" : ""}`}>
         <div className="drawer-header">
           <span>MENU</span>
           <FaTimes onClick={() => setMobileMenu(false)} />
         </div>
-
-        <NavLink to="/" onClick={() => setMobileMenu(false)}>
-          HOME
-        </NavLink>
-        <NavLink to="/men" onClick={() => setMobileMenu(false)}>
-          MEN
-        </NavLink>
-        <NavLink to="/woman" onClick={() => setMobileMenu(false)}>
-          WOMAN
-        </NavLink>
-        <NavLink to="/beauty" onClick={() => setMobileMenu(false)}>
-          BEAUTY
-        </NavLink>
-        <NavLink to="/child" onClick={() => setMobileMenu(false)}>
-          CHILD
-        </NavLink>
+        <NavLink to="/" onClick={() => setMobileMenu(false)}>HOME</NavLink>
+        <NavLink to="/men" onClick={() => setMobileMenu(false)}>MEN</NavLink>
+        <NavLink to="/woman" onClick={() => setMobileMenu(false)}>WOMAN</NavLink>
+        <NavLink to="/beauty" onClick={() => setMobileMenu(false)}>BEAUTY</NavLink>
+        <NavLink to="/child" onClick={() => setMobileMenu(false)}>CHILD</NavLink>
       </div>
     </>
   );
