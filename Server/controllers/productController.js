@@ -59,6 +59,8 @@ exports.getAllProducts = async (req, res) => {
       limit = 10,
     } = req.query;
 
+    console.log(`[GET /api/products] category: ${category}, search: ${search}`);
+
     let filter = {};
 
     if (category) {
@@ -66,7 +68,25 @@ exports.getAllProducts = async (req, res) => {
     }
 
     if (search) {
-      filter.title = { $regex: search, $options: "i" };
+      // Clean query and handle 'shirts' -> 'shirt' common plural
+      let searchStr = search.trim();
+      const keywords = searchStr.split(/\s+/).filter(k => k.length > 0);
+      
+      const orConditions = [];
+      keywords.forEach(word => {
+        // Basic plural handling for common e-commerce terms
+        const normalized = word.toLowerCase().endsWith('s') && word.length > 4 
+          ? word.slice(0, -1) 
+          : word;
+
+        orConditions.push(
+          { name: { $regex: normalized, $options: "i" } },
+          { name: { $regex: word, $options: "i" } },
+          { description: { $regex: normalized, $options: "i" } },
+          { category: { $regex: normalized, $options: "i" } }
+        );
+      });
+      filter.$or = orConditions;
     }
 
     if (minPrice || maxPrice) {
@@ -84,12 +104,24 @@ exports.getAllProducts = async (req, res) => {
     const limitNumber = Number(limit);
     const skip = (pageNumber - 1) * limitNumber;
 
+    // Get products for the current page
     const products = await Product.find(filter)
       .sort(sortOption)
       .skip(skip)
       .limit(limitNumber);
 
+    // Get total count for the current filter
     const totalProducts = await Product.countDocuments(filter);
+
+    // 🏆 Get Counts per Category for the filters (H&M style)
+    // We remove the category filter from this aggregation to see counts for all matching items
+    const countFilter = { ...filter };
+    delete countFilter.category; 
+
+    const counts = await Product.aggregate([
+      { $match: countFilter },
+      { $group: { _id: "$category", count: { $sum: 1 } } }
+    ]);
 
     res.status(200).json({
       success: true,
@@ -97,6 +129,7 @@ exports.getAllProducts = async (req, res) => {
       currentPage: pageNumber,
       totalPages: Math.ceil(totalProducts / limitNumber),
       totalProducts,
+      categoryCounts: counts, // Return count for each category
       data: products,
     });
   } catch (error) {
