@@ -3,6 +3,7 @@ const Product = require("../models/product")
 // Get Products with Filtering + Search + Sorting + Pagination
 exports.getAllProducts = async (req, res) => {
   try {
+<<<<<<< HEAD
 
     const {
       category,
@@ -13,6 +14,22 @@ exports.getAllProducts = async (req, res) => {
       page = 1,
       limit = 10
     } = req.query
+=======
+
+    // 1️⃣ Upload image to Cloudinary
+    const result = await cloudinary.uploader.upload(req.file.path);
+
+    // 2️⃣ Create product in MongoDB
+    const product = await Product.create({
+      name: req.body.name,
+      description: req.body.description,
+      price: req.body.price,
+      category: req.body.category,
+      stock: req.body.stock,
+      role: req.body.role || "normal",   
+      image: result.secure_url,
+    });
+>>>>>>> recovery
 
     // Dynamic Filter Object
     let filter = {}
