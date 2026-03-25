@@ -106,6 +106,9 @@ const Login = () => {
           >
             REGISTER
           </button>
+
+
+          <div className="help-footer">HELP</div>
         </div>
       </div>
 

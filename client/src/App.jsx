@@ -25,31 +25,31 @@ import ProtectedRoute from "./shoppingfiles/RouterArea/ProtectedRoute";
 import PublicRoute from "./shoppingfiles/RouterArea/PublicRoute";
 
 function App() {
-  const [showSplash, setShowSplash] = useState(true);
+  const { isPrime, isAuthenticated } = useSelector((state) => state.auth);
+  const lastAddedItem = useSelector((state) => state.cart?.lastAddedItem || null);
+
+  const [showSplash, setShowSplash] = useState(isAuthenticated);
   const [exitSplash, setExitSplash] = useState(false);
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // Defensive selector
-  const { isPrime, isAuthenticated } = useSelector((state) => state.auth);
-  const lastAddedItem = useSelector((state) => state.cart?.lastAddedItem || null);
-
   useEffect(() => {
+    if (!isAuthenticated) {
+      setShowSplash(false);
+      return;
+    }
+    
     const exitTimer = setTimeout(() => setExitSplash(true), 2200);
     const removeTimer = setTimeout(() => {
       setShowSplash(false);
-      // After splash, if new user (not authenticated) and at root, redirect to login
-      if (location.pathname === "/" && !isAuthenticated) {
-        navigate("/login", { replace: true });
-      }
     }, 3000);
 
     return () => {
       clearTimeout(exitTimer);
       clearTimeout(removeTimer);
     };
-  }, [isAuthenticated, location.pathname, navigate]);
+  }, [isAuthenticated]);
 
   // Debugging log (optional, but helps if we could see it)
   // console.log("Rendering App, path:", location.pathname);

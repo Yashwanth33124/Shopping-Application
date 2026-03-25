@@ -98,9 +98,10 @@ const ProductDetails = () => {
                 <div className="product-info-section">
                     <div className="product-header">
                         <div className="title-price">
-                            <h1 className="product-title">{product.title}</h1>
+                            <h1 className="product-title">{product.name || product.title}</h1>
                             <p className="product-price">₹ {product.price}</p>
                         </div>
+
                         <button className="wishlist-btn">
                             <FiHeart />
                         </button>

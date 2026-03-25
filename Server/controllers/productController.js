@@ -21,7 +21,7 @@ exports.getAllProducts = async (req, res) => {
 
     // 2️⃣ Create product in MongoDB
     const product = await Product.create({
-      name: req.body.name,
+      name: req.body.name || req.body.title,
       description: req.body.description,
       price: req.body.price,
       category: req.body.category,
@@ -87,56 +87,24 @@ exports.getAllProducts = async (req, res) => {
       error: error.message
     })
   }
-}
+};
 
-exports.getProductsByCategory = async (req,res)=>{
-  try{
-  const category = req.params.category;
-
-  const products = await Product.find({category})
-  if(products.length > 0){
-    res.status(200).json({
-      success: true,
-      message: `Products of ${category} fetched Successfully`,
-      data: products
-    })
-  }else{
-    res.status(404).json({
-      success : false,
-      message: `No products found by category ${category}`
-    })
-  }
-  }catch(err){
-     res.status(500).json({
-      success: false,
-      message:"Something went wrong! Please try again"
-     })
-  }
-}
-
-
-// Get Single Product
-exports.getSingleProduct = async (req, res) => {
+// Get all products or by category
+exports.getProducts = async (req, res) => {
   try {
-
-    const product = await Product.findById(req.params.id)
-
-    if (!product) {
-      return res.status(404).json({
-        success: false,
-        message: "Product not found"
-      })
-    }
+    const { category } = req.query;
+    // Use case-insensitive regex for category
+    const filter = category ? { category: { $regex: new RegExp(`^${category}$`, "i") } } : {};
+    const products = await Product.find(filter);
 
     res.status(200).json({
       success: true,
-      data: product
-    })
-
+      data: products,
+    });
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: "Something went wrong"
-    })
+      error: error.message,
+    });
   }
-}
+};

@@ -1,4 +1,7 @@
 const express = require("express");
+const multer = require("multer");
+const { createProduct, getProducts } = require("../controllers/productController");
+
 const router = express.Router();
 
 const {
@@ -7,11 +10,8 @@ const {
   getSingleProduct
 } = require("../controllers/productController");
 
-// GET all products
-router.get("/", getAllProducts);
-//get products by category
-router.get("/category/:category",getProductsByCategory)
-// GET single product by id
-router.get("/:id", getSingleProduct);
+// Routes
+router.post("/create-product", upload.single("image"), createProduct);
+router.get("/", getProducts);
 
 module.exports = router;

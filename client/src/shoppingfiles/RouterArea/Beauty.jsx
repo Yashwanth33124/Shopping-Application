@@ -1,19 +1,33 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { cartActions } from "../Redux/CartSlice";
 import { getImgUrl } from "../../utils/imagePath";
+import { fetchProductsByCategory } from "../../utils/api";
 
 import "./Beauty.css";
 
 const Beauty = () => {
   const cardsRef = useRef([]);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleProductClick = (item) => {
-    navigate(`/product/${item.id}`, { state: { product: item } });
+    navigate(`/product/${item._id || item.id}`, { state: { product: item } });
   };
+
+  useEffect(() => {
+    const loadProducts = async () => {
+      setLoading(true);
+      const data = await fetchProductsByCategory("beauty");
+      setProducts(data);
+      setLoading(false);
+    };
+    loadProducts();
+  }, []);
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -108,50 +122,28 @@ const Beauty = () => {
         <h2 className="product-heading">Luxury Collection</h2>
 
         <div className="product-grid">
-
-          {[
-            ...Array.from({ length: 7 }, (_, i) => ({
-              id: `bag-${i}`,
-              title: `Premium Bag ${i + 1}`,
-              price: "4599",
-              src: getImgUrl(`/images10/bag${i + 1}.avif`),
-              sizes: ["One Size"],
-              category: "accessories"
-            })),
-            ...Array.from({ length: 7 }, (_, i) => ({
-              id: `lp-${i}`,
-              title: `Lip Colour ${i + 1}`,
-              price: "1899",
-              src: getImgUrl(`/images10/lp${i + 1}.avif`),
-              sizes: ["Standard"],
-              category: "beauty"
-            })),
-            ...Array.from({ length: 7 }, (_, i) => ({
-              id: `makeup-${i}`,
-              title: `Makeup Essential ${i + 1}`,
-              price: "2499",
-              src: getImgUrl(`/images10/makeup${i + 1}.avif`),
-              sizes: ["Standard"],
-              category: "beauty"
-            })),
-            ...Array.from({ length: 2 }, (_, i) => ({
-              id: `perfume-${i}`,
-              title: `Signature Scent ${i + 1}`,
-              price: "6999",
-              src: getImgUrl(`/images10/perfume${i + 1}.avif`),
-              sizes: ["50ml", "100ml"],
-              category: "beauty"
-            }))
-          ].map((item, index) => (
-            <div className="product-card clickable" key={index} onClick={() => handleProductClick({ ...item, image: item.src })}>
-              <img src={item.src} alt={item.title} />
-              <div className="product-overlay">
-                <button>Add To Cart</button>
+          {loading ? (
+            <div className="loading-state">Loading luxury products...</div>
+          ) : products.length > 0 ? (
+            products.map((product, index) => (
+              <div
+                className="product-card clickable"
+                key={product._id || index}
+                onClick={() => handleProductClick(product)}
+              >
+                <img src={product.image} alt={product.name || product.title} />
+                <div className="product-overlay">
+                  <button>Shop Now</button>
+                </div>
               </div>
+            ))
+          ) : (
+            <div className="no-products">
+              <p>No luxury products available yet.</p>
             </div>
-          ))}
-
+          )}
         </div>
+
       </section>
 
       <div className="beauty-fulltext">

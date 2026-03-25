@@ -1,18 +1,32 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { cartActions } from "../Redux/CartSlice";
 import { getImgUrl } from "../../utils/imagePath";
+import { fetchProductsByCategory } from "../../utils/api";
 
 import "./child.css";
 const Child = () => {
   const cardsRef = useRef([]);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleProductClick = (item) => {
-    navigate(`/product/${item.id}`, { state: { product: item } });
+    navigate(`/product/${item._id || item.id}`, { state: { product: item } });
   };
+
+  useEffect(() => {
+    const loadProducts = async () => {
+      setLoading(true);
+      const data = await fetchProductsByCategory("child");
+      setProducts(data);
+      setLoading(false);
+    };
+    loadProducts();
+  }, []);
+
 
   useEffect(() => {
     const onScroll = () => {
@@ -68,37 +82,27 @@ const Child = () => {
       </section>
 
       <section className="child-products">
-        <div className="child-products-grid">
-          {[
-            "k1.jpg",
-            "k2.avif",
-            "k3.jpg",
-            "k4.webp",
-            "k5.webp",
-            "k6.jpg",
-            "k7.jpg",
-            "k8.jpg",
-            "k9.jpg",
-            "k10.jpg",
-          ].map((img, i) => {
-            const product = {
-              id: `child-grid-${i}`,
-              title: `Child Casual Wear ${i + 1}`,
-              price: 1299,
-              image: getImgUrl(`/images9/${img}`)
-            };
-            return (
+        {loading ? (
+          <div className="loading-state">Loading products...</div>
+        ) : products.length > 0 ? (
+          <div className="child-products-grid">
+            {products.map((product, i) => (
               <div
                 className="child-product-card clickable"
-                key={i}
+                key={product._id || i}
                 onClick={() => handleProductClick(product)}
               >
-                <img src={product.image} alt={product.title} />
+                <img src={product.image} alt={product.name || product.title} />
               </div>
-            );
-          })}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <div className="no-products">
+            <p>No products available in this category yet.</p>
+          </div>
+        )}
       </section>
+
 
       {/* CATEGORY GRID */}
       <div className="child-container">

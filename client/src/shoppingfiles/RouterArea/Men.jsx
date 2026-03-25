@@ -1,21 +1,35 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { cartActions } from "../Redux/CartSlice";
 import { FiLock } from "react-icons/fi";
 import { getImgUrl } from "../../utils/imagePath";
+import { fetchProductsByCategory } from "../../utils/api";
 
 import "./Men.css";
 
 const Men = () => {
   const cardsRef = useRef([]);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { isPrime } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleProductClick = (item) => {
-    navigate(`/product/${item.id}`, { state: { product: item } });
+    navigate(`/product/${item._id || item.id}`, { state: { product: item } });
   };
+
+  useEffect(() => {
+    const loadProducts = async () => {
+      setLoading(true);
+      const data = await fetchProductsByCategory("men");
+      setProducts(data);
+      setLoading(false);
+    };
+    loadProducts();
+  }, []);
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -101,26 +115,28 @@ const Men = () => {
 
       {/* PRODUCT GRID */}
       <section className="men-products">
-        <div className="men-products-grid">
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((num, i) => {
-            const product = {
-              id: `men-grid-${num}`,
-              title: `Men Essential Item ${num}`,
-              price: 1799,
-              image: getImgUrl(`/images2/d${num}.avif`),
-            };
-            return (
+        {loading ? (
+          <div className="loading-state">Loading products...</div>
+        ) : products.length > 0 ? (
+          <div className="men-products-grid">
+            {products.map((product, i) => (
               <div
                 className="product-card clickable"
-                key={i}
+                key={product._id || i}
                 onClick={() => handleProductClick(product)}
               >
-                <img src={product.image} alt={product.title} />
+                <img src={product.image} alt={product.name || product.title} />
               </div>
-            );
-          })}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <div className="no-products">
+            <p>No products available in this category yet.</p>
+            {/* Fallback to static dummy data for demo if needed, or just leave empty */}
+          </div>
+        )}
       </section>
+
 
       {/* CATEGORY GRID */}
       <div className="hm-container">
