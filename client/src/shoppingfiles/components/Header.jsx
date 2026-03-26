@@ -21,6 +21,35 @@ const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [hovered, setHovered] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+
+  const commonSuggestions = [
+    "SHIRT", "SHIRTS", "TEE", "TEES", "TSHIRT", "TSHIRTS",
+    "SHIRT MEN", "SHIRT WOMAN", "SHIRT DRESS", "SHIRT OVERSIZED",
+    "TEE OVERSIZED", "COTTON SHIRT", "GRAPHIC TEE", "FORMAL SHIRT"
+  ];
+
+  useEffect(() => {
+    if (searchTerm.trim().length > 0) {
+      const filtered = commonSuggestions.filter(item => 
+        item.toLowerCase().includes(searchTerm.toLowerCase()) && 
+        item.toLowerCase() !== searchTerm.toLowerCase()
+      ).slice(0, 5);
+      setSuggestions(filtered);
+      setShowSuggestions(true);
+    } else {
+      setSuggestions([]);
+      setShowSuggestions(false);
+    }
+  }, [searchTerm]);
+
+  const handleSearchSubmit = (term) => {
+    if (!term.trim()) return;
+    setSearchTerm(term);
+    setShowSuggestions(false);
+    navigate(`/search?q=${term}`);
+  };
 
   // Clear search term when navigating away from search results
   useEffect(() => {
@@ -57,18 +86,44 @@ const Header = () => {
             </div>
           </NavLink>
 
-          <div className="search">
-            <input
-              type="text"
-              placeholder="Search products"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  navigate(`/search?q=${searchTerm}`);
-                }
-              }}
-            />
+          <div className="search-container">
+            <div className="search">
+              <input
+                type="text"
+                placeholder="Search products"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
+                onFocus={() => searchTerm.trim().length > 0 && setShowSuggestions(true)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handleSearchSubmit(searchTerm);
+                  }
+                }}
+              />
+            </div>
+            
+            {showSuggestions && suggestions.length > 0 && (
+              <div className="search-suggestions">
+                {suggestions.map((item, idx) => {
+                  const parts = item.toLowerCase().split(searchTerm.toLowerCase());
+                  return (
+                    <div 
+                      key={idx} 
+                      className="suggestion-item" 
+                      onClick={() => handleSearchSubmit(item)}
+                    >
+                      <span className="match-text">
+                        {searchTerm.toUpperCase()}
+                      </span>
+                      <span className="rem-text">
+                        {item.substring(searchTerm.length).toUpperCase()}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </div>
 
@@ -131,6 +186,21 @@ const Header = () => {
         <div className="drawer-header">
           <span>MENU</span>
           <FaTimes onClick={() => setMobileMenu(false)} />
+        </div>
+        
+        <div className="mobile-search">
+          <input
+            type="text"
+            placeholder="Search products"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleSearchSubmit(searchTerm);
+                setMobileMenu(false);
+              }
+            }}
+          />
         </div>
         <NavLink to="/" onClick={() => setMobileMenu(false)}>HOME</NavLink>
         <NavLink to="/men" onClick={() => setMobileMenu(false)}>MEN</NavLink>

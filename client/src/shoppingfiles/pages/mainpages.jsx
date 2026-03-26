@@ -8,7 +8,7 @@ import DealShowcase from '../components/DealShowcase'
 import Collection2 from '../components/Collection2'
 import Collection3 from '../components/Collection3'
 import Collection4 from '../components/Collection4'
-import AnimatedWaveFooter from '../components/footer'
+import AnimatedWaveFooter from '../components/PremiumFooter'
 import Collection5 from '../components/Collection5'
 import Collection6 from '../components/Collection6'
 import PrimeWelcomeNotification from '../components/PrimeWelcomeNotification'
@@ -64,6 +64,7 @@ const Mainpage = () => {
       <AnimatedWaveFooter />
     </div>
   )
+  
 }
 
 export default Mainpage

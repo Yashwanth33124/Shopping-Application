@@ -3,7 +3,7 @@ import "./ProductDetails.css";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { FiHeart, FiPlus, FiMinus } from "react-icons/fi";
 import { getImgUrl } from "../../utils/imagePath";
-import AnimatedWaveFooter from "../components/footer";
+import AnimatedWaveFooter from "../components/PremiumFooter";
 import Toast from "../components/Toast";
 import CartNotification from "../components/CartNotification";
 import LogoLoader from "../components/LogoLoader";
@@ -106,6 +106,9 @@ const ProductDetails = () => {
                 <div className="product-info-section">
                     <div className="product-header">
                         <div className="title-price">
+                            <div className="role-tags">
+                                {product.role === "prime" && <span className="prime-tag">PRIME EXCLUSIVE</span>}
+                            </div>
                             <h1 className="product-title">{product.name || product.title}</h1>
                             <p className="product-price">₹ {product.price?.toLocaleString()}</p>
                         </div>

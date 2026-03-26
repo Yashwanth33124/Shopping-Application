@@ -6,7 +6,7 @@ import { wishlistActions } from "../Redux/WishlistSlice";
 import { cartActions } from "../Redux/CartSlice";
 import { getImgUrl } from "../../utils/imagePath";
 import "./Wishlist.css";
-import AnimatedWaveFooter from "../components/footer";
+import AnimatedWaveFooter from "../components/PremiumFooter";
 
 const Wishlist = () => {
     const wishlistItems = useSelector((state) => state.wishlist.items);

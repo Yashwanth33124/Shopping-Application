@@ -2,13 +2,17 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getImgUrl } from "../../utils/imagePath";
 import { motion, AnimatePresence } from "framer-motion";
-import { FiFilter, FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { FiFilter, FiChevronLeft, FiChevronRight, FiHeart } from "react-icons/fi";
+import { useSelector, useDispatch } from "react-redux";
+import { wishlistActions } from "../Redux/WishlistSlice";
 import LogoLoader from "../components/LogoLoader";
 import "./SearchResults.css";
 
 const SearchResults = () => {
     const location = useLocation();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const wishlistItems = useSelector((state) => state.wishlist.items);
     const queryParams = new URLSearchParams(location.search);
     const searchTerm = queryParams.get("q") || "";
     const [products, setProducts] = useState([]);
@@ -17,6 +21,19 @@ const SearchResults = () => {
     const [totalPages, setTotalPages] = useState(1);
     const [loading, setLoading] = useState(true);
     const [sort, setSort] = useState("newest");
+    const [feedback, setFeedback] = useState(null);
+
+    const feedbackMessages = {
+        1: "We're sorry to hear that. We'll work on making our search better!",
+        2: "Thanks for your feedback. We're constantly improving!",
+        3: "Glad you found something! We'll keep refining our results.",
+        4: "Awesome! We're happy to provide the best matches for you.",
+        5: "We're thrilled! Your happiness is our top priority! 😍"
+    };
+
+    const handleFeedback = (rating) => {
+        setFeedback(rating);
+    };
 
     const limit = 20;
 
@@ -158,9 +175,24 @@ const SearchResults = () => {
                                     >
                                         <div className="product-image-wrap">
                                             <img src={getImgUrl(product.image)} alt={product.name} />
+                                            <button 
+                                                className={`wishlist-heart-btn ${wishlistItems.some(i => i._id === product._id) ? 'active' : ''}`}
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    dispatch(wishlistActions.toggleWishlist(product));
+                                                }}
+                                            >
+                                                <FiHeart />
+                                            </button>
+                                            {product.role === "prime" && (
+                                                <div className="prime-badge-card">PRIME MEMBER</div>
+                                            )}
                                         </div>
                                         <div className="product-info">
                                             <h3 className="product-name">{product.name}</h3>
+                                            <p className="product-desc-short">
+                                                {product.description || "Premium quality product from our collection."}
+                                            </p>
                                             <p className="product-price">₹ {product.price.toLocaleString()}</p>
                                         </div>
                                     </motion.div>
@@ -193,14 +225,27 @@ const SearchResults = () => {
             )}
             
             <div className="feedback-section">
-                <h3>HOW HAPPY ARE YOU WITH YOUR SEARCH RESULTS?</h3>
-                <div className="emoji-row">
-                    <span>😞</span>
-                    <span>😐</span>
-                    <span>🙂</span>
-                    <span>😊</span>
-                    <span>😍</span>
-                </div>
+                {!feedback ? (
+                    <>
+                        <h3>HOW HAPPY ARE YOU WITH YOUR SEARCH RESULTS?</h3>
+                        <div className="emoji-row">
+                            <span className="emoji-btn" onClick={() => handleFeedback(1)}>😞</span>
+                            <span className="emoji-btn" onClick={() => handleFeedback(2)}>😐</span>
+                            <span className="emoji-btn" onClick={() => handleFeedback(3)}>🙂</span>
+                            <span className="emoji-btn" onClick={() => handleFeedback(4)}>😊</span>
+                            <span className="emoji-btn" onClick={() => handleFeedback(5)}>😍</span>
+                        </div>
+                    </>
+                ) : (
+                    <motion.div 
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="feedback-thanks"
+                    >
+                        <p>{feedbackMessages[feedback]}</p>
+                        <button className="reset-feedback" onClick={() => setFeedback(null)}>Change Feedback</button>
+                    </motion.div>
+                )}
             </div>
         </div>
     );

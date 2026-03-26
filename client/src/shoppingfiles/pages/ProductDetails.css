@@ -81,6 +81,22 @@
     font-weight: 600;
 }
 
+.role-tags {
+    margin-bottom: 8px;
+    display: flex;
+    gap: 10px;
+}
+
+.prime-tag {
+    font-size: 8px;
+    font-weight: 800;
+    color: #000;
+    border: 1px solid #000;
+    padding: 2px 8px;
+    letter-spacing: 1px;
+    border-radius: 2px;
+}
+
 .wishlist-btn {
     background: none;
     border: none;
