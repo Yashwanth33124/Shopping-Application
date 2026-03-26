@@ -64,29 +64,56 @@ exports.getAllProducts = async (req, res) => {
     let filter = {};
 
     if (category) {
+      // Use case-insensitive exact match to avoid matching longer patterns like "Men Shirts"
       filter.category = { $regex: new RegExp(`^${category}$`, "i") };
     }
 
     if (search) {
-      // Clean query and handle 'shirts' -> 'shirt' common plural
-      let searchStr = search.trim();
-      const keywords = searchStr.split(/\s+/).filter(k => k.length > 0);
-      
-      const orConditions = [];
-      keywords.forEach(word => {
-        // Basic plural handling for common e-commerce terms
-        const normalized = word.toLowerCase().endsWith('s') && word.length > 4 
-          ? word.slice(0, -1) 
-          : word;
+      let searchStr = search.trim().toLowerCase();
+      let filterQuery = {};
 
-        orConditions.push(
-          { name: { $regex: normalized, $options: "i" } },
-          { name: { $regex: word, $options: "i" } },
-          { description: { $regex: normalized, $options: "i" } },
-          { category: { $regex: normalized, $options: "i" } }
-        );
-      });
-      filter.$or = orConditions;
+      // 🔥 EXTREMELY PRECISE T-SHIRT VS SHIRT RULES
+      const isTshirtSearch = searchStr.includes("tshirt") || searchStr.includes("t-shirt") || searchStr.includes("t shirt") || searchStr.includes("tee");
+      const isShirtSearch = (searchStr.includes("shirt") || searchStr.includes("shirts")) && !isTshirtSearch;
+
+      if (isTshirtSearch) {
+        // Only return T-shirts/Tees
+        filterQuery = {
+          $or: [
+            { name: { $regex: /\b(t-?shirt|tee|oversized)\b/i } },
+            { description: { $regex: /\b(t-?shirt|tee|oversized)\b/i } },
+            { category: "tshirts-only" }
+          ]
+        };
+      } else if (isShirtSearch) {
+        // Return only regular shirts (exclude anything that looks like a tshirt)
+        filterQuery = {
+          $and: [
+            { 
+              $or: [
+                { name: { $regex: /\bshirt(s?)\b/i } },
+                { description: { $regex: /\bshirt(s?)\b/i } }
+              ] 
+            },
+            { name: { $regex: /^(?!.*t-?shirt).*$/i } },      // No T-shirts in name
+            { description: { $regex: /^(?!.*t-?shirt).*$/i } } // No T-shirts in description
+          ]
+        };
+      } else {
+        // Standard behavior for other search terms
+        const keywords = searchStr.split(/\s+/).filter(k => k.length > 0);
+        const orConditions = [];
+        keywords.forEach(word => {
+          let normalized = word.endsWith('s') && word.length > 4 ? word.slice(0, -1) : word;
+          orConditions.push(
+            { name: { $regex: new RegExp(`\\b${normalized}\\b`, "i") } },
+            { description: { $regex: new RegExp(`\\b${normalized}\\b`, "i") } }
+          );
+        });
+        filterQuery = { $or: orConditions };
+      }
+      
+      filter = { ...filter, ...filterQuery };
     }
 
     if (minPrice || maxPrice) {
@@ -114,7 +141,6 @@ exports.getAllProducts = async (req, res) => {
     const totalProducts = await Product.countDocuments(filter);
 
     // 🏆 Get Counts per Category for the filters (H&M style)
-    // We remove the category filter from this aggregation to see counts for all matching items
     const countFilter = { ...filter };
     delete countFilter.category; 
 

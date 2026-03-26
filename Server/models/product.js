@@ -23,7 +23,10 @@ const productSchema = new mongoose.Schema({
     default: 0,
   },
 
-  // ✅ ADD THIS
+  description: {
+    type: String,
+    required: true,
+  },
   role: {
     type: String,
     enum: ["normal", "prime"],
