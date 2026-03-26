@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { FiArrowLeft, FiCheckCircle, FiLock, FiPlus } from "react-icons/fi";
+import { FiArrowLeft, FiCheckCircle, FiLock, FiPlus, FiShoppingBag, FiTruck, FiMapPin } from "react-icons/fi";
+import { motion, AnimatePresence } from "framer-motion";
 import { cartActions } from "../Redux/CartSlice";
 import { orderActions } from "../Redux/OrderSlice";
 import "./Checkout.css";
@@ -120,24 +121,125 @@ const Checkout = () => {
     // --- SUCCESS VIEW ---
     if (orderStep === "success") {
         return (
-            <div className="order-success-container">
-                <div className="success-content">
-                    <div className="success-icon-wrapper">
-                        <FiCheckCircle />
-                    </div>
-                    <h1 className="success-title-unique">ORDER CONFIRMED</h1>
-                    <div className="success-divider"></div>
-                    <p className="success-msg">Your VOGUE selection is now being prepared for departure.</p>
-                    <div className="order-details-summary">
-                        <p>Order ID: <span>#VC-{Math.floor(1000000 + Math.random() * 9000000)}</span></p>
-                        <p>Total Paid: <span>Rs. {finalTotal.toLocaleString('en-IN')}.00</span></p>
-                        <p>Delivery to: <span>{formData.city}, {formData.state}</span></p>
-                    </div>
-                    <button className="back-to-shop-btn" onClick={() => navigate("/")}>
-                        RETURN TO STORE
-                    </button>
+            <motion.div 
+                className="unique-success-page"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+            >
+                <div className="confetti-container">
+                    {[...Array(20)].map((_, i) => (
+                        <motion.div 
+                            key={i}
+                            className="confetti-piece"
+                            initial={{ 
+                                top: "-10%", 
+                                left: `${Math.random() * 100}%`,
+                                rotate: 0,
+                                scale: Math.random() * 0.5 + 0.5
+                            }}
+                            animate={{ 
+                                top: "110%", 
+                                rotate: 360,
+                                left: `${Math.random() * 100}%`
+                            }}
+                            transition={{ 
+                                duration: Math.random() * 2 + 3,
+                                repeat: Infinity,
+                                ease: "linear",
+                                delay: Math.random() * 2
+                            }}
+                            style={{ 
+                                backgroundColor: ['#000', '#ffd700', '#f0f0f0', '#333'][Math.floor(Math.random() * 4)] 
+                            }}
+                        />
+                    ))}
                 </div>
-            </div>
+
+                <div className="success-hero">
+                    <motion.div 
+                        className="vogue-badge"
+                        initial={{ y: -50, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{ delay: 0.2 }}
+                    >
+                        VOGUECART EXCLUSIVE
+                    </motion.div>
+
+                    <div className="check-animation-box">
+                        <svg className="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                            <circle className="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                            <path className="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                        </svg>
+                    </div>
+
+                    <motion.h1 
+                        initial={{ y: 20, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{ delay: 0.5 }}
+                    >
+                        YOUR STYLE IS ON THE WAY
+                    </motion.h1>
+                    
+                    <motion.p 
+                        className="manifesto"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.7 }}
+                    >
+                        Order #VC-{Math.floor(1000000 + Math.random() * 9000000)} • {new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short' })}
+                    </motion.p>
+                </div>
+
+                <div className="order-reveal-grid">
+                    <motion.div 
+                        className="reveal-card"
+                        initial={{ scale: 0.9, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        transition={{ delay: 0.9 }}
+                    >
+                        <div className="card-icon"><FiTruck /></div>
+                        <h3>ARRIVING BY</h3>
+                        <p>{new Date(Date.now() + 5*24*60*60*1000).toLocaleDateString('en-GB', { day: '2-digit', month: 'long' })}</p>
+                    </motion.div>
+
+                    <motion.div 
+                        className="reveal-card highlight"
+                        initial={{ scale: 0.9, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        transition={{ delay: 1.1 }}
+                    >
+                        <div className="card-icon"><FiShoppingBag /></div>
+                        <h3>TOTAL VALUE</h3>
+                        <p>Rs. {finalTotal.toLocaleString('en-IN')}</p>
+                    </motion.div>
+
+                    <motion.div 
+                        className="reveal-card"
+                        initial={{ scale: 0.9, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        transition={{ delay: 1.3 }}
+                    >
+                        <div className="card-icon"><FiMapPin /></div>
+                        <h3>DESTINATION</h3>
+                        <p>{formData.city}</p>
+                    </motion.div>
+                </div>
+
+                <motion.div 
+                    className="success-actions"
+                    initial={{ y: 50, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 1.5 }}
+                >
+                    <button className="primary-reveal-btn" onClick={() => navigate("/")}>
+                        CONTINUE SHOPPING
+                    </button>
+                    <button className="secondary-reveal-btn" onClick={() => navigate("/account")}>
+                        VIEW ORDER STATUS
+                    </button>
+                </motion.div>
+            </motion.div>
         );
     }
 

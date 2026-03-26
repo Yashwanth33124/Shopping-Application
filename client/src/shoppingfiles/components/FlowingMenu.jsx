@@ -11,7 +11,8 @@ function FlowingMenu({
   bgColor = '#060010',
   marqueeBgColor = '#fff',
   marqueeTextColor = '#060010',
-  borderColor = '#fff'
+  borderColor = '#fff',
+  largeImage = ''
 }) {
   return (
     <div className="menu-wrap" style={{ backgroundColor: bgColor }}>
@@ -20,6 +21,9 @@ function FlowingMenu({
           <MenuItem
             key={idx}
             {...item}
+            index={idx}
+            total={items.length}
+            largeImage={largeImage}
             speed={speed}
             textColor={textColor}
             marqueeBgColor={marqueeBgColor}
@@ -32,7 +36,19 @@ function FlowingMenu({
   );
 }
 
-function MenuItem({ link, text, images = [], speed, textColor, marqueeBgColor, marqueeTextColor, borderColor }) {
+function MenuItem({ 
+  link, 
+  text, 
+  images = [], 
+  index, 
+  total, 
+  largeImage, 
+  speed, 
+  textColor, 
+  marqueeBgColor, 
+  marqueeTextColor, 
+  borderColor 
+}) {
   const itemRef = useRef(null);
   const marqueeRef = useRef(null);
   const marqueeInnerRef = useRef(null);
@@ -72,8 +88,8 @@ function MenuItem({ link, text, images = [], speed, textColor, marqueeBgColor, m
 
     calculateRepetitions();
     window.addEventListener('resize', calculateRepetitions);
-    return () => window.removeEventListener('resize', calculateRepetitions);
-  }, [text, images]);
+     return () => window.removeEventListener('resize', calculateRepetitions);
+   }, [text, repetitions]);
 
   useEffect(() => {
     const setupMarquee = () => {
@@ -107,7 +123,7 @@ function MenuItem({ link, text, images = [], speed, textColor, marqueeBgColor, m
         animationRef.current.kill();
       }
     };
-  }, [text, images, repetitions, speed]);
+  }, [text, repetitions, speed]);
 
   const handleMouseEnter = ev => {
     if (!itemRef.current || !marqueeRef.current || !marqueeInnerRef.current) return;
@@ -137,7 +153,7 @@ function MenuItem({ link, text, images = [], speed, textColor, marqueeBgColor, m
   };
 
   return (
-    <div className="menu__item" ref={itemRef} style={{ borderColor }}>
+    <div className="menu__item" ref={itemRef}>
       <a
         className="menu__item-link"
         href={link}
@@ -147,19 +163,26 @@ function MenuItem({ link, text, images = [], speed, textColor, marqueeBgColor, m
       >
         {text}
       </a>
-      <div className="marquee" ref={marqueeRef} style={{ backgroundColor: marqueeBgColor }}>
+      <div className="marquee" ref={marqueeRef} style={{ backgroundColor: 'transparent' }}>
+        {largeImage && (
+          <div 
+            className="marquee__bg-wrapper" 
+            style={{ 
+              height: `${total * 100}%`,
+              transform: `translateY(-${(index / total) * 100}%)`,
+            }}
+          >
+            <div 
+              className="marquee__bg" 
+              style={{ backgroundImage: `url(${getImgUrl(largeImage)})` }} 
+            />
+          </div>
+        )}
         <div className="marquee__inner-wrap">
           <div className="marquee__inner" ref={marqueeInnerRef} aria-hidden="true">
             {[...Array(repetitions)].map((_, idx) => (
               <div className="marquee__part" key={idx} style={{ color: marqueeTextColor }}>
                 <span>{text}</span>
-                {images.map((img, imgIdx) => (
-                  <div 
-                    key={imgIdx}
-                    className="marquee__img" 
-                    style={{ backgroundImage: `url(${getImgUrl(img)})` }} 
-                  />
-                ))}
               </div>
             ))}
           </div>

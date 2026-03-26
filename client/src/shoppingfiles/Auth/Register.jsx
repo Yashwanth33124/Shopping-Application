@@ -5,14 +5,16 @@ import "./Register.css";
 import FlowingMenu from "../components/FlowingMenu";
 
 const demoItems = [
-  { link: '#', text: 'NEW ARRIVALS', images: ['/images6/woman11.avif', '/images6/men11.avif', '/images6/woman17.jpg'] },
-  { link: '#', text: 'VOGUE COLLECTIONS', images: ['/images/WOMANDRESS1.jpg', '/images/WOMANDRESS2.jpg', '/images/WOMANDRESS3.jpg'] },
-  { link: '#', text: 'TRENDING NOW', images: ['/images5/fashine1.avif', '/images5/fashine2.avif', '/images5/fashine4.avif'] },
-  { link: '#', text: 'PREMIUM QUALITY', images: ['/images/MENDRESS1.jpg', '/images/MENDRESS2.jpg', '/images/MENDRESS3.jpg'] },
-  { link: '#', text: 'STYLISH DEALS', images: ['/images5/fashine5.avif', '/images5/fashine6.avif', '/images5/fashine7.avif'] },
-  { link: '#', text: 'URBAN FASHION', images: ['/images3/a1.png', '/images3/a2.jpeg', '/images3/a3.jpg'] },
-  { link: '#', text: 'ELEGANT STYLES', images: ['/images/WOMANDRESS4.jpg', '/images/WOMANDRESS5.jpg', '/images/WOMANDRESS1.jpg'] }
+  { link: '#', text: 'NEW ARRIVALS' },
+  { link: '#', text: 'VOGUE COLLECTIONS' },
+  { link: '#', text: 'TRENDING NOW' },
+  { link: '#', text: 'PREMIUM QUALITY' },
+  { link: '#', text: 'STYLISH DEALS' },
+  { link: '#', text: 'URBAN FASHION' },
+  { link: '#', text: 'ELEGANT STYLES' }
 ];
+
+const LARGE_IMAGE = '/images6/woman17.jpg';
 
 const Register = () => {
     const navigate = useNavigate();
@@ -231,6 +233,7 @@ const Register = () => {
             <div className="register-menu-side">
                 <FlowingMenu 
                     items={demoItems}
+                    largeImage={LARGE_IMAGE}
                     speed={15}
                     textColor="#000"
                     bgColor="transparent"
