@@ -91,7 +91,7 @@ const loginUser = async (req, res) => {
       userId: user._id,
       username: user.username,
       role: user.role
-    }, process.env.JWT_SECRET_KEY, { expiresIn: '30m' })
+    }, process.env.JWT_SECRET_KEY, { expiresIn: '10m' })
     res.status(200).json({
       success: true,
       message: "Login Successfull",
