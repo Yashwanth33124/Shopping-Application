@@ -59,8 +59,10 @@ const ProductDetails = () => {
 
     const handleAddToCart = () => {
         const cat = product.category?.toLowerCase();
-        const isClothing = cat !== "beauty" && cat !== "accessories";
-        if (isClothing && !selectedSize && !product.sizes?.includes("One Size")) {
+        const isBeautyOrAcc = cat === "beauty" || cat === "accessories";
+        const isBag = /\b(bag|handbag|clutch|purse|backpack|satchel|tote|hobo|messenger|crossbody|wristlet)\b/i.test(product.name || "");
+
+        if (!isBeautyOrAcc && !isBag && !selectedSize && !product.sizes?.includes("One Size")) {
             triggerToast("Please select a size", "warning");
             return;
         }
@@ -129,31 +131,39 @@ const ProductDetails = () => {
                     </div>
 
                     <div className="size-section">
-                        {product.category?.toLowerCase() === "beauty" || product.category?.toLowerCase() === "accessories" ? (
-                            <div className="quantity-selector-wrap">
-                                <span className="qty-label">QUANTITY</span>
-                                <div className="qty-controls">
-                                    <button onClick={() => setQuantity(Math.max(1, quantity - 1))}><FiMinus /></button>
-                                    <span>{quantity}</span>
-                                    <button onClick={() => setQuantity(quantity + 1)}><FiPlus /></button>
-                                </div>
-                            </div>
-                        ) : (
-                            <>
-                                <div className="size-grid">
-                                    {(product.sizes || fallbackProduct.sizes).map((size) => (
-                                        <button
-                                            key={size}
-                                            className={`size-btn ${selectedSize === size ? "selected" : ""}`}
-                                            onClick={() => setSelectedSize(size)}
-                                        >
-                                            {size}
-                                        </button>
-                                    ))}
-                                </div>
-                                <button className="size-guide">SIZE GUIDE</button>
-                            </>
-                        )}
+                        {(() => {
+                            const cat = product.category?.toLowerCase();
+                            const name = product.name?.toLowerCase() || "";
+                            const isBag = /\b(bag|handbag|clutch|purse|backpack|satchel|tote|hobo|messenger|crossbody|wristlet)\b/i.test(name);
+                            if (cat === "beauty" || cat === "accessories" || isBag) {
+                                return (
+                                    <div className="quantity-selector-wrap">
+                                        <span className="qty-label">QUANTITY</span>
+                                        <div className="qty-controls">
+                                            <button onClick={() => setQuantity(Math.max(1, quantity - 1))}><FiMinus /></button>
+                                            <span>{quantity}</span>
+                                            <button onClick={() => setQuantity(quantity + 1)}><FiPlus /></button>
+                                        </div>
+                                    </div>
+                                );
+                            }
+                            return (
+                                <>
+                                    <div className="size-grid">
+                                        {(product.sizes || fallbackProduct.sizes).map((size) => (
+                                            <button
+                                                key={size}
+                                                className={`size-btn ${selectedSize === size ? "selected" : ""}`}
+                                                onClick={() => setSelectedSize(size)}
+                                            >
+                                                {size}
+                                            </button>
+                                        ))}
+                                    </div>
+                                    <button className="size-guide">SIZE GUIDE</button>
+                                </>
+                            );
+                        })()}
                     </div>
 
                     <button className="add-to-bag-btn" onClick={handleAddToCart}>ADD TO BAG</button>
