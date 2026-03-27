@@ -75,6 +75,9 @@ exports.getAllProducts = async (req, res) => {
       // 🔥 EXTREMELY PRECISE T-SHIRT VS SHIRT RULES
       const isTshirtSearch = searchStr.includes("tshirt") || searchStr.includes("t-shirt") || searchStr.includes("t shirt") || searchStr.includes("tee");
       const isShirtSearch = (searchStr.includes("shirt") || searchStr.includes("shirts")) && !isTshirtSearch;
+      const isBagSearch = searchStr.includes("bag") || searchStr.includes("bags") || searchStr.includes("handbag") || searchStr.includes("clutch") || searchStr.includes("backpack") || searchStr.includes("purse");
+      const isLipstickSearch = searchStr.includes("lipstick") || searchStr.includes("lp");
+      const isPerfumeSearch = searchStr.includes("perfume") || searchStr.includes("fragrance") || searchStr.includes("mist");
 
       if (isTshirtSearch) {
         // Only return T-shirts/Tees
@@ -97,6 +100,32 @@ exports.getAllProducts = async (req, res) => {
             },
             { name: { $regex: /^(?!.*t-?shirt).*$/i } },      // No T-shirts in name
             { description: { $regex: /^(?!.*t-?shirt).*$/i } } // No T-shirts in description
+          ]
+        };
+      } else if (isBagSearch) {
+        // Return all bag styles (includes handbags, clutches, backpacks, etc.)
+        filterQuery = {
+          $or: [
+            { name: { $regex: /\b(bag|handbag|clutch|purse|backpack|satchel|tote|hobo|messenger|crossbody)\b/i } },
+            { description: { $regex: /\b(bag|handbag|clutch|purse|backpack|satchel|tote|hobo|messenger|crossbody)\b/i } }
+          ]
+        };
+      } else if (isLipstickSearch) {
+        // Return EXCLUSIVELY lipstick products (matching "lipstick" or "lp" pattern)
+        filterQuery = {
+          $or: [
+            { name: { $regex: /\blipstick\b/i } },
+            { name: { $regex: /#lp(10|[1-9]|1\d|2\d|3[0-1])\b/i } }, // In case they are numbered lp1-lp31
+            { description: { $regex: /\blipstick\b/i } }
+          ]
+        };
+      } else if (isPerfumeSearch) {
+        // Return all perfume/fragrance styles
+        filterQuery = {
+          $or: [
+            { name: { $regex: /\b(perfume|fragrance|mist|cologne|eau|spray|scent)\b/i } },
+            { name: { $regex: /#PFM-\d+\b/i } }, // Match the custom ID used in seeding
+            { description: { $regex: /\b(perfume|fragrance|mist|cologne|eau|spray|scent)\b/i } }
           ]
         };
       } else {

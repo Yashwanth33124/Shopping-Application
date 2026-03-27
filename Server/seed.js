@@ -38,7 +38,7 @@ const seedProducts = async () => {
           });
 
           await Product.create({
-            name: file.split(".")[0],
+            name: file.split(".")[0].replace(/\d+$/, ""),
             description: `${category} product`,
             price: 999,
             category: category,
