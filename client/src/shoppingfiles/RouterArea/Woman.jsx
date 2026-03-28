@@ -64,19 +64,19 @@ const Woman = () => {
       {/* ===== FIRST 2 FEATURE IMAGES ===== */}
       <section className="woman-images">
         {[
-          { id: "w-hero-1", img: getImgUrl("/images5/fashine1.avif"), title: "Denim Edit", price: 2999 },
-          { id: "w-hero-2", img: getImgUrl("/images5/fashine2.avif"), title: "Urban Casual", price: 3499 },
+          { id: "w-hero-1", img: getImgUrl("/images5/fashine1.avif"), title: "Premium fabric with structured fit" },
+          { id: "w-hero-2", img: getImgUrl("/images5/fashine2.avif"), title: "Easy to style with jeans, skirts, or trousers" },
         ].map((item, i) => (
           <div
             className="woman-image-card clickable"
             key={i}
             ref={(el) => (cardsRef.current[i] = el)}
-            onClick={() => handleProductClick({ ...item, image: item.img })}
+            // onClick={() => handleProductClick({ ...item, image: item.img })}
           >
             <img src={item.img} alt={item.title} />
             <div className="image-overlay">
               <h2>{item.title}</h2>
-              <p>₹ {item.price}</p>
+              <p> {item.price}</p>
             </div>
           </div>
         ))}

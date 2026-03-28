@@ -65,8 +65,18 @@ const Child = () => {
       {/* ===== FEATURE IMAGES ===== */}
       <section className="child-images">
         {[
-          { id: "k-hero-1", img: getImgUrl("/image8/kid1.avif"), title: "Playful Denim", price: 1999 },
-          { id: "k-hero-2", img: getImgUrl("/image8/kid2.avif"), title: "Everyday Comfort", price: 2499 },
+          {
+            id: "k-hero-1",
+            img: getImgUrl("/image8/kid1.avif"),
+            h: "Playful Denim",
+            p: "Easy, effortless, with just a hint of attitude.",
+          },
+          {
+            id: "k-hero-2",
+            img: getImgUrl("/image8/kid2.avif"),
+            h: "Everyday Comfort",
+            p: "Made to feel good, designed to feel right.",
+          },
         ].map((item, i) => (
           <div
             className="child-image-card clickable"
@@ -74,10 +84,11 @@ const Child = () => {
             ref={(el) => (cardsRef.current[i] = el)}
             onClick={() => handleProductClick({ ...item, image: item.img })}
           >
-            <img src={item.img} alt={item.title} />
+            <img src={item.img} alt={item.h} />
+
             <div className="image-overlay">
-              <h2>{item.title}</h2>
-              <p>₹ {item.price}</p>
+              <h2>{item.h}</h2>
+              <p>{item.p}</p>
             </div>
           </div>
         ))}

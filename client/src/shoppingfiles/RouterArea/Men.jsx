@@ -76,12 +76,12 @@ const Men = () => {
           <div
             className="men2-media-left clickable"
             ref={(el) => (cardsRef.current[0] = el)}
-            onClick={() => handleProductClick({ id: "m-hero-1", title: "Denim Edit", price: 2499, image: getImgUrl("/images/m1.avif") })}
+            // onClick={() => handleProductClick({ id: "m-hero-1", title: "Denim Edit",  image: getImgUrl("/images/m1.avif") })}
           >
             <img src={getImgUrl("/images/m1.avif")} alt="Denim Collection" />
             <div className="men2-text">
-              <h2>Denim Edit</h2>
-              <p>₹ 2,499</p>
+              <h2>“Timeless denim, redefined for everyday wear.”</h2>
+             
             </div>
           </div>
 
@@ -89,19 +89,18 @@ const Men = () => {
           <div
             className="men2-media-right clickable"
             ref={(el) => (cardsRef.current[1] = el)}
-            onClick={() => handleProductClick({
-              id: "m-hero-video",
-              title: "Urban Casual",
-              price: 1999,
-              image: getImgUrl("/images/mv.webm"),
-              video: getImgUrl("/images/mv.webm"),
-              isVideo: true
-            })}
+            // onClick={() => handleProductClick({
+            //   id: "m-hero-video",
+            //   title: "Urban Casual",
+            //   image: getImgUrl("/images/mv.webm"),
+            //   video: getImgUrl("/images/mv.webm"),
+            //   isVideo: true
+            // })}
           >
             <video src={getImgUrl("/images/mv.webm")} autoPlay muted loop playsInline />
             <div className="men2-text">
-              <h2>Urban Casual</h2>
-              <p>₹ 1,999</p>
+              <h2>“City-ready comfort meets modern style.”</h2>
+              
             </div>
           </div>
         </div>

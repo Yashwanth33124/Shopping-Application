@@ -22,7 +22,32 @@ const Beauty = () => {
     const loadProducts = async () => {
       setLoading(true);
       const data = await fetchProductsByCategory("beauty");
-      setProducts(data);
+
+      // Filter Lipsticks (exactly 10)
+      const lipsticks = data.filter(p => 
+        p.name?.toLowerCase().includes("lp") || 
+        p.name?.toLowerCase().includes("lipstick") ||
+        p.title?.toLowerCase().includes("lipstick")
+      ).slice(0, 10);
+
+      // Filter Perfumes (exactly 10)
+      const perfumes = data.filter(p => 
+        p.name?.toLowerCase().includes("perfume") || 
+        p.name?.toLowerCase().includes("fragrance") ||
+        p.name?.toLowerCase().includes("mist") ||
+        p.title?.toLowerCase().includes("perfume") ||
+        p.description?.toLowerCase().includes("perfume")
+      ).slice(0, 10);
+
+      // Filter Bags (exactly 10)
+      const bags = data.filter(p => 
+        p.name?.toLowerCase().includes("bag") || 
+        p.title?.toLowerCase().includes("bag") ||
+        p.description?.toLowerCase().includes("bag")
+      ).slice(0, 10);
+
+      // Combine them (10 of each)
+      setProducts([...lipsticks, ...perfumes, ...bags]);
       setLoading(false);
     };
     loadProducts();
@@ -71,19 +96,19 @@ const Beauty = () => {
           <div
             className="beauty2-media-left clickable"
             ref={(el) => (cardsRef.current[0] = el)}
-            onClick={() => handleProductClick({
-              id: "b-glow",
-              title: "Pure Glow Oil",
-              price: "3499",
-              image: getImgUrl("/images10/fifth.jpg"),
-              sizes: ["50ml"],
-              category: "beauty"
-            })}
+            // onClick={() => handleProductClick({
+            //   id: "b-glow",
+            //   title: "Pure Glow Oil",
+            //   price: "3499",
+            //   image: getImgUrl("/images10/fifth.jpg"),
+            //   sizes: ["50ml"],
+            //   category: "beauty"
+            // })}
           >
             <img src={getImgUrl("/images10/fifth.jpg")} alt="Glow Beauty" />
             <div className="beauty2-text">
-              <h2>Pure Glow</h2>
-              <p>Timeless beauty. Effortless confidence.</p>
+              <h2>PURE GLOW</h2>
+              <p>Radiance that feels soft, looks irresistible.</p>
             </div>
           </div>
 
@@ -91,19 +116,19 @@ const Beauty = () => {
           <div
             className="beauty2-media-right clickable"
             ref={(el) => (cardsRef.current[1] = el)}
-            onClick={() => handleProductClick({
-              id: "b-essence",
-              title: "Radiant Essence",
-              price: "4299",
-              image: getImgUrl("/images10/fourth.avif"),
-              sizes: ["100ml"],
-              category: "beauty"
-            })}
+            // onClick={() => handleProductClick({
+            //   id: "b-essence",
+            //   title: "Radiant Essence",
+            //   price: "4299",
+            //   image: getImgUrl("/images10/fourth.avif"),
+            //   sizes: ["100ml"],
+            //   category: "beauty"
+            // })}
           >
             <img src={getImgUrl("/images10/fourth.avif")} alt="Radiant Skin" />
             <div className="beauty2-text">
-              <h2>Radiant Essence</h2>
-              <p>Soft elegance meets modern luxury.</p>
+              <h2>RADIANT ESSENCE</h2>
+              <p>Subtle. Warm. Quietly intoxicating.</p>
             </div>
           </div>
 
