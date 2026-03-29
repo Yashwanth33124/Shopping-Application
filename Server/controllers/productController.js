@@ -78,16 +78,27 @@ exports.getAllProducts = async (req, res) => {
       const isBagSearch = searchStr.includes("bag") || searchStr.includes("bags") || searchStr.includes("handbag") || searchStr.includes("clutch") || searchStr.includes("backpack") || searchStr.includes("purse");
       const isLipstickSearch = searchStr.includes("lipstick") || searchStr.includes("lp");
       const isPerfumeSearch = searchStr.includes("perfume") || searchStr.includes("fragrance") || searchStr.includes("mist");
+      
+      const isDressSearch = searchStr.includes("dress") || searchStr.includes("gown") || searchStr.includes("skirt");
+
+      const hasWomanKeyword = /\b(woman|women|female|lady|ladies)\b/i.test(searchStr);
+      const hasMenKeyword = /\b(men|man|male|gentleman)\b/i.test(searchStr);
 
       if (isTshirtSearch) {
         // Only return T-shirts/Tees
         filterQuery = {
-          $or: [
-            { name: { $regex: /\b(t-?shirt|tee|oversized)\b/i } },
-            { description: { $regex: /\b(t-?shirt|tee|oversized)\b/i } },
-            { category: "tshirts-only" }
+          $and: [
+            {
+              $or: [
+                { name: { $regex: /\b(t-?shirt|tee|oversized)\b/i } },
+                { description: { $regex: /\b(t-?shirt|tee|oversized)\b/i } },
+                { category: "tshirts-only" }
+              ]
+            }
           ]
         };
+        if (hasWomanKeyword) filterQuery.$and.push({ category: { $regex: /^woman$/i } });
+        else if (hasMenKeyword) filterQuery.$and.push({ category: { $regex: /^men$/i } });
       } else if (isShirtSearch) {
         // Return only regular shirts (exclude anything that looks like a tshirt)
         filterQuery = {
@@ -102,6 +113,12 @@ exports.getAllProducts = async (req, res) => {
             { description: { $regex: /^(?!.*t-?shirt).*$/i } } // No T-shirts in description
           ]
         };
+        // 🔥 GENDER FILTER FOR SHIRTS
+        if (hasWomanKeyword) {
+          filterQuery.$and.push({ category: { $regex: /^woman$/i } });
+        } else if (hasMenKeyword) {
+          filterQuery.$and.push({ category: { $regex: /^men$/i } });
+        }
       } else if (isBagSearch) {
         // Return all bag styles (includes handbags, clutches, backpacks, etc.)
         filterQuery = {
@@ -110,6 +127,19 @@ exports.getAllProducts = async (req, res) => {
             { description: { $regex: /\b(bag|handbag|clutch|purse|backpack|satchel|tote|hobo|messenger|crossbody)\b/i } }
           ]
         };
+      } else if (isDressSearch) {
+        // Return all dress styles including the specialized search-only category
+        filterQuery = {
+          $or: [
+            { name: { $regex: /\b(dress|gown|skirt|maxi|midi|mini)\b/i } },
+            { description: { $regex: /\b(dress|gown|skirt|maxi|midi|mini)\b/i } },
+            { category: "woman-dresses" }
+          ]
+        };
+        // Ensure that if "men" is specified with "dress" (unusual but possible), we don't return woman-dresses
+        if (hasMenKeyword && !hasWomanKeyword) {
+          filterQuery = { ...filterQuery, category: { $ne: "woman-dresses" } };
+        }
       } else if (isLipstickSearch) {
         // Return EXCLUSIVELY lipstick products (matching "lipstick" or "lp" pattern)
         filterQuery = {
@@ -131,15 +161,20 @@ exports.getAllProducts = async (req, res) => {
       } else {
         // Standard behavior for other search terms
         const keywords = searchStr.split(/\s+/).filter(k => k.length > 0);
-        const orConditions = [];
+        const andConditions = [];
+        
+        // Use $and for better accuracy across multiple keywords (e.g., "red shirt")
         keywords.forEach(word => {
           let normalized = word.endsWith('s') && word.length > 4 ? word.slice(0, -1) : word;
-          orConditions.push(
-            { name: { $regex: new RegExp(`\\b${normalized}\\b`, "i") } },
-            { description: { $regex: new RegExp(`\\b${normalized}\\b`, "i") } }
-          );
+          andConditions.push({
+            $or: [
+              { name: { $regex: new RegExp(`\\b${normalized}\\b`, "i") } },
+              { description: { $regex: new RegExp(`\\b${normalized}\\b`, "i") } },
+              { category: { $regex: new RegExp(`^${normalized}$`, "i") } }
+            ]
+          });
         });
-        filterQuery = { $or: orConditions };
+        filterQuery = { $and: andConditions };
       }
       
       filter = { ...filter, ...filterQuery };
