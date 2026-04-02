@@ -187,33 +187,33 @@ const Child = () => {
           <div className="child-footer-col">
             <h4>Shop</h4>
             <ul>
-              <li>LADIES</li>
-              <li>MEN</li>
-              <li>KIDS</li>
-              <li>HOME</li>
-              <li>BEAUTY</li>
+              <li onClick={() => navigate("/")} style={{ cursor: 'pointer' }}>Home</li>
+              <li onClick={() => navigate("/men")} style={{ cursor: 'pointer' }}>Men</li>
+              <li onClick={() => navigate("/woman")} style={{ cursor: 'pointer' }}>Woman</li>
+              <li onClick={() => navigate("/beauty")} style={{ cursor: 'pointer' }}>Beauty</li>
+              <li onClick={() => navigate("/child")} style={{ cursor: 'pointer' }}>Child</li>
             </ul>
           </div>
 
           <div className="child-footer-col">
             <h4>Corporate Info</h4>
             <ul>
-              <li>CAREERS</li>
-              <li>ABOUT VOGUECART</li>
-              <li>SUSTAINABILITY</li>
-              <li>PRESS</li>
-              <li>INVESTOR RELATIONS</li>
+              <li onClick={() => navigate("/info/careers")} style={{ cursor: 'pointer' }}>CAREERS AT VOGUECART</li>
+              <li onClick={() => navigate("/info/about-us")} style={{ cursor: 'pointer' }}>ABOUT VOGUECART</li>
+              <li onClick={() => navigate("/info/sustainability")} style={{ cursor: 'pointer' }}>SUSTAINABILITY</li>
+              <li onClick={() => navigate("/info/press")} style={{ cursor: 'pointer' }}>PRESS</li>
+              <li onClick={() => navigate("/info/investor-relations")} style={{ cursor: 'pointer' }}>INVESTOR RELATIONS</li>
             </ul>
           </div>
 
           <div className="child-footer-col">
             <h4>Help</h4>
             <ul>
-              <li>CUSTOMER SERVICE</li>
-              <li>MY ACCOUNT</li>
-              <li>FIND A STORE</li>
-              <li>LEGAL & PRIVACY</li>
-              <li>CONTACT</li>
+              <li onClick={() => navigate("/info/customer-service")} style={{ cursor: 'pointer' }}>CUSTOMER SERVICE</li>
+              <li onClick={() => navigate("/info/my-account")} style={{ cursor: 'pointer' }}>MY ACCOUNT</li>
+              <li onClick={() => navigate("/info/find-a-store")} style={{ cursor: 'pointer' }}>FIND A STORE</li>
+              <li onClick={() => navigate("/info/legal-privacy")} style={{ cursor: 'pointer' }}>LEGAL & PRIVACY</li>
+              <li onClick={() => navigate("/info/contact")} style={{ cursor: 'pointer' }}>CONTACT</li>
             </ul>
           </div>
 

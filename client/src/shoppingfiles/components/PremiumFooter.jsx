@@ -1,8 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./Footer.css";
 import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
 
 export default function AnimatedWaveFooter() {
+  const navigate = useNavigate();
   return (
     <footer className="footer">
 
@@ -25,11 +27,12 @@ export default function AnimatedWaveFooter() {
         </div>
 
         <div>
-          <h3>Quick Links</h3>
-          <p>Home</p>
-          <p>Products</p>
-          <p>About</p>
-          <p>Contact</p>
+          <h3>Shop</h3>
+          <p onClick={() => navigate("/")} style={{ cursor: 'pointer' }}>Home</p>
+          <p onClick={() => navigate("/men")} style={{ cursor: 'pointer' }}>Men</p>
+          <p onClick={() => navigate("/woman")} style={{ cursor: 'pointer' }}>Woman</p>
+          <p onClick={() => navigate("/beauty")} style={{ cursor: 'pointer' }}>Beauty</p>
+          <p onClick={() => navigate("/child")} style={{ cursor: 'pointer' }}>Child</p>
         </div>
 
         <div>

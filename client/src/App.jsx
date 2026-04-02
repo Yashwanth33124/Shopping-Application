@@ -19,6 +19,7 @@ import PrimeSubscription from "./shoppingfiles/pages/PrimeSubscription";
 import Checkout from "./shoppingfiles/pages/Checkout";
 import SearchResults from "./shoppingfiles/pages/SearchResults";
 import Wishlist from "./shoppingfiles/pages/Wishlist";
+import Information from "./shoppingfiles/pages/Information";
 import { useSelector, useDispatch } from "react-redux";
 import { cartActions } from "./shoppingfiles/Redux/CartSlice";
 import CartNotification from "./shoppingfiles/components/CartNotification";
@@ -66,6 +67,7 @@ function App() {
             location.pathname !== "/register" &&
             location.pathname !== "/prime" &&
             location.pathname !== "/checkout" &&
+            !location.pathname.startsWith("/info") &&
             <Header />}
 
           {lastAddedItem && (
@@ -149,6 +151,7 @@ function App() {
                 <Wishlist />
               </ProtectedRoute>
             } />
+            <Route path="/info/:type" element={<Information />} />
             <Route path="*" element={<div style={{ padding: '100px', textAlign: 'center' }}>404 Page Not Found</div>} />
           </Routes>
         </>

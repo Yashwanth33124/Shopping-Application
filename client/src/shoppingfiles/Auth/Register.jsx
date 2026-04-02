@@ -31,7 +31,8 @@ const Register = () => {
     const [passwordCriteria, setPasswordCriteria] = useState({
         length: false,
         special: false,
-        number: false
+        number: false,
+        uppercase: false
     });
     const [isPasswordFocused, setIsPasswordFocused] = useState(false);
 
@@ -39,7 +40,8 @@ const Register = () => {
         setPasswordCriteria({
             length: pass.length >= 8,
             special: /[!@#$%^&*(),.?":{}|<>]/.test(pass),
-            number: /\d/.test(pass)
+            number: /\d/.test(pass),
+            uppercase: /[A-Z]/.test(pass)
         });
     };
 
@@ -61,7 +63,7 @@ const Register = () => {
         e.preventDefault();
         setError("");
 
-        if (!passwordCriteria.length || !passwordCriteria.special || !passwordCriteria.number) {
+        if (!passwordCriteria.length || !passwordCriteria.special || !passwordCriteria.number || !passwordCriteria.uppercase) {
             setError("Password does not meet the requirements.");
             return;
         }
@@ -138,20 +140,23 @@ const Register = () => {
                             onBlur={() => setIsPasswordFocused(false)}
                             required
                         />
-                        {(isPasswordFocused || formData.password) && (
-                            <div className="password-requirements">
-                                <p className={passwordCriteria.length ? "met" : "unmet"}>
-                                    {passwordCriteria.length ? "✓" : "○"} At least 8 characters
-                                </p>
-                                <p className={passwordCriteria.special ? "met" : "unmet"}>
-                                    {passwordCriteria.special ? "✓" : "○"} Special character (!@#$ etc.)
-                                </p>
-                                <p className={passwordCriteria.number ? "met" : "unmet"}>
-                                    {passwordCriteria.number ? "✓" : "○"} At least one number
-                                </p>
-                            </div>
-                        )}
                     </div>
+                    {(isPasswordFocused || formData.password) && (
+                        <div className="password-requirements">
+                            <p className={passwordCriteria.length ? "met" : "unmet"}>
+                                {passwordCriteria.length ? "✓" : "○"} At least 8 characters
+                            </p>
+                            <p className={passwordCriteria.uppercase ? "met" : "unmet"}>
+                                {passwordCriteria.uppercase ? "✓" : "○"} At least one capital letter
+                            </p>
+                            <p className={passwordCriteria.special ? "met" : "unmet"}>
+                                {passwordCriteria.special ? "✓" : "○"} Special character (!@#$ etc.)
+                            </p>
+                            <p className={passwordCriteria.number ? "met" : "unmet"}>
+                                {passwordCriteria.number ? "✓" : "○"} At least one number
+                            </p>
+                        </div>
+                    )}
 
                     <div className="register-input-group">
                         <label>NAME</label>
