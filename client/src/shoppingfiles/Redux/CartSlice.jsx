@@ -94,6 +94,21 @@ const cartSlice = createSlice({
             state.lastAddedItem = null;
         },
     },
+    extraReducers: (builder) => {
+        builder
+            .addCase("auth/logout", (state) => {
+                state.cartItems = [];
+                state.totalQuantity = 0;
+                state.totalAmount = 0;
+                state.lastAddedItem = null;
+            })
+            .addCase("auth/authSuccess", (state) => {
+                state.cartItems = [];
+                state.totalQuantity = 0;
+                state.totalAmount = 0;
+                state.lastAddedItem = null;
+            });
+    },
 });
 
 export const cartActions = cartSlice.actions;

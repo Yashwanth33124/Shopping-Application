@@ -22,13 +22,15 @@ import Wishlist from "./shoppingfiles/pages/Wishlist";
 import Information from "./shoppingfiles/pages/Information";
 import { useSelector, useDispatch } from "react-redux";
 import { cartActions } from "./shoppingfiles/Redux/CartSlice";
+import { setPrimeSuccess } from "./shoppingfiles/Redux/AuthSlice";
 import CartNotification from "./shoppingfiles/components/CartNotification";
+import PrimeWelcomeNotification from "./shoppingfiles/components/PrimeWelcomeNotification";
 
 import ProtectedRoute from "./shoppingfiles/RouterArea/ProtectedRoute";
 import PublicRoute from "./shoppingfiles/RouterArea/PublicRoute";
 
 function App() {
-  const { isPrime, isAuthenticated } = useSelector((state) => state.auth);
+  const { isPrime, isAuthenticated, showPrimeSuccess } = useSelector((state) => state.auth);
   const lastAddedItem = useSelector((state) => state.cart?.lastAddedItem || null);
 
   const [showSplash, setShowSplash] = useState(isAuthenticated);
@@ -77,6 +79,11 @@ function App() {
               onClose={() => dispatch(cartActions.clearLastAddedItem())}
             />
           )}
+
+          <PrimeWelcomeNotification
+            show={showPrimeSuccess}
+            onClose={() => dispatch(setPrimeSuccess(false))}
+          />
 
           <ScrollToTop />
 

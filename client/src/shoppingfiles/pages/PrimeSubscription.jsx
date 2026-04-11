@@ -63,29 +63,73 @@ const PrimeSubscription = () => {
 
     const handleConfirmPayment = async () => {
         try {
-            const response = await fetch("http://localhost:3001/api/auth/update-prime-status", {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
+            const amountStr = plans[selectedPlan].price.replace('₹', '');
+            const amount = parseInt(amountStr);
+
+            const res = await fetch("http://localhost:3001/api/razorpay/create-order", {
+                method: "POST",
+                headers: { 
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`
+                },
                 body: JSON.stringify({
-                    userId: user.id || user._id,
-                    isPrime: true,
-                    plan: plans[selectedPlan].name
+                    amount,
+                    isSubscription: true,
+                    subscriptionPlan: plans[selectedPlan].name
                 })
             });
 
-            const data = await response.json();
-
-            if (data.success) {
-                dispatch(updatePrimeStatus({ isPrime: true, plan: plans[selectedPlan].name }));
-                if (user) {
-                    const storageKey = `hasSeenPrimeWelcome_${user.email || 'user'}`;
-                    localStorage.removeItem(storageKey);
-                }
-                setShowPayment(false);
-                navigate("/");
+            const data = await res.json();
+            if (!data.success) {
+                alert("Order creation failed: " + (data.message || "Unknown error"));
+                return;
             }
+
+            const options = {
+                key: "rzp_test_ScC88hppNTIDdS",
+                amount: data.order.amount,
+                currency: data.order.currency,
+                name: "VogueCart",
+                description: `Prime Subscription - ${plans[selectedPlan].name}`,
+                order_id: data.order.id,
+                handler: async function (response) {
+                    const verifyRes = await fetch("http://localhost:3001/api/razorpay/verify-payment", {
+                        method: "POST",
+                        headers: { 
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${localStorage.getItem('token')}`
+                        },
+                        body: JSON.stringify({
+                            razorpay_order_id: response.razorpay_order_id,
+                            razorpay_payment_id: response.razorpay_payment_id,
+                            razorpay_signature: response.razorpay_signature,
+                        })
+                    });
+
+                    const verifyData = await verifyRes.json();
+                    if (verifyData.success) {
+                        dispatch(updatePrimeStatus({ isPrime: true, plan: plans[selectedPlan].name }));
+                        navigate("/");
+                    } else {
+                        alert("Payment verification failed. Please contact support.");
+                    }
+                },
+                prefill: {
+                    name: user?.username || "",
+                    email: user?.email || "",
+                    contact: user?.telephone || ""
+                },
+                theme: {
+                    color: "#000000"
+                }
+            };
+
+            const rzp = new window.Razorpay(options);
+            rzp.open();
+
         } catch (error) {
-            console.error("Prime update failed", error);
+            console.error("Payment failed", error);
+            alert("Something went wrong with the payment process.");
         }
     };
 
@@ -97,43 +141,35 @@ const PrimeSubscription = () => {
                 </button>
                 <div className="prime-payment-content">
                     <div className="member-logo">VOGUE<span>PRIME</span></div>
-                    <h1>Membership Payment</h1>
-                    <p className="payment-plan-desc">You are subscribing to the <strong>{plans[selectedPlan].name}</strong> plan for <strong>{plans[selectedPlan].price}</strong></p>
+                    <h1>Membership Checkout</h1>
+                    <p className="payment-plan-desc">You are subscribing to the <strong>{plans[selectedPlan].name}</strong> plan</p>
+                    
+                    <div className="payment-summary-card">
+                        <div className="summary-item">
+                            <span>Plan Amount</span>
+                            <span>{plans[selectedPlan].price}</span>
+                        </div>
+                        <div className="summary-item">
+                            <span>Duration</span>
+                            <span>{plans[selectedPlan].period.replace('/ ', '')}</span>
+                        </div>
+                        <div className="summary-total">
+                            <span>Total Payable</span>
+                            <span>{plans[selectedPlan].price}</span>
+                        </div>
+                    </div>
 
                     <div className="prime-payment-form">
-                        <div className="form-group">
-                            <label>Card Number</label>
-                            <input
-                                type="text"
-                                placeholder="0000 0000 0000 0000"
-                                value={cardDetails.number}
-                                onChange={(e) => setCardDetails({ ...cardDetails, number: e.target.value })}
-                            />
-                        </div>
-                        <div className="form-row">
-                            <div className="form-group">
-                                <label>Expiry Date</label>
-                                <input
-                                    type="text"
-                                    placeholder="MM / YY"
-                                    value={cardDetails.expiry}
-                                    onChange={(e) => setCardDetails({ ...cardDetails, expiry: e.target.value })}
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label>CVV</label>
-                                <input
-                                    type="password"
-                                    placeholder="***"
-                                    value={cardDetails.cvv}
-                                    onChange={(e) => setCardDetails({ ...cardDetails, cvv: e.target.value })}
-                                />
-                            </div>
-                        </div>
                         <button className="prime-pay-btn" onClick={handleConfirmPayment}>
-                            AUTHORIZE PAYMENT {plans[selectedPlan].price}
+                            PROCEED TO SECURE PAYMENT
                         </button>
-                        <p className="secure-text"><i className="fas fa-lock"></i> Secure SSL Encrypted Gateway</p>
+                        <p className="secure-text"><i className="fas fa-lock"></i> Secured by Razorpay</p>
+                        <div className="payment-methods-icons">
+                            <i className="fab fa-cc-visa"></i>
+                            <i className="fab fa-cc-mastercard"></i>
+                            <i className="fas fa-mobile-alt"></i>
+                            <i className="fas fa-university"></i>
+                        </div>
                     </div>
                 </div>
             </div>

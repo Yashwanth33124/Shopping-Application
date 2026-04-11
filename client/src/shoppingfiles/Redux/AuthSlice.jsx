@@ -6,6 +6,7 @@ const initialState = {
     isAuthenticated: !!localStorage.getItem("token"),
     isPrime: JSON.parse(localStorage.getItem("user"))?.isPrime || false,
     primePlan: JSON.parse(localStorage.getItem("user"))?.primePlan || null,
+    showPrimeSuccess: false,
     loading: false,
     error: null,
 };
@@ -39,8 +40,12 @@ const authSlice = createSlice({
                 state.user.primePlan = plan;
                 state.isPrime = isPrime;
                 state.primePlan = plan;
+                state.showPrimeSuccess = isPrime; // Set success notification flag
                 localStorage.setItem("user", JSON.stringify(state.user));
             }
+        },
+        setPrimeSuccess: (state, action) => {
+            state.showPrimeSuccess = action.payload;
         },
         logout: (state) => {
             state.user = null;
@@ -48,6 +53,7 @@ const authSlice = createSlice({
             state.isAuthenticated = false;
             state.isPrime = false;
             state.primePlan = null;
+            state.showPrimeSuccess = false;
             localStorage.removeItem("user");
             localStorage.removeItem("token");
         },
@@ -60,5 +66,5 @@ const authSlice = createSlice({
     },
 });
 
-export const { authStart, authSuccess, authFailure, logout, updatePrimeStatus, updateUser } = authSlice.actions;
+export const { authStart, authSuccess, authFailure, logout, updatePrimeStatus, updateUser, setPrimeSuccess } = authSlice.actions;
 export default authSlice.reducer;

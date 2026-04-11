@@ -23,7 +23,16 @@ const wishlistSlice = createSlice({
         clearWishlist(state) {
             state.items = [];
         }
-    }
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase("auth/logout", (state) => {
+                state.items = [];
+            })
+            .addCase("auth/authSuccess", (state) => {
+                state.items = [];
+            });
+    },
 });
 
 export const wishlistActions = wishlistSlice.actions;

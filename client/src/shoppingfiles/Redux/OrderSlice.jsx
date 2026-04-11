@@ -28,7 +28,18 @@ const orderSlice = createSlice({
             state.orders = [];
             localStorage.removeItem("vogue_orders");
         }
-    }
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase("auth/logout", (state) => {
+                state.orders = [];
+                localStorage.removeItem("vogue_orders");
+            })
+            .addCase("auth/authSuccess", (state) => {
+                state.orders = [];
+                localStorage.removeItem("vogue_orders");
+            });
+    },
 });
 
 export const { addOrder, clearOrders } = orderSlice.actions;

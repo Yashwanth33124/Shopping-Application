@@ -93,25 +93,114 @@ const Checkout = () => {
         }
     };
 
-    const handleCompletePurchase = () => {
-        const orderData = {
-            id: `#VC-${Math.floor(1000000 + Math.random() * 9000000)}`,
-            date: new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' }).toUpperCase(),
-            items: [...cartItems],
-            total: finalTotal,
-            address: {
-                city: formData.city,
-                state: formData.state,
-                fullAddress: `${formData.address}${formData.building ? ', ' + formData.building : ''}`
-            },
-            paymentMethod: paymentMethod === "card" ? "CREDIT/DEBIT CARD" : "CASH ON DELIVERY"
-        };
+    const handleCompletePurchase = async () => {
+        if (paymentMethod === "cod") {
+            const orderData = {
+                id: `#VC-${Math.floor(1000000 + Math.random() * 9000000)}`,
+                date: new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' }).toUpperCase(),
+                items: [...cartItems],
+                total: finalTotal,
+                address: {
+                    city: formData.city,
+                    state: formData.state,
+                    fullAddress: `${formData.address}${formData.building ? ', ' + formData.building : ''}`
+                },
+                paymentMethod: "CASH ON DELIVERY"
+            };
 
-        dispatch(orderActions.addOrder(orderData));
-        setOrderStep("success");
-        setTimeout(() => {
-            dispatch(cartActions.clearCart());
-        }, 1000);
+            dispatch(orderActions.addOrder(orderData));
+            setOrderStep("success");
+            setTimeout(() => {
+                dispatch(cartActions.clearCart());
+            }, 1000);
+            return;
+        }
+
+        // Razorpay logic for Card
+        try {
+            const res = await fetch("http://localhost:3001/api/razorpay/create-order", {
+                method: "POST",
+                headers: { 
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`
+                },
+                body: JSON.stringify({
+                    amount: finalTotal,
+                    products: cartItems.map(item => ({
+                        product: item._id || item.id,
+                        quantity: item.quantity,
+                        price: item.price
+                    }))
+                })
+            });
+
+            const data = await res.json();
+            if (!data.success) {
+                alert("Order creation failed: " + (data.message || "Unknown error"));
+                return;
+            }
+
+            const options = {
+                key: "rzp_test_ScC88hppNTIDdS",
+                amount: data.order.amount,
+                currency: data.order.currency,
+                name: "VogueCart",
+                description: "Purchase from VogueCart",
+                order_id: data.order.id,
+                handler: async function (response) {
+                    const verifyRes = await fetch("http://localhost:3001/api/razorpay/verify-payment", {
+                        method: "POST",
+                        headers: { 
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${localStorage.getItem('token')}`
+                        },
+                        body: JSON.stringify({
+                            razorpay_order_id: response.razorpay_order_id,
+                            razorpay_payment_id: response.razorpay_payment_id,
+                            razorpay_signature: response.razorpay_signature,
+                        })
+                    });
+
+                    const verifyData = await verifyRes.json();
+                    if (verifyData.success) {
+                        const orderData = {
+                            id: data.order.id,
+                            date: new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' }).toUpperCase(),
+                            items: [...cartItems],
+                            total: finalTotal,
+                            address: {
+                                city: formData.city,
+                                state: formData.state,
+                                fullAddress: `${formData.address}${formData.building ? ', ' + formData.building : ''}`
+                            },
+                            paymentMethod: "CREDIT / DEBIT CARD"
+                        };
+                        dispatch(orderActions.addOrder(orderData));
+                        setOrderStep("success");
+                        setTimeout(() => {
+                            dispatch(cartActions.clearCart());
+                        }, 1000);
+                    } else {
+                        alert("Payment verification failed. Please contact support.");
+                    }
+                },
+                prefill: {
+                    name: `${formData.firstName} ${formData.lastName}`,
+                    email: formData.email,
+                    contact: user?.telephone || ""
+                },
+                theme: {
+                    color: "#000000"
+                }
+            };
+
+            const rzp = new window.Razorpay(options);
+            rzp.open();
+
+        } catch (error) {
+            console.error("Razorpay error", error);
+            alert("Something went wrong with the payment process.");
+        }
     };
 
     const shippingFee = (cartItems.length > 0 && !isPrime) ? 499 : 0;
@@ -187,7 +276,7 @@ const Checkout = () => {
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.7 }}
                     >
-                        Order #VC-{Math.floor(1000000 + Math.random() * 9000000)} • {new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short' })}
+                        Order Confirmed • {new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short' })}
                     </motion.p>
                 </div>
 
@@ -266,43 +355,12 @@ const Checkout = () => {
                             >
                                 <div className="payment-method-header">
                                     <div className="radio-circle"></div>
-                                    <h3>CREDIT / DEBIT CARD</h3>
+                                    <h3>ONLINE PAYMENT (CARDS, UPI, NETBANKING)</h3>
                                 </div>
 
                                 {paymentMethod === 'card' && (
                                     <div className="card-form-nested">
-                                        <div className="form-group">
-                                            <label>Card Number</label>
-                                            <input
-                                                type="text"
-                                                placeholder="0000 0000 0000 0000"
-                                                name="number"
-                                                value={cardData.number}
-                                                onChange={handleCardChange}
-                                            />
-                                        </div>
-                                        <div className="form-row">
-                                            <div className="form-group">
-                                                <label>Expiry Date</label>
-                                                <input
-                                                    type="text"
-                                                    placeholder="MM / YY"
-                                                    name="expiry"
-                                                    value={cardData.expiry}
-                                                    onChange={handleCardChange}
-                                                />
-                                            </div>
-                                            <div className="form-group">
-                                                <label>CVV</label>
-                                                <input
-                                                    type="password"
-                                                    placeholder="***"
-                                                    name="cvv"
-                                                    value={cardData.cvv}
-                                                    onChange={handleCardChange}
-                                                />
-                                            </div>
-                                        </div>
+                                        <p>Secure payment via Razorpay. Supports all major cards, UPI, and net banking.</p>
                                     </div>
                                 )}
                             </div>
