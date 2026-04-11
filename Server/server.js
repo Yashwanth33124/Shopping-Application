@@ -6,6 +6,7 @@ const connectToDb = require("./database/db");
 
 const productRoutes = require("./routes/productRoutes");
 const authRoutes = require("./routes/authRoutes");
+const razorpayRoutes = require("./routes/razorpay-routes");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -21,6 +22,7 @@ app.use(express.json());
 // Routes
 app.use("/api/products", productRoutes);
 app.use("/api/auth",authRoutes);
+app.use("/api/razorpay", razorpayRoutes);
 
 
 

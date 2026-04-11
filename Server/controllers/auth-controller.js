@@ -5,6 +5,8 @@ const jwt = require('jsonwebtoken')
 
 //register controller 
 
+
+
 const registerUser = async (req, res) => {
   try {
     const { username, email, password, telephone } = req.body;
@@ -91,7 +93,7 @@ const loginUser = async (req, res) => {
       userId: user._id,
       username: user.username,
       role: user.role
-    }, process.env.JWT_SECRET_KEY, { expiresIn: '10m' })
+    }, process.env.JWT_SECRET_KEY, { expiresIn: '7d' })
     res.status(200).json({
       success: true,
       message: "Login Successfull",
