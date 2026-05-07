@@ -22,14 +22,15 @@ const Checkout = () => {
     const { user, isPrime, isAuthenticated } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [firstName = "", lastName = ""] = (user?.username || "").split(" ");
 
     const [orderStep, setOrderStep] = useState("form"); // "form" -> "payment" -> "success"
     const [isAddressSaved, setIsAddressSaved] = useState(false);
     const [paymentMethod, setPaymentMethod] = useState("card"); // "card" or "cod"
 
     const [formData, setFormData] = useState({
-        firstName: user?.name?.split(" ")[0] || "",
-        lastName: user?.name?.split(" ")[1] || "",
+        firstName,
+        lastName,
         email: user?.email || "",
         address: "",
         city: "",

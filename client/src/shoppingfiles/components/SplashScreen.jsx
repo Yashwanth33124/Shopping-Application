@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m as M } from "framer-motion";
 import "./SplashScreen.css";
 
 const text = "VOGUECART";
@@ -27,7 +27,7 @@ const letter = {
 
 const SplashScreen = ({ exit }) => {
   return (
-    <motion.div
+    <M.div
       className="splash"
       variants={container}
       initial="hidden"
@@ -38,14 +38,14 @@ const SplashScreen = ({ exit }) => {
         transition: "opacity 0.8s ease",
       }}
     >
-      <motion.div className="logo">
+      <M.div className="logo">
         {text.split("").map((char, index) => (
-          <motion.span key={index} variants={letter}>
+          <M.span key={index} variants={letter}>
             {char}
-          </motion.span>
+          </M.span>
         ))}
-      </motion.div>
-    </motion.div>
+      </M.div>
+    </M.div>
   );
 };
 

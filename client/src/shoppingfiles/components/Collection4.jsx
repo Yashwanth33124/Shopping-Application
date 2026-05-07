@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getImgUrl } from "../../utils/imagePath";
-import { useDispatch } from "react-redux";
-import { cartActions } from "../Redux/CartSlice";
 
 import "./Collection4.css";
 
@@ -51,8 +49,6 @@ const Collection4 = () => {
     filter === "ALL"
       ? productsData
       : productsData.filter((item) => item.category === filter);
-
-  const dispatch = useDispatch();
 
   const handleProductClick = (item) => {
     navigate(`/product/${item.id}`, { state: { product: item } });

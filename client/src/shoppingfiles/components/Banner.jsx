@@ -5,8 +5,7 @@ import { Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 
-
-
+import { getImgUrl } from "../../utils/imagePath";
 import "./Banner.css";
 
 const Banner = () => {
@@ -20,11 +19,11 @@ const Banner = () => {
         className="bannerbox"
       >
         <SwiperSlide>
-          <img src={banner1} alt="banner 1" />
+          <img src={getImgUrl("/image7/home1.webp")} alt="banner 1" />
         </SwiperSlide>
 
         <SwiperSlide>
-          <img src={banner2} alt="banner 2" />
+          <img src={getImgUrl("/image7/home2.avif")} alt="banner 2" />
         </SwiperSlide>
       </Swiper>
     </div>

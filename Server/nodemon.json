@@ -1,0 +1,18 @@
+{
+  "watch": [
+    "server.js",
+    "config",
+    "controllers",
+    "database",
+    "middleware",
+    "models",
+    "routes"
+  ],
+  "ext": "js,json",
+  "ignore": [
+    "node_modules",
+    "seedImages",
+    "*.log"
+  ],
+  "legacyWatch": true
+}

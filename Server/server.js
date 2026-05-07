@@ -11,9 +11,6 @@ const razorpayRoutes = require("./routes/razorpay-routes");
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Connect to MongoDB
-connectToDb();
-
 // Middlewares
 app.use(cors());
 app.use(express.json());
@@ -26,6 +23,19 @@ app.use("/api/razorpay", razorpayRoutes);
 
 
 
-app.listen(PORT, () => {
-  console.log(`Server is running on PORT ${PORT}`);
+const startServer = async () => {
+  if (!process.env.JWT_SECRET_KEY) {
+    throw new Error("Missing JWT_SECRET_KEY in Server/.env");
+  }
+
+  await connectToDb();
+
+  app.listen(PORT, () => {
+    console.log(`Server is running on PORT ${PORT}`);
+  });
+};
+
+startServer().catch((error) => {
+  console.error("Server startup failed:", error.message);
+  process.exit(1);
 });

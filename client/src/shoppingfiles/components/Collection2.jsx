@@ -1,11 +1,6 @@
-import React, { useRef, useState } from "react";
-import { useDispatch } from "react-redux";
-import { cartActions } from "../Redux/CartSlice";
+import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Collection2.css";
-
-// TOAST
-import Toast from "./Toast";
 
 // IMAGES (unchanged)
 import MEN1 from "../../assets/MEN1.jpg";
@@ -26,8 +21,6 @@ import CHILD2 from "../../assets/CHILD2.jpg";
 const Collection2 = () => {
   const sliderRef = useRef(null);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const [showToast, setShowToast] = useState(false);
 
   const items = [
     // ... items array remains the same ...
@@ -62,8 +55,6 @@ const Collection2 = () => {
 
   return (
     <section className="collection2-section">
-      {showToast && <Toast text="Added to cart 🛒" />}
-
       <div className="collection2-row" ref={sliderRef}>
         {items.map((item) => (
           <div

@@ -1,6 +1,6 @@
 import { useRef, useLayoutEffect, useState } from 'react';
 import {
-  motion,
+  m as M,
   useScroll,
   useSpring,
   useTransform,
@@ -109,9 +109,9 @@ export const ScrollVelocity = ({
 
     return (
       <div className={parallaxClassName} style={parallaxStyle}>
-        <motion.div className={scrollerClassName} style={{ x, ...scrollerStyle }}>
+        <M.div className={scrollerClassName} style={{ x, ...scrollerStyle }}>
           {spans}
-        </motion.div>
+        </M.div>
       </div>
     );
   }

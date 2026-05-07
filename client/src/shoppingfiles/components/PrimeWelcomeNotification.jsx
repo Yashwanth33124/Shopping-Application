@@ -1,30 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./PrimeWelcomeNotification.css";
 import { FiCheckCircle, FiX } from "react-icons/fi";
-import { motion, AnimatePresence } from "framer-motion";
+import { m as M, AnimatePresence } from "framer-motion";
 
 const PrimeWelcomeNotification = ({ show, onClose }) => {
     const [isMounted, setIsMounted] = useState(false);
 
+    const handleClose = useCallback(() => {
+        setIsMounted(false);
+        setTimeout(onClose, 500);
+    }, [onClose]);
+
     useEffect(() => {
         if (show) {
-            setIsMounted(true);
+            const mountTimer = setTimeout(() => setIsMounted(true), 0);
             const timer = setTimeout(() => {
                 handleClose();
             }, 5000);
-            return () => clearTimeout(timer);
+            return () => {
+                clearTimeout(mountTimer);
+                clearTimeout(timer);
+            };
         }
-    }, [show]);
-
-    const handleClose = () => {
-        setIsMounted(false);
-        setTimeout(onClose, 500);
-    };
+    }, [handleClose, show]);
 
     return (
         <AnimatePresence>
             {isMounted && (
-                <motion.div
+                <M.div
                     className="prime-notif-container"
                     initial={{ opacity: 0, x: -100, scale: 0.9 }}
                     animate={{ opacity: 1, x: 0, scale: 1 }}
@@ -46,7 +49,7 @@ const PrimeWelcomeNotification = ({ show, onClose }) => {
                         </div>
                         <div className="prime-progress-bar"></div>
                     </div>
-                </motion.div>
+                </M.div>
             )}
         </AnimatePresence>
     );

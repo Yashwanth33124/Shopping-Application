@@ -1,6 +1,8 @@
 const Product = require("../models/product");
 const cloudinary = require("../config/cloudinary");
 
+const escapeRegex = (value) => String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
 // Create Product (Admin logic)
 exports.createProduct = async (req, res) => {
   try {
@@ -59,13 +61,11 @@ exports.getAllProducts = async (req, res) => {
       limit = 10,
     } = req.query;
 
-    console.log(`[GET /api/products] category: ${category}, search: ${search}`);
-
     let filter = {};
 
     if (category) {
       // Use case-insensitive exact match to avoid matching longer patterns like "Men Shirts"
-      filter.category = { $regex: new RegExp(`^${category}$`, "i") };
+      filter.category = { $regex: new RegExp(`^${escapeRegex(category)}$`, "i") };
     }
 
     if (search) {
@@ -166,11 +166,12 @@ exports.getAllProducts = async (req, res) => {
         // Use $and for better accuracy across multiple keywords (e.g., "red shirt")
         keywords.forEach(word => {
           let normalized = word.endsWith('s') && word.length > 4 ? word.slice(0, -1) : word;
+          const safeNormalized = escapeRegex(normalized);
           andConditions.push({
             $or: [
-              { name: { $regex: new RegExp(`\\b${normalized}\\b`, "i") } },
-              { description: { $regex: new RegExp(`\\b${normalized}\\b`, "i") } },
-              { category: { $regex: new RegExp(`^${normalized}$`, "i") } }
+              { name: { $regex: new RegExp(`\\b${safeNormalized}\\b`, "i") } },
+              { description: { $regex: new RegExp(`\\b${safeNormalized}\\b`, "i") } },
+              { category: { $regex: new RegExp(`^${safeNormalized}$`, "i") } }
             ]
           });
         });
@@ -191,8 +192,8 @@ exports.getAllProducts = async (req, res) => {
     if (sort === "price_desc") sortOption.price = -1;
     if (sort === "newest") sortOption.createdAt = -1;
 
-    const pageNumber = Number(page);
-    const limitNumber = Number(limit);
+    const pageNumber = Math.max(Number(page) || 1, 1);
+    const limitNumber = Math.min(Math.max(Number(limit) || 10, 1), 100);
     const skip = (pageNumber - 1) * limitNumber;
 
     // Get products for the current page
@@ -236,7 +237,7 @@ exports.getProductsByCategory = async (req, res) => {
   try {
     const category = req.params.category;
     const products = await Product.find({
-      category: { $regex: new RegExp(`^${category}$`, "i") },
+      category: { $regex: new RegExp(`^${escapeRegex(category)}$`, "i") },
     });
 
     if (products.length > 0) {

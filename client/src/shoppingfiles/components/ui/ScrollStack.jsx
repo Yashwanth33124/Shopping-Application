@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { m as M, useScroll, useTransform } from "framer-motion";
 import "./ScrollStack.css";
 
 export const ScrollStackItem = ({ children, index, total, progress }) => {
@@ -20,7 +20,7 @@ export const ScrollStackItem = ({ children, index, total, progress }) => {
     const scale = useTransform(progress, [nextStart - 0.05, nextStart], [1, 0.95]);
 
     return (
-        <motion.div
+        <M.div
             className="scroll-stack-item"
             style={{
                 y,
@@ -32,7 +32,7 @@ export const ScrollStackItem = ({ children, index, total, progress }) => {
             <div className="scroll-stack-card">
                 {children}
             </div>
-        </motion.div>
+        </M.div>
     );
 };
 
@@ -70,7 +70,7 @@ const ScrollStack = ({ children }) => {
                 ))}
 
                 {/* FINAL OUTRO TEXT */}
-                <motion.div
+                <M.div
                     className="scroll-stack-final"
                     style={{
                         opacity: finalOpacity,
@@ -78,7 +78,7 @@ const ScrollStack = ({ children }) => {
                     }}
                 >
                     <h1>VOGUECART PRIME</h1>
-                </motion.div>
+                </M.div>
             </div>
         </div>
     );

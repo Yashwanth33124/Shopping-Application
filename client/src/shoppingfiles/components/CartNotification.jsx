@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import "./CartNotification.css";
-import { FiX } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 
 const CartNotification = ({ product, show, onClose }) => {
@@ -8,24 +7,29 @@ const CartNotification = ({ product, show, onClose }) => {
     const [isMounted, setIsMounted] = React.useState(false);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        if (show) {
-            setIsMounted(true);
-            setIsClosing(false);
-            const timer = setTimeout(() => {
-                handleClose();
-            }, 2500); // 2 to 3 seconds as requested
-            return () => clearTimeout(timer);
-        }
-    }, [show]);
-
-    const handleClose = () => {
+    const handleClose = useCallback(() => {
         setIsClosing(true);
         setTimeout(() => {
             setIsMounted(false);
             onClose();
         }, 500); // Wait for transition
-    };
+    }, [onClose]);
+
+    useEffect(() => {
+        if (show) {
+            const mountTimer = setTimeout(() => {
+                setIsMounted(true);
+                setIsClosing(false);
+            }, 0);
+            const timer = setTimeout(() => {
+                handleClose();
+            }, 2500); // 2 to 3 seconds as requested
+            return () => {
+                clearTimeout(mountTimer);
+                clearTimeout(timer);
+            };
+        }
+    }, [handleClose, show]);
 
     const handleCardClick = () => {
         navigate("/cart");

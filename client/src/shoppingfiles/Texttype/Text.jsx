@@ -33,6 +33,7 @@ const TextType = ({
 
   const cursorRef = useRef(null);
   const containerRef = useRef(null);
+  const [hasStarted, setHasStarted] = useState(false);
 
   const textArray = useMemo(() => (Array.isArray(text) ? text : [text]), [text]);
 
@@ -64,6 +65,11 @@ const TextType = ({
   }, [startOnVisible]);
 
   useEffect(() => {
+    const timer = setTimeout(() => setHasStarted(true), initialDelay);
+    return () => clearTimeout(timer);
+  }, [initialDelay]);
+
+  useEffect(() => {
     if (showCursor && cursorRef.current) {
       gsap.set(cursorRef.current, { opacity: 1 });
       gsap.to(cursorRef.current, {
@@ -76,7 +82,7 @@ const TextType = ({
   }, [showCursor, cursorBlinkDuration]);
 
   useEffect(() => {
-    if (!isVisible) return;
+    if (!isVisible || !hasStarted) return;
 
     let timeout;
     const currentText = textArray[currentTextIndex];
@@ -86,9 +92,13 @@ const TextType = ({
 
     if (isDeleting) {
       if (displayedText === '') {
-        setIsDeleting(false);
-        setCurrentTextIndex((prev) => (prev + 1) % textArray.length);
-        setCurrentCharIndex(0);
+        timeout = setTimeout(() => {
+          setIsDeleting(false);
+          if (!loop && currentTextIndex === textArray.length - 1) return;
+          onSentenceComplete?.(textArray[currentTextIndex], currentTextIndex);
+          setCurrentTextIndex((prev) => (prev + 1) % textArray.length);
+          setCurrentCharIndex(0);
+        }, 0);
       } else {
         timeout = setTimeout(() => {
           setDisplayedText(prev => prev.slice(0, -1));
@@ -101,7 +111,12 @@ const TextType = ({
           setCurrentCharIndex(prev => prev + 1);
         }, variableSpeed ? getRandomSpeed() : typingSpeed);
       } else {
-        timeout = setTimeout(() => setIsDeleting(true), pauseDuration);
+        timeout = setTimeout(() => {
+          onSentenceComplete?.(textArray[currentTextIndex], currentTextIndex);
+          if (loop || currentTextIndex < textArray.length - 1) {
+            setIsDeleting(true);
+          }
+        }, pauseDuration);
       }
     }
 
@@ -116,25 +131,36 @@ const TextType = ({
     textArray,
     currentTextIndex,
     isVisible,
+    hasStarted,
     reverseMode,
-    variableSpeed
+    variableSpeed,
+    getRandomSpeed,
+    loop,
+    onSentenceComplete
   ]);
 
-  return createElement(
+  const content = createElement(
     Component,
     {
-      ref: containerRef,
       className: `text-type ${className}`,
       ...props
     },
-    <span style={{ color: getCurrentTextColor() || 'inherit' }}>
-      {displayedText}
-    </span>,
-    showCursor && (
-      <span ref={cursorRef} className="text-type__cursor">
-        {cursorCharacter}
+    <>
+      <span style={{ color: getCurrentTextColor() || 'inherit' }}>
+        {displayedText}
       </span>
-    )
+      {showCursor && !(hideCursorWhileTyping && currentCharIndex > 0 && !isDeleting) && (
+        <span ref={cursorRef} className={`text-type__cursor ${cursorClassName}`}>
+          {cursorCharacter}
+        </span>
+      )}
+    </>
+  );
+
+  return (
+    <span ref={containerRef}>
+      {content}
+    </span>
   );
 };
 
