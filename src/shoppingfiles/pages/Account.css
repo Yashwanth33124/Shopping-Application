@@ -1,0 +1,706 @@
+.account-page-container {
+    padding: 140px 5% 80px 5%;
+    max-width: 1400px;
+    margin: 0 auto;
+    font-family: 'Inter', sans-serif;
+    color: #111;
+}
+
+.account-layout {
+    display: flex;
+    gap: 80px;
+}
+
+/* SIDEBAR */
+.account-sidebar {
+    flex: 0 0 280px;
+}
+
+.user-brief {
+    margin-bottom: 40px;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.user-brief p:first-child {
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.points-info {
+    color: #666;
+}
+
+.points-meter {
+    margin: 20px 0;
+}
+
+.points-label {
+    font-weight: 700;
+    margin-top: 5px;
+    font-size: 12px;
+}
+
+.progress-bar {
+    height: 1px;
+    background-color: #eee;
+    margin-top: 8px;
+    width: 100%;
+}
+
+.progress {
+    height: 100%;
+    background-color: #000;
+}
+
+.member-id {
+    font-size: 12px;
+    color: #666;
+}
+
+.account-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 40px 0;
+}
+
+.account-nav li {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 18px;
+    cursor: pointer;
+    transition: color 0.2s;
+    letter-spacing: 0.5px;
+    text-decoration: none !important;
+    border-bottom: none !important;
+}
+
+.account-nav li:hover,
+.account-nav li.active {
+    color: #000;
+    text-decoration: none !important;
+    border-bottom: none !important;
+}
+
+.sign-out-link {
+    background: none;
+    border: none;
+    font-size: 12px;
+    text-decoration: none !important;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 40px;
+    padding: 0;
+}
+
+/* MAIN CONTENT */
+.account-main {
+    flex: 1;
+}
+
+.account-title {
+    font-size: 38px;
+    font-weight: 800;
+    margin-bottom: 60px;
+    letter-spacing: -1px;
+}
+
+.rewards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.reward-card {
+    border: 1px solid #f0f0f0;
+    transition: transform 0.3s ease;
+}
+
+.reward-card:hover {
+    transform: translateY(-5px);
+}
+
+.promo-banner.black {
+    background-color: #000;
+    color: #fff;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.spotify-logo {
+    width: 60px;
+    filter: invert(1);
+}
+
+.promo-banner h3 {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.benefit-img {
+    height: 250px;
+    overflow: hidden;
+}
+
+.benefit-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.reward-info {
+    padding: 20px 0;
+}
+
+.reward-desc {
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.reward-expiry {
+    font-size: 11px;
+    color: #666;
+}
+
+/* PRIME STATUS BANNER */
+.prime-status-banner {
+    background: linear-gradient(135deg, #f8f8f8, #eee);
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #000;
+    color: #000;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.prime-banner-content h2 {
+    font-size: 24px;
+    margin-bottom: 8px;
+    color: #000;
+}
+
+.prime-banner-content p {
+    font-size: 14px;
+    color: #ccc;
+}
+
+.prime-banner-content .prime-badge {
+    display: inline-block;
+    background: #000;
+    color: #fff;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-weight: 800;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.prime-cta-btn {
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.prime-cta-btn:hover {
+    transform: scale(1.05);
+}
+
+.prime-active-pill {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #000;
+    padding: 12px 24px;
+    border-radius: 4px;
+    color: #fff;
+    font-weight: 800;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.prime-active-pill .dot {
+    width: 6px;
+    height: 6px;
+    background: #fff;
+    border-radius: 50%;
+    animation: flash 1s infinite alternate;
+}
+
+@keyframes flash {
+    from {
+        opacity: 0.3;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* ORDERS & SETTINGS SECTIONS */
+.section-subtitle {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+.orders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.empty-orders {
+    padding: 60px 0;
+    text-align: center;
+    border: 1px dashed #ddd;
+    border-radius: 8px;
+}
+
+.empty-orders p {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.shop-now-btn {
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 12px 30px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.order-item-card {
+    border: 1px solid #eee;
+    padding: 30px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.order-item-card:hover {
+    border-color: #aaa;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f9f9f9;
+}
+
+.order-date {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.order-status {
+    font-size: 10px;
+    background: #000;
+    color: #fff;
+    padding: 2px 8px;
+    font-weight: 700;
+}
+
+.order-body {
+    display: flex;
+    gap: 20px;
+}
+
+.order-img-preview-group {
+    display: flex;
+    gap: 10px;
+}
+
+.order-img-preview {
+    width: 60px;
+    height: 80px;
+    background: #f5f5f5;
+    object-fit: cover;
+    border: 1px solid #eee;
+}
+
+.order-img-mock {
+    width: 60px;
+    height: 80px;
+    background: #f5f5f5;
+}
+
+.order-info p {
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+
+.settings-form {
+    max-width: 500px;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #eee;
+    font-size: 14px;
+}
+
+.save-settings-btn {
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 15px 30px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+    .prime-status-banner {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+    .account-layout {
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .account-sidebar {
+        flex: none;
+        width: 100%;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .account-page-container {
+        padding-top: 100px;
+    }
+
+    .account-title {
+        font-size: 28px;
+        margin-bottom: 30px;
+    }
+
+    .rewards-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .account-nav li {
+        font-size: 14px;
+        margin-bottom: 12px;
+    }
+}
+
+/* TRACKING VIEW */
+.tracking-container {
+    animation: fadeIn 0.4s ease;
+}
+
+.back-btn-container {
+    margin-bottom: 30px;
+}
+
+.back-to-orders-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: none;
+    border: none;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 0;
+    letter-spacing: 1px;
+}
+
+.tracking-header {
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.tracking-id {
+    font-size: 14px;
+    color: #666;
+    margin-top: 5px;
+}
+
+.tracking-layout {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 60px;
+}
+
+.tracking-timeline {
+    position: relative;
+    padding-left: 30px;
+}
+
+.tracking-timeline::before {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 5px;
+    bottom: 5px;
+    width: 2px;
+    background: #f0f0f0;
+}
+
+.timeline-item {
+    position: relative;
+    padding-bottom: 40px;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -30px;
+    top: 5px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ccc;
+    z-index: 1;
+}
+
+.timeline-item.completed .timeline-dot {
+    background: #000;
+}
+
+.timeline-item.active .timeline-dot {
+    background: #000;
+    box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.1);
+}
+
+.timeline-content h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.timeline-content p {
+    font-size: 12px;
+    color: #666;
+}
+
+.order-tracking-summary-sidebar {
+    background: #f9f9f9;
+    padding: 30px;
+    height: fit-content;
+}
+
+.order-tracking-summary-sidebar h2 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+.mini-item-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.mini-img {
+    width: 50px;
+    height: 65px;
+    object-fit: cover;
+}
+
+.mini-info h4 {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.mini-info p {
+    font-size: 12px;
+    color: #444;
+}
+
+.tracking-totals {
+    margin-top: 25px;
+    border-top: 1px solid #ddd;
+    padding-top: 15px;
+}
+
+.tracking-total-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 900px) {
+    .tracking-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* SETTINGS PAGE ENHANCEMENTS */
+.settings-grid-view {
+    display: flex;
+    flex-direction: column;
+    max-width: 700px;
+    animation: fadeIn 0.4s ease;
+}
+
+.settings-group {
+    padding: 35px 0;
+}
+
+.settings-group:first-child {
+    padding-top: 0;
+}
+
+.settings-divider {
+    height: 1px;
+    background-color: #e0e0e0;
+    width: 100%;
+}
+
+.settings-data-text {
+    font-size: 16px;
+    margin-bottom: 6px;
+    font-weight: 400;
+    color: #111;
+    letter-spacing: 0.2px;
+}
+
+.settings-action-link {
+    background: none;
+    border: none;
+    padding: 0;
+    margin-top: 25px;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: underline;
+    cursor: pointer;
+    text-align: left;
+    display: inline-block;
+    color: #111;
+    letter-spacing: 0.5px;
+    transition: opacity 0.2s;
+}
+
+.settings-action-link:hover {
+    opacity: 0.7;
+}
+
+.settings-action-link.uppercase {
+    text-transform: uppercase;
+}
+
+.settings-subheading {
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+}
+
+.settings-info-text {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #111;
+    max-width: 550px;
+}
+
+.subscription-status-line {
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: #111;
+}
+
+.saved-address-preview {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #444;
+    line-height: 1.4;
+}
+
+.sign-out-action {
+    margin-top: 5px;
+}
+
+.edit-details-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 400px;
+}
+
+.edit-input {
+    padding: 12px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.edit-input:focus {
+    border-color: #000;
+}
+
+.edit-btns {
+    display: flex;
+    gap: 20px;
+}
+
+.saved-addresses-list {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.saved-addresses-list .saved-address-preview {
+    margin-top: 0;
+    padding: 15px;
+    background: #f9f9f9;
+    border: 1px solid #eee;
+}

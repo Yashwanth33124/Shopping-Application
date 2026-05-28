@@ -1,0 +1,29 @@
+.text-type {
+  white-space: pre-line; /* 👈 THIS MAKES \n WORK */
+}
+
+/* BIG SHOPPING MALL TEXT */
+.mall-text {
+  font-family: "Playfair Display", serif;
+  font-size: 46px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.5px;
+  margin: 70px 0 20px 40px;
+  color: #111;
+  white-space: pre-line; /* 👈 IMPORTANT */
+}
+
+/* Cursor */
+.text-type__cursor {
+  font-weight: 600;
+  color: #6a6ff2;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .mall-text {
+    font-size: 30px;
+    margin-left: 20px;
+  }
+}

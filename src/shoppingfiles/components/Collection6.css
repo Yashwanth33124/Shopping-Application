@@ -1,0 +1,32 @@
+.collection6-container {
+    padding: 40px;
+}
+
+.collection6-title {
+    font-size: 28px;
+    margin-bottom: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    position: relative;
+    display: inline-block;
+}
+
+.collection6-title::after {
+    content: "";
+    display: block;
+    width: 50%;
+    height: 3px;
+    background: #000;
+    margin-top: 5px;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+    .collection6-container {
+        padding: 20px;
+    }
+
+    .collection6-title {
+        font-size: 22px;
+    }
+}
