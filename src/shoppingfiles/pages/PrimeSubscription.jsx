@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { updatePrimeStatus } from "../Redux/AuthSlice";
+import { getApiUrl } from "../../config/api.config.js";
 import { FiArrowLeft } from "react-icons/fi";
 import ScrollStack, { ScrollStackItem } from "../components/ui/ScrollStack";
 import "./PrimeSubscription.css";
@@ -66,7 +67,7 @@ const PrimeSubscription = () => {
             const amountStr = plans[selectedPlan].price.replace('₹', '');
             const amount = parseInt(amountStr);
 
-            const res = await fetch("http://localhost:3001/api/razorpay/create-order", {
+            const res = await fetch(getApiUrl("/razorpay/create-order"), {
                 method: "POST",
                 headers: { 
                     "Content-Type": "application/json",
@@ -93,7 +94,7 @@ const PrimeSubscription = () => {
                 description: `Prime Subscription - ${plans[selectedPlan].name}`,
                 order_id: data.order.id,
                 handler: async function (response) {
-                    const verifyRes = await fetch("http://localhost:3001/api/razorpay/verify-payment", {
+                    const verifyRes = await fetch(getApiUrl("/razorpay/verify-payment"), {
                         method: "POST",
                         headers: { 
                             "Content-Type": "application/json",

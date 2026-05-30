@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getImgUrl } from "../../utils/imagePath";
+import { getApiUrl } from "../../config/api.config.js";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiFilter, FiChevronLeft, FiChevronRight, FiHeart } from "react-icons/fi";
 import { useSelector, useDispatch } from "react-redux";
@@ -44,7 +45,7 @@ const SearchResults = () => {
     const fetchResults = async () => {
         setLoading(true);
         try {
-            let url = `http://localhost:3001/api/products?search=${searchTerm}&page=${currentPage}&limit=${limit}&sort=${sort}`;
+            let url = `${getApiUrl("/products")}?search=${searchTerm}&page=${currentPage}&limit=${limit}&sort=${sort}`;
             const response = await fetch(url);
             const data = await response.json();
 

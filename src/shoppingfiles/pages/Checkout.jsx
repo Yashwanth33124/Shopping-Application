@@ -5,6 +5,7 @@ import { FiArrowLeft, FiCheckCircle, FiLock, FiPlus, FiShoppingBag, FiTruck, FiM
 import { motion, AnimatePresence } from "framer-motion";
 import { cartActions } from "../Redux/CartSlice";
 import { orderActions } from "../Redux/OrderSlice";
+import { getApiUrl } from "../../config/api.config.js";
 import "./Checkout.css";
 
 const INDIAN_STATES = [
@@ -118,7 +119,7 @@ const Checkout = () => {
 
         // Razorpay logic for Card
         try {
-            const res = await fetch("http://localhost:3001/api/razorpay/create-order", {
+            const res = await fetch(getApiUrl("/razorpay/create-order"), {
                 method: "POST",
                 headers: { 
                     "Content-Type": "application/json",
@@ -148,7 +149,7 @@ const Checkout = () => {
                 description: "Purchase from VogueCart",
                 order_id: data.order.id,
                 handler: async function (response) {
-                    const verifyRes = await fetch("http://localhost:3001/api/razorpay/verify-payment", {
+                    const verifyRes = await fetch(getApiUrl("/razorpay/verify-payment"), {
                         method: "POST",
                         headers: { 
                             "Content-Type": "application/json",

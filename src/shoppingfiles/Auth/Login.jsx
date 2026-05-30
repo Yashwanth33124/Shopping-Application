@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { authSuccess } from "../Redux/AuthSlice";
+import { getApiUrl } from "../../config/api.config.js";
 import "./Login.css";
 
 const Login = () => {
@@ -24,7 +25,7 @@ const Login = () => {
       setError("");
 
       const response = await fetch(
-        "http://localhost:3001/api/auth/login",
+        getApiUrl("/auth/login"),
         {
           method: "POST",
           headers: {

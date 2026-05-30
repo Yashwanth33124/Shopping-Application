@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { logout, updateUser } from "../Redux/AuthSlice";
 import { clearOrders } from "../Redux/OrderSlice";
 import { useNavigate } from "react-router-dom";
+import { getApiUrl } from "../../config/api.config.js";
 import { FiArrowLeft, FiPackage, FiTruck, FiCheck, FiMapPin } from "react-icons/fi";
 import "./Account.css";
 
@@ -21,7 +22,7 @@ const Account = () => {
 
     const handleSaveProfile = async () => {
         try {
-            const response = await fetch("http://localhost:3001/api/auth/update-profile", {
+            const response = await fetch(getApiUrl("/auth/update-profile"), {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ userId: user.id || user._id, ...editForm })
@@ -38,7 +39,7 @@ const Account = () => {
 
     const handleAddAddress = async () => {
         try {
-            const response = await fetch("http://localhost:3001/api/auth/add-address", {
+            const response = await fetch(getApiUrl("/auth/add-address"), {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ userId: user.id || user._id, ...addressForm })
@@ -64,8 +65,8 @@ const Account = () => {
                 try {
                     // Try fetch by ID first if available
                     const url = user.id || user._id
-                        ? `http://localhost:3001/api/auth/profile/${user.id || user._id}`
-                        : `http://localhost:3001/api/auth/me`;
+                        ? getApiUrl(`/auth/profile/${user.id || user._id}`)
+                        : getApiUrl("/auth/me");
 
                     const response = await fetch(url, {
                         headers: {

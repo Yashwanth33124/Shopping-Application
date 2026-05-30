@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
+import { getApiUrl } from "../../config/api.config.js";
 import "./Register.css";
 import FlowingMenu from "../components/FlowingMenu";
 
@@ -70,7 +71,7 @@ const Register = () => {
 
         try {
             const response = await fetch(
-                "http://localhost:3001/api/auth/register",
+                getApiUrl("/auth/register"),
                 {
                     method: "POST",
                     headers: {

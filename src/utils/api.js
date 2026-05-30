@@ -1,4 +1,6 @@
-const BASE_URL = "http://localhost:3001/api";
+import API_CONFIG from "../config/api.config.js";
+
+const BASE_URL = API_CONFIG.BASE_URL;
 
 export const fetchProductsByCategory = async (category) => {
   try {

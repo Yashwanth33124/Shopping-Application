@@ -4,8 +4,6 @@
   "version": "0.0.0",
   "type": "module",
 
-  "homepage": "https://Yashwanth33124.github.io/Shopping-Application/",
-
   "scripts": {
     "dev": "vite",
     "build": "vite build",
