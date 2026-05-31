@@ -12,4 +12,29 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+
+  build: {
+    outDir: "dist",
+    sourcemap: false,
+    minify: "terser",
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          "vendor": ["react", "react-dom", "react-router-dom"],
+          "redux": ["@reduxjs/toolkit", "react-redux"],
+          "ui": ["lucide-react", "react-icons"]
+        }
+      }
+    }
+  },
+
+  server: {
+    proxy: {
+      "/api": {
+        target: "http://localhost:3001",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, "")
+      }
+    }
+  }
 });

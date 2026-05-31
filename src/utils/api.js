@@ -4,7 +4,7 @@ const BASE_URL = API_CONFIG.BASE_URL;
 
 export const fetchProductsByCategory = async (category) => {
   try {
-    const url = `${BASE_URL}/products?category=${category}&limit=200`;
+    const url = `${BASE_URL}/products?category=${category}&limit=50`;
     console.log(`Fetching products for ${category} from ${url}`);
     
     const response = await fetch(url);
