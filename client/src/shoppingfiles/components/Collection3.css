@@ -1,0 +1,99 @@
+/* ================= SECTION ================= */
+.collection3-section {
+  width: 100%;
+  padding: 60px 0;
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+}
+
+/* ================= WRAPPER ================= */
+.collection3-wrapper {
+  display: flex;
+  width: 90%;
+  max-width: 1200px;
+  gap: 24px;
+}
+
+/* ================= VIDEO BOX ================= */
+.video-box {
+  position: relative;
+  flex: 1;
+  aspect-ratio: 16 / 13;
+  overflow: hidden;
+  border-radius: 24px;
+  background: #000; /* fallback */
+  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+}
+
+/* ================= VIDEO BASE ================= */
+.video-box video {
+  position: absolute;        /* 🔥 KEY FIX */
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  display: block;
+}
+
+/* MEN VIDEO — NORMAL */
+.men-video {
+  object-position: center center;
+}
+
+/* 🔥 WOMEN VIDEO — FACE SAFE */
+.woman-video {
+  object-position: center 35%;
+}
+
+/* ================= OVERLAY ================= */
+.video-box::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.45),
+    transparent 55%
+  );
+  z-index: 1;
+}
+
+/* ================= TEXT ================= */
+.video-text {
+  position: absolute;
+  bottom: 25px;
+  left: 25px;
+  z-index: 2;
+  color: #fff;
+}
+
+.video-text h2 {
+  font-size: 26px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.video-text p {
+  font-size: 14px;
+  margin-top: 4px;
+  opacity: 0.9;
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 768px) {
+  .collection3-wrapper {
+    flex-direction: column;
+  }
+
+  .video-box {
+    aspect-ratio: 4 / 3;
+  }
+
+  .woman-video {
+    object-position: center 25%;
+  }
+}
