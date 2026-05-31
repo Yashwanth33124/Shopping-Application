@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import FastImage from "../../components/FastImage";
 import "./CartNotification.css";
 import { FiX } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
@@ -44,7 +45,7 @@ const CartNotification = ({ product, show, onClose }) => {
             >
                 <div className="notif-body">
                     <div className="notif-image-section">
-                        <img src={displayProduct.image} alt={displayProduct.title} />
+                        <FastImage src={displayProduct.image} alt={displayProduct.title} className="cart-notif-img" />
                     </div>
                     <div className="notif-info-section">
                         <h3 className="notif-product-title">{displayProduct.title}</h3>

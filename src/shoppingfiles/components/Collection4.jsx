@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getImgUrl } from "../../utils/imagePath";
+import FastImage from "../../components/FastImage";
 import { useDispatch } from "react-redux";
 import { cartActions } from "../Redux/CartSlice";
 
@@ -76,7 +77,7 @@ const Collection4 = () => {
           <div className="c4-card" key={item.id} onClick={() => handleProductClick(item)}>
             <div className="c4-img-wrap">
               <span className="c4-badge">NEW</span>
-              <img src={getImgUrl(item.image)} alt={item.title} />
+              <FastImage src={getImgUrl(item.image)} alt={item.title} />
             </div>
 
             <div className="c4-info">

@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import FastImage from "../../components/FastImage";
 import "./Cartdropdown.css";
 import { useSelector, useDispatch } from "react-redux";
 import { cartActions } from "../Redux/CartSlice";
@@ -45,7 +46,7 @@ const Cartdropdown = ({ close }) => {
         ) : (
           cartItems.map((item) => (
             <div className="cart-item" key={item.id}>
-              <img src={item.image} alt={item.title} />
+              <FastImage src={item.image} alt={item.title} className="cart-item-image" />
 
               <div className="cart-item-info">
                 <p className="title">{item.title}</p>

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { getImgUrl } from "../../utils/imagePath";
+import FastImage from "../../components/FastImage";
 
 import "./DealShowcase.css";
 
@@ -69,7 +70,7 @@ const DealShowcase = () => {
             </div>
 
             <div className="mag-image">
-              <img src={sec.image} alt={sec.title} />
+              <FastImage src={sec.image} alt={sec.title} />
             </div>
           </div>
         </section>

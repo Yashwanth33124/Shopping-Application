@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { cartActions } from "../Redux/CartSlice";
 import { useNavigate } from "react-router-dom";
 import "./Collection2.css";
+import FastImage from "../../components/FastImage";
 
 // TOAST
 import Toast from "./Toast";
@@ -72,7 +73,7 @@ const Collection2 = () => {
             onClick={() => handleProductClick(item)}
           >
             <div className="circle-img">
-              <img src={item.img} alt={item.name} />
+              <FastImage src={item.img} alt={item.name} className="circle-img-img" />
             </div>
 
             <div className="brand-pill">{item.name}</div>

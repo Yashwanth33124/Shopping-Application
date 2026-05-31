@@ -3,6 +3,7 @@ import "./ProductDetails.css";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { FiHeart, FiPlus, FiMinus } from "react-icons/fi";
 import { getImgUrl } from "../../utils/imagePath";
+import FastImage from "../../components/FastImage";
 import AnimatedWaveFooter from "../components/PremiumFooter";
 import Toast from "../components/Toast";
 import CartNotification from "../components/CartNotification";
@@ -92,12 +93,12 @@ const ProductDetails = () => {
                             <LogoLoader size="100px" />
                         </div>
                     )}
-                    <img
+                    <FastImage
                         src={getImgUrl(product.image || product.src || product.img)}
                         alt={product.name || product.title}
                         className="main-image"
                         onLoad={() => {
-                            setTimeout(() => setImgLoaded(true), 400); // Small delay to appreciate the loader
+                            setTimeout(() => setImgLoaded(true), 400);
                         }}
                         style={{ opacity: imgLoaded ? 1 : 0, transition: 'opacity 0.4s ease' }}
                     />
@@ -126,7 +127,7 @@ const ProductDetails = () => {
                     <div className="color-section">
                         <p className="color-label">COLOR: {product.color || "Standard"}</p>
                         <div className="color-thumbnail active">
-                            <img src={getImgUrl(product.image)} alt="Color variant" />
+                            <FastImage src={getImgUrl(product.image)} alt="Color variant" />
                         </div>
                     </div>
 

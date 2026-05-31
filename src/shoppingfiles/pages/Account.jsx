@@ -4,6 +4,7 @@ import { logout, updateUser } from "../Redux/AuthSlice";
 import { clearOrders } from "../Redux/OrderSlice";
 import { useNavigate } from "react-router-dom";
 import { getApiUrl } from "../../config/api.config.js";
+import FastImage from "../../components/FastImage";
 import { FiArrowLeft, FiPackage, FiTruck, FiCheck, FiMapPin } from "react-icons/fi";
 import "./Account.css";
 
@@ -132,7 +133,7 @@ const Account = () => {
                         <div className="order-items-mini">
                             {order.items.map((item, idx) => (
                                 <div className="mini-item-row" key={idx}>
-                                    <img src={item.image} alt={item.title} className="mini-img" />
+                                    <FastImage src={item.image} alt={item.title} className="mini-img" />
                                     <div className="mini-info">
                                         <h4>{item.title}</h4>
                                         <p>Qty: {item.quantity || 1} | ₹ {item.price}</p>
@@ -184,7 +185,7 @@ const Account = () => {
                                         <div className="order-body">
                                             <div className="order-img-preview-group">
                                                 {order.items.slice(0, 3).map((item, i) => (
-                                                    <img key={i} src={item.image} alt="product" className="order-img-preview" />
+                                                    <FastImage key={i} src={item.image} alt="product" className="order-img-preview" />
                                                 ))}
                                                 {order.items.length > 3 && (
                                                     <div className="order-img-mock" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', fontWeight: 700 }}>
@@ -336,7 +337,7 @@ const Account = () => {
                         <div className="rewards-grid">
                             <div className="reward-card promo">
                                 <div className="promo-banner black">
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg" alt="Spotify" className="spotify-logo" />
+                                     <FastImage src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg" alt="Spotify" className="spotify-logo" />
                                     <h3>Spotify Premium</h3>
                                 </div>
                                 <div className="reward-info">
@@ -347,7 +348,7 @@ const Account = () => {
 
                             <div className="reward-card benefit">
                                 <div className="benefit-img">
-                                    <img src="https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?q=80&w=600&auto=format&fit=crop" alt="Member Benefit" />
+                                     <FastImage src="https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?q=80&w=600&auto=format&fit=crop" alt="Member Benefit" />
                                 </div>
                                 <div className="reward-info">
                                     <p className="reward-desc">MEMBER BENEFIT</p>

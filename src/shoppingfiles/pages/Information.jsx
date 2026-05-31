@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { ArrowLeft, Globe, Shield, Leaf, Users, Headphones, Briefcase, Mail, MapPin, TrendingUp, Newspaper } from "lucide-react";
 import { getImgUrl } from "../../utils/imagePath";
+import FastImage from "../../components/FastImage";
 import "./Information.css";
 
 const Information = () => {
@@ -140,9 +141,9 @@ const Information = () => {
                             onError={() => setHeroLoaded(false)}
                         />
                     ) : (
-                        <img 
-                            src={getImgUrl(image)} 
-                            alt={title} 
+                        <FastImage
+                            src={getImgUrl(image)}
+                            alt={title}
                             className="hero-image"
                             onError={() => setHeroLoaded(false)}
                         />
@@ -183,7 +184,7 @@ const Information = () => {
                     {/* NEW EDITORIAL SECTION */}
                     <div className="editorial-showcase">
                         <div className="editorial-left">
-                            <img src={getImgUrl(sideImage)} alt="Fashion" className="editorial-img" />
+                            <FastImage src={getImgUrl(sideImage)} alt="Fashion" className="editorial-img" />
                         </div>
                         <div className="editorial-right">
                             <h2 className="vision-text">VOGUECART VISION 2030</h2>

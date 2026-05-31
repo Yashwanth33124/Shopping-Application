@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getImgUrl } from "../../utils/imagePath";
+import FastImage from "../../components/FastImage";
 import { getApiUrl } from "../../config/api.config.js";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiFilter, FiChevronLeft, FiChevronRight, FiHeart } from "react-icons/fi";
@@ -175,7 +176,7 @@ const SearchResults = () => {
                                         onClick={() => handleProductClick(product)}
                                     >
                                         <div className="product-image-wrap">
-                                            <img src={getImgUrl(product.image)} alt={product.name} />
+                                            <FastImage src={getImgUrl(product.image)} alt={product.name} />
                                             <button 
                                                 className={`wishlist-heart-btn ${wishlistItems.some(i => i._id === product._id) ? 'active' : ''}`}
                                                 onClick={(e) => {

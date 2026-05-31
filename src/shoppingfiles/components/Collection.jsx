@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import "./Collection.css";
+import FastImage from "../../components/FastImage";
 
 // Your image imports
 import img1 from "../../assets/img1.avif";
@@ -33,7 +34,7 @@ const Collection = () => {
         <div className="collection-row" ref={sliderRef}>
           {images.map((img, i) => (
             <div className="collection-card" key={i}>
-              <img src={img} alt={`item-${i}`} />
+              <FastImage src={img} alt={`item-${i}`} className="collection-img" />
               
               {/* Placement triggers */}
               {i === 0 && <span className="banner-font republic-split">REPUBLIC</span>}

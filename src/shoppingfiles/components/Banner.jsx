@@ -8,6 +8,7 @@ import "swiper/css/pagination";
 
 
 import "./Banner.css";
+import FastImage from "../../components/FastImage";
 
 const Banner = () => {
   return (
@@ -20,11 +21,11 @@ const Banner = () => {
         className="bannerbox"
       >
         <SwiperSlide>
-          <img src={banner1} alt="banner 1" />
+          <FastImage src={banner1} alt="banner 1" />
         </SwiperSlide>
 
         <SwiperSlide>
-          <img src={banner2} alt="banner 2" />
+          <FastImage src={banner2} alt="banner 2" />
         </SwiperSlide>
       </Swiper>
     </div>
