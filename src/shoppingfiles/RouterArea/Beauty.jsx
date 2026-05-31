@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { cartActions } from "../Redux/CartSlice";
 import { getImgUrl } from "../../utils/imagePath";
+import FastImage from "../../components/FastImage";
 import { fetchProductsByCategory } from "../../utils/api";
 
 import "./Beauty.css";
@@ -85,7 +86,7 @@ const Beauty = () => {
 
       {/* 🔥 FIRST BANNER (KEEP THIS) */}
       <div className="beauty-banner">
-        <img src={getImgUrl("/images10/first.png")} alt="Beauty Banner" />
+        <FastImage src={getImgUrl("/images10/first.png")} alt="Beauty Banner" />
       </div>
 
       {/* 🔥 GRID SECTION */}
@@ -105,7 +106,7 @@ const Beauty = () => {
             //   category: "beauty"
             // })}
           >
-            <img src={getImgUrl("/images10/fifth.jpg")} alt="Glow Beauty" />
+            <FastImage src={getImgUrl("/images10/fifth.jpg")} alt="Glow Beauty" />
             <div className="beauty2-text">
               <h2>PURE GLOW</h2>
               <p>Radiance that feels soft, looks irresistible.</p>
@@ -125,7 +126,7 @@ const Beauty = () => {
             //   category: "beauty"
             // })}
           >
-            <img src={getImgUrl("/images10/fourth.avif")} alt="Radiant Skin" />
+            <FastImage src={getImgUrl("/images10/fourth.avif")} alt="Radiant Skin" />
             <div className="beauty2-text">
               <h2>RADIANT ESSENCE</h2>
               <p>Subtle. Warm. Quietly intoxicating.</p>
@@ -139,7 +140,7 @@ const Beauty = () => {
 
       {/* SIXTH IMAGE SECTION */}
       <div className="beauty-bottom-section">
-        <img src={getImgUrl("/images10/sixth.jpg")} alt="Lipstick" />
+        <FastImage src={getImgUrl("/images10/sixth.jpg")} alt="Lipstick" />
       </div>
       {/* LUXURY PRODUCT SHOWCASE */}
       <section className="beauty-products">
@@ -156,7 +157,7 @@ const Beauty = () => {
                 key={product._id || index}
                 onClick={() => handleProductClick(product)}
               >
-                <img src={getImgUrl(product.image)} alt={product.name || product.title} />
+                <FastImage src={getImgUrl(product.image)} alt={product.name || product.title} />
                 <div className="product-overlay">
                   <button>Shop Now</button>
                 </div>

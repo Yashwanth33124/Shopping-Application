@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { cartActions } from "../Redux/CartSlice";
 import { getImgUrl } from "../../utils/imagePath";
+import FastImage from "../../components/FastImage";
 import { fetchProductsByCategory } from "../../utils/api";
 
 import "./Woman.css";
@@ -73,7 +74,7 @@ const Woman = () => {
             ref={(el) => (cardsRef.current[i] = el)}
             // onClick={() => handleProductClick({ ...item, image: item.img })}
           >
-            <img src={item.img} alt={item.title} />
+            <FastImage src={item.img} alt={item.title} />
             <div className="image-overlay">
               <h2>{item.title}</h2>
               <p> {item.price}</p>
@@ -94,7 +95,7 @@ const Woman = () => {
                 key={product._id || i}
                 onClick={() => handleProductClick(product)}
               >
-                <img src={getImgUrl(product.image)} alt={product.name || product.title} />
+                <FastImage src={getImgUrl(product.image)} alt={product.name || product.title} />
               </div>
             ))}
           </>
@@ -108,7 +109,7 @@ const Woman = () => {
       <div className="hw-container">
         <div className="hw-row">
           <div className="hw-item clickable" onClick={() => handleProductClick({ id: "w-cat-tops", title: "Woman Tops", price: 1299, image: getImgUrl("/images5/fashine4.avif") })}>
-            <img src={getImgUrl("/images5/fashine4.avif")} alt="w1" />
+            <FastImage src={getImgUrl("/images5/fashine4.avif")} alt="w1" />
             <div className="hw-details">
               <span className="category">TOPS</span>
               <span className="explore">EXPLORE</span>
@@ -116,7 +117,7 @@ const Woman = () => {
           </div>
 
           <div className="hw-item clickable" onClick={() => handleProductClick({ id: "w-cat-dress", title: "Woman Dresses", price: 2499, image: getImgUrl("/images5/fashine5.avif") })}>
-            <img src={getImgUrl("/images5/fashine5.avif")} alt="w2" />
+            <FastImage src={getImgUrl("/images5/fashine5.avif")} alt="w2" />
             <div className="hw-details">
               <span className="category">DRESSES</span>
               <span className="explore">EXPLORE</span>
@@ -126,7 +127,7 @@ const Woman = () => {
 
         <div className="hw-row">
           <div className="hw-item clickable" onClick={() => handleProductClick({ id: "w-cat-outer", title: "Woman Outerwear", price: 4599, image: getImgUrl("/images5/fashine6.avif") })}>
-            <img src={getImgUrl("/images5/fashine6.avif")} alt="w3" />
+            <FastImage src={getImgUrl("/images5/fashine6.avif")} alt="w3" />
             <div className="hw-details">
               <span className="category">OUTERWEAR</span>
               <span className="explore">EXPLORE</span>
@@ -134,7 +135,7 @@ const Woman = () => {
           </div>
 
           <div className="hw-item clickable" onClick={() => handleProductClick({ id: "w-cat-tailored", title: "Woman Tailoring", price: 6999, image: getImgUrl("/images5/fashine7.avif") })}>
-            <img src={getImgUrl("/images5/fashine7.avif")} alt="w4" />
+            <FastImage src={getImgUrl("/images5/fashine7.avif")} alt="w4" />
             <div className="hw-details">
               <span className="category">TAILORING</span>
               <span className="explore">EXPLORE</span>

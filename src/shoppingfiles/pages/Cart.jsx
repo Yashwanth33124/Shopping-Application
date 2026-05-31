@@ -4,6 +4,7 @@ import { cartActions } from "../Redux/CartSlice";
 import { useNavigate } from "react-router-dom";
 import { FiTrash2, FiPlus, FiMinus, FiHeart } from "react-icons/fi";
 import "./Cart.css";
+import FastImage from "../../components/FastImage";
 
 const Cart = () => {
     const cartItems = useSelector((state) => state.cart.cartItems);
@@ -51,7 +52,7 @@ const Cart = () => {
                         {cartItems.map((item) => (
                             <div className="cart-item-card" key={item.id}>
                                 <div className="cart-item-image">
-                                    <img src={item.image} alt={item.title} />
+                                    <FastImage src={item.image} alt={item.title} />
                                     <button className="item-wishlist-icon">
                                         <FiHeart />
                                     </button>
@@ -133,9 +134,9 @@ const Cart = () => {
                         <div className="summary-footer-info">
                             <p className="learn-more">LEARN MORE</p>
                             <div className="payment-icons">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa" />
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" />
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="Paypal" />
+                                <FastImage src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa" />
+                                <FastImage src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" />
+                                <FastImage src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="Paypal" />
                             </div>
                             <p className="tax-info">The estimated tax will be confirmed once you added your shipping address in checkout.</p>
                             <p className="policy-info">30-day returns. Read more about our <u>return and refund policy</u>.</p>

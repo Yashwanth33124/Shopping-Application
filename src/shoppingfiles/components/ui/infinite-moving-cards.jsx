@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./infinite.css";
+import FastImage from "../../../components/FastImage";
 
 export function InfiniteMovingCards({ items }) {
   const [active, setActive] = useState(null);
@@ -15,7 +16,7 @@ export function InfiniteMovingCards({ items }) {
               key={index}
               onClick={() => setActive(item)}
             >
-              <img src={item.image} alt={item.brand} />
+              <FastImage src={item.image} alt={item.brand} />
               <div className="brand-overlay">{item.brand}</div>
             </div>
           ))}
@@ -30,7 +31,7 @@ export function InfiniteMovingCards({ items }) {
             onClick={(e) => e.stopPropagation()}
           >
             <button onClick={() => setActive(null)}>✕</button>
-            <img src={active.image} alt={active.brand} />
+            <FastImage src={active.image} alt={active.brand} />
             <p>{active.brand}</p>
           </div>
         </div>

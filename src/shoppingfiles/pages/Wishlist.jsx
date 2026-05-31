@@ -5,6 +5,7 @@ import { FiHeart, FiShoppingBag, FiTrash2 } from "react-icons/fi";
 import { wishlistActions } from "../Redux/WishlistSlice";
 import { cartActions } from "../Redux/CartSlice";
 import { getImgUrl } from "../../utils/imagePath";
+import FastImage from "../../components/FastImage";
 import "./Wishlist.css";
 import AnimatedWaveFooter from "../components/PremiumFooter";
 
@@ -48,7 +49,7 @@ const Wishlist = () => {
                         {wishlistItems.map((item) => (
                             <div key={item._id} className="wishlist-item-card">
                                 <div className="wishlist-image-wrap" onClick={() => handleProductClick(item)}>
-                                    <img src={getImgUrl(item.image)} alt={item.name} />
+                                    <FastImage src={getImgUrl(item.image)} alt={item.name} />
                                     <button 
                                         className="remove-wishlist-btn"
                                         onClick={(e) => { e.stopPropagation(); handleRemove(item); }}

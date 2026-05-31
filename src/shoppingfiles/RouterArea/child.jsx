@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { cartActions } from "../Redux/CartSlice";
 import { getImgUrl } from "../../utils/imagePath";
+import FastImage from "../../components/FastImage";
 import { fetchProductsByCategory } from "../../utils/api";
 
 import "./child.css";
@@ -84,7 +85,7 @@ const Child = () => {
             ref={(el) => (cardsRef.current[i] = el)}
             onClick={() => handleProductClick({ ...item, image: item.img })}
           >
-            <img src={item.img} alt={item.h} />
+            <FastImage src={item.img} alt={item.h} />
 
             <div className="image-overlay">
               <h2>{item.h}</h2>
@@ -105,7 +106,7 @@ const Child = () => {
                 key={product._id || i}
                 onClick={() => handleProductClick(product)}
               >
-                <img src={getImgUrl(product.image)} alt={product.name || product.title} />
+                <FastImage src={getImgUrl(product.image)} alt={product.name || product.title} />
               </div>
             ))}
           </div>
@@ -121,7 +122,7 @@ const Child = () => {
       <div className="child-container">
         <div className="child-row">
           <div className="child-item clickable" onClick={() => handleProductClick({ id: "k-cat-tees", title: "Child Tees", price: 799, image: getImgUrl("/images9/k11.jpg") })}>
-            <img src={getImgUrl("/images9/k11.jpg")} alt="Tees" />
+            <FastImage src={getImgUrl("/images9/k11.jpg")} alt="Tees" />
             <div className="child-details">
               <span className="child-category">TEES</span>
               <span className="child-explore">EXPLORE</span>
@@ -129,7 +130,7 @@ const Child = () => {
           </div>
 
           <div className="child-item clickable" onClick={() => handleProductClick({ id: "k-cat-bottom", title: "Child Bottomwear", price: 1199, image: getImgUrl("/images9/k12.jpg") })}>
-            <img src={getImgUrl("/images9/k12.jpg")} alt="Bottomwear" />
+            <FastImage src={getImgUrl("/images9/k12.jpg")} alt="Bottomwear" />
             <div className="child-details">
               <span className="child-category">BOTTOMWEAR</span>
               <span className="child-explore">EXPLORE</span>
@@ -139,7 +140,7 @@ const Child = () => {
 
         <div className="child-row">
           <div className="child-item clickable" onClick={() => handleProductClick({ id: "k-cat-outer", title: "Child Outerwear", price: 1999, image: getImgUrl("/images9/k13.jpg") })}>
-            <img src={getImgUrl("/images9/k13.jpg")} alt="Outerwear" />
+            <FastImage src={getImgUrl("/images9/k13.jpg")} alt="Outerwear" />
             <div className="child-details">
               <span className="child-category">OUTERWEAR</span>
               <span className="child-explore">EXPLORE</span>
@@ -147,7 +148,7 @@ const Child = () => {
           </div>
 
           <div className="child-item clickable" onClick={() => handleProductClick({ id: "k-cat-sets", title: "Child Sets", price: 2299, image: getImgUrl("/images9/k14.jpg") })}>
-            <img src={getImgUrl("/images9/k14.jpg")} alt="Sets" />
+            <FastImage src={getImgUrl("/images9/k14.jpg")} alt="Sets" />
             <div className="child-details">
               <span className="child-category">SETS</span>
               <span className="child-explore">EXPLORE</span>

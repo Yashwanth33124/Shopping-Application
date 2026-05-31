@@ -7,6 +7,7 @@ import { cartActions } from "../Redux/CartSlice";
 import { orderActions } from "../Redux/OrderSlice";
 import { getApiUrl } from "../../config/api.config.js";
 import "./Checkout.css";
+import FastImage from "../../components/FastImage";
 
 const INDIAN_STATES = [
     "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh",
@@ -554,7 +555,7 @@ const Checkout = () => {
                         <div className="parcel-items-preview">
                             {cartItems.map((item, idx) => (
                                 <div className="parcel-item-box" key={idx}>
-                                    <img src={item.image} alt={item.title} />
+                                    <FastImage src={item.image} alt={item.title} />
                                 </div>
                             ))}
                         </div>

@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../Redux/AuthSlice";
 import Cartdropdown from "../Cartdown/Cartdropdown";
 import logo from "../../assets/logo.png";
+import FastImage from "../../components/FastImage";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -84,7 +85,7 @@ const Header = () => {
         <div className="left">
           <NavLink to="/" className="brand-link">
             <div className="brand-group">
-              <img src={logo} alt="VogueCart Logo" className="logo-img" />
+              <FastImage src={logo} alt="VogueCart Logo" className="logo-img" />
               <span className="title">VOGUECART</span>
             </div>
           </NavLink>
