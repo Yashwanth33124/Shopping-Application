@@ -4,7 +4,7 @@ import path from "path";
 import { ViteImageOptimizer } from "vite-plugin-image-optimizer";
 
 export default defineConfig({
-  base: "/",
+  base: process.env.NODE_ENV === 'production' && !process.env.VERCEL ? "/Shopping-Application/" : "/",
 
   plugins: [
     react(),
