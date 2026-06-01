@@ -3,7 +3,6 @@ import './mainpages.css'
 import { useSelector } from 'react-redux'
 
 import Banner from '../components/Banner'
-import Collection from '../components/Collection'
 import DealShowcase from '../components/DealShowcase'
 import Collection2 from '../components/Collection2'
 import Collection3 from '../components/Collection3'
@@ -50,7 +49,6 @@ const Mainpage = () => {
       />
 
       <DealShowcase />
-      <Collection />
       <Collection2 />
       <Collection5 />
 
