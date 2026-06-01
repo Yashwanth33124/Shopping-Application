@@ -33,18 +33,13 @@ function App() {
   const { isPrime, isAuthenticated, showPrimeSuccess } = useSelector((state) => state.auth);
   const lastAddedItem = useSelector((state) => state.cart?.lastAddedItem || null);
 
-  const [showSplash, setShowSplash] = useState(isAuthenticated);
+  const [showSplash, setShowSplash] = useState(true);
   const [exitSplash, setExitSplash] = useState(false);
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isAuthenticated) {
-      setShowSplash(false);
-      return;
-    }
-    
     const exitTimer = setTimeout(() => setExitSplash(true), 2200);
     const removeTimer = setTimeout(() => {
       setShowSplash(false);
@@ -54,7 +49,7 @@ function App() {
       clearTimeout(exitTimer);
       clearTimeout(removeTimer);
     };
-  }, [isAuthenticated]);
+  }, []);
 
   // Debugging log (optional, but helps if we could see it)
   // console.log("Rendering App, path:", location.pathname);
