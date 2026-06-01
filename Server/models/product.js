@@ -1,18 +1,10 @@
 const mongoose = require("mongoose");
 
 const productSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    trim: true,
-  },
   name: {
     type: String,
     required: true,
-    trim: true,
-  },
-  description: {
-    type: String,
-    default: "",
+    index: true,
   },
 
 
@@ -26,6 +18,7 @@ const productSchema = new mongoose.Schema({
   },
   category: {
     type: String,
+    index: true,
   },
   stock: {
     type: Number,
@@ -35,6 +28,7 @@ const productSchema = new mongoose.Schema({
   description: {
     type: String,
     required: true,
+    index: true,
   },
   role: {
     type: String,
@@ -43,5 +37,8 @@ const productSchema = new mongoose.Schema({
   }
 
 }, { timestamps: true });
+
+// Create text indexes for faster searching
+productSchema.index({ name: "text", description: "text", category: "text" });
 
 module.exports = mongoose.model("Product", productSchema);

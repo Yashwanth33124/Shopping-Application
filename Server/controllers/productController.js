@@ -1,8 +1,6 @@
 const Product = require("../models/product");
 const cloudinary = require("../config/cloudinary");
 
-const escapeRegex = (value) => String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-
 // Create Product (Admin logic)
 exports.createProduct = async (req, res) => {
   try {
@@ -61,11 +59,13 @@ exports.getAllProducts = async (req, res) => {
       limit = 10,
     } = req.query;
 
+    console.log(`[GET /api/products] category: ${category}, search: ${search}`);
+
     let filter = {};
 
     if (category) {
       // Use case-insensitive exact match to avoid matching longer patterns like "Men Shirts"
-      filter.category = { $regex: new RegExp(`^${escapeRegex(category)}$`, "i") };
+      filter.category = { $regex: new RegExp(`^${category}$`, "i") };
     }
 
     if (search) {
@@ -166,12 +166,11 @@ exports.getAllProducts = async (req, res) => {
         // Use $and for better accuracy across multiple keywords (e.g., "red shirt")
         keywords.forEach(word => {
           let normalized = word.endsWith('s') && word.length > 4 ? word.slice(0, -1) : word;
-          const safeNormalized = escapeRegex(normalized);
           andConditions.push({
             $or: [
-              { name: { $regex: new RegExp(`\\b${safeNormalized}\\b`, "i") } },
-              { description: { $regex: new RegExp(`\\b${safeNormalized}\\b`, "i") } },
-              { category: { $regex: new RegExp(`^${safeNormalized}$`, "i") } }
+              { name: { $regex: new RegExp(`\\b${normalized}\\b`, "i") } },
+              { description: { $regex: new RegExp(`\\b${normalized}\\b`, "i") } },
+              { category: { $regex: new RegExp(`^${normalized}$`, "i") } }
             ]
           });
         });
@@ -192,27 +191,31 @@ exports.getAllProducts = async (req, res) => {
     if (sort === "price_desc") sortOption.price = -1;
     if (sort === "newest") sortOption.createdAt = -1;
 
-    const pageNumber = Math.max(Number(page) || 1, 1);
-    const limitNumber = Math.min(Math.max(Number(limit) || 10, 1), 100);
+    const pageNumber = Number(page);
+    const limitNumber = Math.min(Number(limit) || 50, 100); // Cap limit at 100, default to 50
     const skip = (pageNumber - 1) * limitNumber;
 
-    // Get products for the current page
+    // Get products for the current page (use lean for faster queries)
     const products = await Product.find(filter)
       .sort(sortOption)
       .skip(skip)
-      .limit(limitNumber);
+      .limit(limitNumber)
+      .lean();
 
     // Get total count for the current filter
     const totalProducts = await Product.countDocuments(filter);
 
-    // 🏆 Get Counts per Category for the filters (H&M style)
-    const countFilter = { ...filter };
-    delete countFilter.category; 
+    // 🏆 Get Counts per Category for the filters (H&M style) - only if not on first page
+    let counts = [];
+    if (pageNumber === 1) {
+      const countFilter = { ...filter };
+      delete countFilter.category; 
 
-    const counts = await Product.aggregate([
-      { $match: countFilter },
-      { $group: { _id: "$category", count: { $sum: 1 } } }
-    ]);
+      counts = await Product.aggregate([
+        { $match: countFilter },
+        { $group: { _id: "$category", count: { $sum: 1 } } }
+      ]);
+    }
 
     res.status(200).json({
       success: true,
@@ -237,8 +240,8 @@ exports.getProductsByCategory = async (req, res) => {
   try {
     const category = req.params.category;
     const products = await Product.find({
-      category: { $regex: new RegExp(`^${escapeRegex(category)}$`, "i") },
-    });
+      category: { $regex: new RegExp(`^${category}$`, "i") },
+    }).lean();
 
     if (products.length > 0) {
       res.status(200).json({

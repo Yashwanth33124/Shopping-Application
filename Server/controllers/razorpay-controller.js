@@ -3,14 +3,38 @@ const crypto = require('crypto');
 const Order = require('../models/Order');
 const User = require('../models/User');
 
-const razorpayInstance = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID?.trim(),
-  key_secret: process.env.RAZORPAY_KEY_SECRET?.trim(),
-});
+// Initialize Razorpay with validation
+const getRazorpayInstance = () => {
+  const keyId = process.env.RAZORPAY_KEY_ID?.trim();
+  const keySecret = process.env.RAZORPAY_KEY_SECRET?.trim();
+  
+  if (!keyId || !keySecret) {
+    throw new Error('Razorpay keys are not configured. Please set RAZORPAY_KEY_ID and RAZORPAY_KEY_SECRET environment variables.');
+  }
+  
+  return new Razorpay({
+    key_id: keyId,
+    key_secret: keySecret,
+  });
+};
+
+let razorpayInstance;
+try {
+  razorpayInstance = getRazorpayInstance();
+} catch (error) {
+  console.error('⚠️  Warning: Razorpay not initialized -', error.message);
+}
 
 // Create Order
 const createOrder = async (req, res) => {
   try {
+    if (!razorpayInstance) {
+      return res.status(500).json({ 
+        success: false, 
+        message: "Razorpay is not configured. Please contact support." 
+      });
+    }
+
     const { amount, isSubscription, subscriptionPlan, products } = req.body;
     const userId = req.userInfo.userId;
 

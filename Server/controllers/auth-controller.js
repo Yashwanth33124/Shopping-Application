@@ -9,12 +9,9 @@ const jwt = require('jsonwebtoken')
 
 const registerUser = async (req, res) => {
   try {
-    const { username, password, telephone } = req.body;
-    const email = req.body.email?.trim().toLowerCase();
-    const normalizedUsername = username?.trim();
-    const normalizedTelephone = telephone?.trim();
+    const { username, email, password, telephone } = req.body;
 
-    if (!email || !password || !normalizedUsername || !normalizedTelephone) {
+    if (!email || !password || !username || !telephone) {
       return res.status(400).json({
         success: false,
         message: "All required fields must be filled",
@@ -31,7 +28,7 @@ const registerUser = async (req, res) => {
     }
 
     const checkExistingUser = await User.findOne({
-      $or: [{ email }, { telephone: normalizedTelephone }],
+      $or: [{ email }, { telephone }],
     });
 
     if (checkExistingUser) {
@@ -46,10 +43,10 @@ const registerUser = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, salt);
 
     const newlyCreatedUser = new User({
-      username: normalizedUsername,
+      username,
       email,
       password: hashedPassword,
-      telephone: normalizedTelephone,
+      telephone,
       role: "user",
     });
 
@@ -70,16 +67,7 @@ const registerUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
   try {
-    const { password } = req.body;
-    const email = req.body.email?.trim().toLowerCase();
-
-    if (!email || !password) {
-      return res.status(400).json({
-        success: false,
-        message: "Email and password are required"
-      })
-    }
-
+    const { email, password } = req.body;
     const user = await User.findOne({ email })
 
     //now check the user credentials in database 
@@ -192,7 +180,7 @@ const getMe = async (req, res) => {
       }
     });
   } catch (e) {
-    return res.status(401).json({ success: false, message: "Invalid or expired token" });
+    return res.status(500).json({ success: false });
   }
 };
 
@@ -203,9 +191,9 @@ const updateProfile = async (req, res) => {
 
     if (!user) return res.status(404).json({ success: false, message: "User not found" });
 
-    if (username?.trim()) user.username = username.trim();
-    if (email?.trim()) user.email = email.trim().toLowerCase();
-    if (telephone?.trim()) user.telephone = telephone.trim();
+    if (username) user.username = username;
+    if (email) user.email = email;
+    if (telephone) user.telephone = telephone;
     if (dob) user.dob = dob;
 
     await user.save();
@@ -236,16 +224,8 @@ const addAddress = async (req, res) => {
     const user = await User.findById(userId);
 
     if (!user) return res.status(404).json({ success: false, message: "User not found" });
-    if (!fullAddress?.trim() || !city?.trim() || !state?.trim()) {
-      return res.status(400).json({ success: false, message: "Address, city, and state are required" });
-    }
 
-    user.addresses.push({
-      fullAddress: fullAddress.trim(),
-      city: city.trim(),
-      state: state.trim(),
-      isDefault: user.addresses.length === 0
-    });
+    user.addresses.push({ fullAddress, city, state, isDefault: user.addresses.length === 0 });
     await user.save();
 
     return res.status(200).json({
