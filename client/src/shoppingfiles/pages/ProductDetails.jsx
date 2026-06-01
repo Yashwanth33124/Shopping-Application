@@ -38,6 +38,7 @@ const ProductDetails = () => {
     const [imgLoaded, setImgLoaded] = useState(false);
 
     const wishlistItems = useSelector((state) => state.wishlist.items);
+    const { isPrime } = useSelector((state) => state.auth);
     
     // Get product from state or use fallback
     const product = location.state?.product || fallbackProduct;
@@ -59,6 +60,10 @@ const ProductDetails = () => {
     };
 
     const handleAddToCart = () => {
+        if (product.role === "prime" && !isPrime) {
+            triggerToast("Vogue Prime Exclusive. Subscribe to add to bag!", "warning");
+            return;
+        }
         const cat = product.category?.toLowerCase();
         const isBeautyOrAcc = cat === "beauty" || cat === "accessories";
         const isBag = /\b(bag|handbag|clutch|purse|backpack|satchel|tote|hobo|messenger|crossbody|wristlet)\b/i.test(product.name || "");
@@ -167,7 +172,13 @@ const ProductDetails = () => {
                         })()}
                     </div>
 
-                    <button className="add-to-bag-btn" onClick={handleAddToCart}>ADD TO BAG</button>
+                    {product.role === "prime" && !isPrime ? (
+                        <button className="add-to-bag-btn prime-upgrade-btn" onClick={() => navigate("/prime")}>
+                            GET PRIME NOW
+                        </button>
+                    ) : (
+                        <button className="add-to-bag-btn" onClick={handleAddToCart}>ADD TO BAG</button>
+                    )}
 
                     <p className="pickup-info"> Free pickup at: <span className="underline">FIND A STORE</span></p>
 

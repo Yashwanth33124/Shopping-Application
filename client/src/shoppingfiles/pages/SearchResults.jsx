@@ -15,6 +15,7 @@ const SearchResults = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const wishlistItems = useSelector((state) => state.wishlist.items);
+    const { isPrime } = useSelector((state) => state.auth);
     const queryParams = new URLSearchParams(location.search);
     const searchTerm = queryParams.get("q") || "";
     const [products, setProducts] = useState([]);
@@ -51,8 +52,10 @@ const SearchResults = () => {
             const data = await response.json();
 
             if (data.success) {
-                setProducts(data.data);
-                setTotalProducts(data.totalProducts);
+                const rawProducts = data.data || [];
+                const filtered = isPrime ? rawProducts : rawProducts.filter(p => p.role !== "prime");
+                setProducts(filtered);
+                setTotalProducts(filtered.length);
                 setTotalPages(data.totalPages);
             }
         } catch (error) {
