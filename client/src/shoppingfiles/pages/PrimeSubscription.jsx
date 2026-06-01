@@ -87,7 +87,7 @@ const PrimeSubscription = () => {
             }
 
             const options = {
-                key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+                key: import.meta.env.VITE_RAZORPAY_KEY_ID || "rzp_test_SqLWMl2zjzki5R",
                 amount: data.order.amount,
                 currency: data.order.currency,
                 name: "VogueCart",
