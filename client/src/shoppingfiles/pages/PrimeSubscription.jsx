@@ -86,8 +86,14 @@ const PrimeSubscription = () => {
                 return;
             }
 
+            const razorpayKey = (import.meta.env.VITE_RAZORPAY_KEY_ID && 
+                                 import.meta.env.VITE_RAZORPAY_KEY_ID !== "undefined" && 
+                                 import.meta.env.VITE_RAZORPAY_KEY_ID !== "null") 
+                                 ? import.meta.env.VITE_RAZORPAY_KEY_ID 
+                                 : "rzp_test_SqLWMl2zjzki5R";
+
             const options = {
-                key: import.meta.env.VITE_RAZORPAY_KEY_ID || "rzp_test_SqLWMl2zjzki5R",
+                key: razorpayKey,
                 amount: data.order.amount,
                 currency: data.order.currency,
                 name: "VogueCart",
