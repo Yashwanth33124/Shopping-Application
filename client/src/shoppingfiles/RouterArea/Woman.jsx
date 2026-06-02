@@ -108,7 +108,7 @@ const Woman = () => {
 
       <div className="hw-container">
         <div className="hw-row">
-          <div className="hw-item clickable" onClick={() => handleProductClick({ id: "w-cat-tops", title: "Woman Tops", price: 1299, image: getImgUrl("/images5/fashine4.avif") })}>
+          <div className="hw-item clickable" onClick={() => navigate("/search?q=woman tops")}>
             <FastImage src={getImgUrl("/images5/fashine4.avif")} alt="w1" />
             <div className="hw-details">
               <span className="category">TOPS</span>
@@ -116,7 +116,7 @@ const Woman = () => {
             </div>
           </div>
 
-          <div className="hw-item clickable" onClick={() => handleProductClick({ id: "w-cat-dress", title: "Woman Dresses", price: 2499, image: getImgUrl("/images5/fashine5.avif") })}>
+          <div className="hw-item clickable" onClick={() => navigate("/search?q=woman-dresses")}>
             <FastImage src={getImgUrl("/images5/fashine5.avif")} alt="w2" />
             <div className="hw-details">
               <span className="category">DRESSES</span>
@@ -126,7 +126,7 @@ const Woman = () => {
         </div>
 
         <div className="hw-row">
-          <div className="hw-item clickable" onClick={() => handleProductClick({ id: "w-cat-outer", title: "Woman Outerwear", price: 4599, image: getImgUrl("/images5/fashine6.avif") })}>
+          <div className="hw-item clickable" onClick={() => navigate("/search?q=woman outerwear")}>
             <FastImage src={getImgUrl("/images5/fashine6.avif")} alt="w3" />
             <div className="hw-details">
               <span className="category">OUTERWEAR</span>
@@ -134,7 +134,7 @@ const Woman = () => {
             </div>
           </div>
 
-          <div className="hw-item clickable" onClick={() => handleProductClick({ id: "w-cat-tailored", title: "Woman Tailoring", price: 6999, image: getImgUrl("/images5/fashine7.avif") })}>
+          <div className="hw-item clickable" onClick={() => navigate("/search?q=woman tailoring")}>
             <FastImage src={getImgUrl("/images5/fashine7.avif")} alt="w4" />
             <div className="hw-details">
               <span className="category">TAILORING</span>

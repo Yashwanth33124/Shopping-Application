@@ -141,7 +141,7 @@ const Men = () => {
       {/* CATEGORY GRID */}
       <div className="hm-container">
         <div className="hm-row">
-          <div className="hm-item clickable" onClick={() => handleProductClick({ id: "m-cat-tees", title: "Men Tees", price: 999, image: getImgUrl("/images3/a1.png") })}>
+          <div className="hm-item clickable" onClick={() => navigate("/search?q=men tshirt")}>
             <FastImage src={getImgUrl("/images3/a1.png")} alt="a1" />
             <div className="hm-details">
               <span className="category">TEES</span>
@@ -149,7 +149,7 @@ const Men = () => {
             </div>
           </div>
 
-          <div className="hm-item clickable" onClick={() => handleProductClick({ id: "m-cat-pants", title: "Men Sweatpants", price: 1499, image: getImgUrl("/images3/a2.jpeg") })}>
+          <div className="hm-item clickable" onClick={() => navigate("/search?q=men sweatpants")}>
             <FastImage src={getImgUrl("/images3/a2.jpeg")} alt="a2" />
             <div className="hm-details">
               <span className="category">SWEATPANTS</span>
@@ -159,7 +159,7 @@ const Men = () => {
         </div>
 
         <div className="hm-row">
-          <div className="hm-item clickable" onClick={() => handleProductClick({ id: "m-cat-outer", title: "Men Outerwear", price: 3999, image: getImgUrl("/images3/a3.jpg") })}>
+          <div className="hm-item clickable" onClick={() => navigate("/search?q=men outerwear")}>
             <FastImage src={getImgUrl("/images3/a3.jpg")} alt="a3" />
             <div className="hm-details">
               <span className="category">OUTERWEAR</span>
@@ -167,7 +167,7 @@ const Men = () => {
             </div>
           </div>
 
-          <div className="hm-item clickable" onClick={() => handleProductClick({ id: "m-cat-tailored", title: "Men Tailoring", price: 5999, image: getImgUrl("/images3/a4.jpeg") })}>
+          <div className="hm-item clickable" onClick={() => navigate("/search?q=men tailoring")}>
             <FastImage src={getImgUrl("/images3/a4.jpeg")} alt="a4" />
             <div className="hm-details">
               <span className="category">TAILORING</span>

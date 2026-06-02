@@ -121,7 +121,7 @@ const Child = () => {
       {/* CATEGORY GRID */}
       <div className="child-container">
         <div className="child-row">
-          <div className="child-item clickable" onClick={() => handleProductClick({ id: "k-cat-tees", title: "Child Tees", price: 799, image: getImgUrl("/images9/k11.jpg") })}>
+          <div className="child-item clickable" onClick={() => navigate("/search?q=child tshirt")}>
             <FastImage src={getImgUrl("/images9/k11.jpg")} alt="Tees" />
             <div className="child-details">
               <span className="child-category">TEES</span>
@@ -129,7 +129,7 @@ const Child = () => {
             </div>
           </div>
 
-          <div className="child-item clickable" onClick={() => handleProductClick({ id: "k-cat-bottom", title: "Child Bottomwear", price: 1199, image: getImgUrl("/images9/k12.jpg") })}>
+          <div className="child-item clickable" onClick={() => navigate("/search?q=child bottomwear")}>
             <FastImage src={getImgUrl("/images9/k12.jpg")} alt="Bottomwear" />
             <div className="child-details">
               <span className="child-category">BOTTOMWEAR</span>
@@ -139,7 +139,7 @@ const Child = () => {
         </div>
 
         <div className="child-row">
-          <div className="child-item clickable" onClick={() => handleProductClick({ id: "k-cat-outer", title: "Child Outerwear", price: 1999, image: getImgUrl("/images9/k13.jpg") })}>
+          <div className="child-item clickable" onClick={() => navigate("/search?q=child outerwear")}>
             <FastImage src={getImgUrl("/images9/k13.jpg")} alt="Outerwear" />
             <div className="child-details">
               <span className="child-category">OUTERWEAR</span>
@@ -147,7 +147,7 @@ const Child = () => {
             </div>
           </div>
 
-          <div className="child-item clickable" onClick={() => handleProductClick({ id: "k-cat-sets", title: "Child Sets", price: 2299, image: getImgUrl("/images9/k14.jpg") })}>
+          <div className="child-item clickable" onClick={() => navigate("/search?q=child set")}>
             <FastImage src={getImgUrl("/images9/k14.jpg")} alt="Sets" />
             <div className="child-details">
               <span className="child-category">SETS</span>

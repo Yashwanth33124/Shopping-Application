@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getImgUrl } from "../../utils/imagePath";
 import FastImage from "../../components/FastImage";
@@ -39,9 +39,19 @@ const SearchResults = () => {
     };
 
     const limit = 20;
+    const prevSearchTermRef = useRef(searchTerm);
 
     useEffect(() => {
-        fetchResults();
+        if (prevSearchTermRef.current !== searchTerm) {
+            prevSearchTermRef.current = searchTerm;
+            if (currentPage !== 1) {
+                setCurrentPage(1);
+            } else {
+                fetchResults();
+            }
+        } else {
+            fetchResults();
+        }
     }, [searchTerm, currentPage, sort]);
 
     const fetchResults = async () => {
