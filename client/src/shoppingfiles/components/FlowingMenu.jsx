@@ -78,18 +78,28 @@ function MenuItem({
       if (!marqueeContent) return;
 
       const contentWidth = marqueeContent.offsetWidth;
+      if (contentWidth === 0) {
+        setRepetitions(4);
+        return;
+      }
+
       const viewportWidth = window.innerWidth;
 
       // Calculate how many copies we need to fill viewport + extra for seamless loop
       // We need at least 2, but calculate based on content vs viewport
       const needed = Math.ceil(viewportWidth / contentWidth) + 2;
-      setRepetitions(Math.max(4, needed));
+      
+      if (isFinite(needed)) {
+        setRepetitions(Math.max(4, needed));
+      } else {
+        setRepetitions(4);
+      }
     };
 
     calculateRepetitions();
     window.addEventListener('resize', calculateRepetitions);
-     return () => window.removeEventListener('resize', calculateRepetitions);
-   }, [text, repetitions]);
+    return () => window.removeEventListener('resize', calculateRepetitions);
+  }, [text]);
 
   useEffect(() => {
     const setupMarquee = () => {
@@ -180,7 +190,7 @@ function MenuItem({
         )}
         <div className="marquee__inner-wrap">
           <div className="marquee__inner" ref={marqueeInnerRef} aria-hidden="true">
-            {[...Array(repetitions)].map((_, idx) => (
+            {[...Array(Math.max(1, Math.min(100, Math.floor(repetitions) || 4)))].map((_, idx) => (
               <div className="marquee__part" key={idx} style={{ color: marqueeTextColor }}>
                 <span>{text}</span>
               </div>
