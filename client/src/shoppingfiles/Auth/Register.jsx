@@ -4,6 +4,7 @@ import { ArrowLeft } from "lucide-react";
 import { getApiUrl } from "../../config/api.config.js";
 import "./Register.css";
 import FlowingMenu from "../components/FlowingMenu";
+import HelpModal from "../components/HelpModal";
 
 const demoItems = [
   { link: '#', text: 'NEW ARRIVALS' },
@@ -19,6 +20,7 @@ const LARGE_IMAGE = '/images6/woman17.jpg';
 
 const Register = () => {
     const navigate = useNavigate();
+    const [showHelp, setShowHelp] = useState(false);
 
     const [formData, setFormData] = useState({
         email: "",
@@ -233,6 +235,8 @@ const Register = () => {
                     >
                         ALREADY HAVE AN ACCOUNT? LOG IN
                     </button>
+
+                    <div className="help-footer" onClick={() => setShowHelp(true)}>HELP</div>
                 </form>
             </div>
 
@@ -248,6 +252,7 @@ const Register = () => {
                     borderColor="#000"
                 />
             </div>
+            <HelpModal isOpen={showHelp} onClose={() => setShowHelp(false)} />
         </div>
     );
 };

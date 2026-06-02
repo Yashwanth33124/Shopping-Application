@@ -4,6 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { authSuccess } from "../Redux/AuthSlice";
 import { getApiUrl } from "../../config/api.config.js";
 import "./Login.css";
+import HelpModal from "../components/HelpModal";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -14,6 +15,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [showHelp, setShowHelp] = useState(false);
 
   const handleLogin = async () => {
     if (!email.trim() || !password.trim()) {
@@ -109,11 +111,12 @@ const Login = () => {
           </button>
 
 
-          <div className="help-footer">HELP</div>
+          <div className="help-footer" onClick={() => setShowHelp(true)}>HELP</div>
         </div>
       </div>
 
       <div className="login-right"></div>
+      <HelpModal isOpen={showHelp} onClose={() => setShowHelp(false)} />
     </div>
   );
 };

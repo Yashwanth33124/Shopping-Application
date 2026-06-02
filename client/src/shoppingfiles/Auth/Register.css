@@ -318,4 +318,13 @@
         top: 20px;
         left: 20px;
     }
+}
+
+.help-footer {
+    margin-top: 50px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    text-transform: uppercase;
 }
