@@ -149,6 +149,7 @@
     .register-container {
         padding: 100px 20px 40px;
         flex-direction: column;
+        align-items: center;
     }
 
     .register-menu-side {
@@ -158,19 +159,11 @@
     .section-title {
         font-size: 18px;
         margin-bottom: 30px;
+        text-align: center;
     }
 
     .register-content {
         max-width: 100%;
-    }
-
-    .phone-group {
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .prefix-input {
-        width: 100%;
     }
 }
 
