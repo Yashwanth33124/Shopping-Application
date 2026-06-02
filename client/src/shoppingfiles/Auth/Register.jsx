@@ -5,6 +5,7 @@ import { getApiUrl } from "../../config/api.config.js";
 import "./Register.css";
 import FlowingMenu from "../components/FlowingMenu";
 import HelpModal from "../components/HelpModal";
+import Toast from "../components/Toast";
 
 const demoItems = [
   { link: '#', text: 'NEW ARRIVALS' },
@@ -38,6 +39,12 @@ const Register = () => {
         uppercase: false
     });
     const [isPasswordFocused, setIsPasswordFocused] = useState(false);
+    const [notification, setNotification] = useState({ show: false, text: "", type: "success" });
+
+    const triggerToast = (text, type = "success") => {
+        setNotification({ show: true, text, type });
+        setTimeout(() => setNotification({ show: false, text: "", type: "success" }), 2500);
+    };
 
     const validatePassword = (pass) => {
         setPasswordCriteria({
@@ -96,8 +103,13 @@ const Register = () => {
 
             console.log("Registration success:", data.message);
 
+            // trigger toast success
+            triggerToast("Successfully registered! Redirecting to login...", "success");
+
             // redirect to login after successful registration
-            navigate("/login");
+            setTimeout(() => {
+                navigate("/login");
+            }, 2000);
 
         } catch (error) {
             setError(error.message);
@@ -107,6 +119,7 @@ const Register = () => {
 
     return (
         <div className="register-container">
+            {notification.show && <Toast text={notification.text} type={notification.type} />}
             <button className="back-arrow" onClick={() => navigate(-1)}>
                 <ArrowLeft size={24} />
             </button>

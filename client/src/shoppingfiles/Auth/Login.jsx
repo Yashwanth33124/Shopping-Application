@@ -5,6 +5,7 @@ import { authSuccess } from "../Redux/AuthSlice";
 import { getApiUrl } from "../../config/api.config.js";
 import "./Login.css";
 import HelpModal from "../components/HelpModal";
+import Toast from "../components/Toast";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -16,6 +17,12 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [showHelp, setShowHelp] = useState(false);
+  const [notification, setNotification] = useState({ show: false, text: "", type: "success" });
+
+  const triggerToast = (text, type = "success") => {
+    setNotification({ show: true, text, type });
+    setTimeout(() => setNotification({ show: false, text: "", type: "success" }), 2500);
+  };
 
   const handleLogin = async () => {
     if (!email.trim() || !password.trim()) {
@@ -58,7 +65,11 @@ const Login = () => {
         })
       );
 
-      navigate("/");
+      triggerToast("Successfully logged in! Redirecting...", "success");
+
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
 
     } catch (err) {
       setError(err.message);
@@ -68,6 +79,7 @@ const Login = () => {
 
   return (
     <div className="login-container">
+      {notification.show && <Toast text={notification.text} type={notification.type} />}
       <div className="login-left">
         <h1 className="brand">VOGUECART</h1>
 
